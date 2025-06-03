@@ -44,12 +44,12 @@ Use `npm pack` to test what gets published. The command should be run at the pac
 ### package.json for pkg notes
 ```JSONC
   "main": "dist/public-api.cjs",   // for CommonJS people
-  "module": "dist/public-api.js", // For ESM people
+  "module": "dist/public-api.js",  // For ESM people
   "types": "dist/public-api.d.ts", // TS users can access types
   "files": ["dist"],               // Only publish the dist folder
   "exports": {
     ".": { // Creates main entry point so users can write `import { CurvyChart } from "curvy-graphs";`
-      "import": "./dist/public-ap.js",  // ESM
+      "import": "./dist/public-ap.js",   // ESM
       "require": "./dist/public-ap.cjs", // CommonJS
       "types": "./dist/public-api.d.ts"  // For TS Types
     },

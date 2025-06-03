@@ -1,1 +1,1 @@
-export { PublicGraph } from './lib/public-graph';
+export * from './lib/types/graph-types';
