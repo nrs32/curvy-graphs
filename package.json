@@ -1,0 +1,38 @@
+{
+  "name": "curvy-graphs-workspace",
+  "private": true,
+  "version": "0.0.0",
+  "license": "Apache-2.0",
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "demo-app"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "echo try build-app or build-pkg",
+    "build-app": "tsc -b && vite build",
+    "build-pkg": "tsup packages/curvy-graphs/src/public-api.ts packages/curvy-graphs/src/parts-api.ts --dts --format esm,cjs --out-dir packages/curvy-graphs/dist --tsconfig packages/curvy-graphs/tsconfig.pkg.json --clean",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "sass-embedded": "^1.89.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.25.0",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "@vitejs/plugin-react": "^4.4.1",
+    "eslint": "^9.25.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "globals": "^16.0.0",
+    "tsup": "^8.5.0",
+    "typescript": "~5.8.3",
+    "typescript-eslint": "^8.30.1",
+    "vite": "^6.3.5"
+  }
+}

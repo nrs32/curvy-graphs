@@ -1,0 +1,47 @@
+{
+  "name": "curvy-graphs",
+  "private": false,
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "dist/public-api.cjs",
+  "module": "dist/public-api.js",
+  "types": "dist/public-api.d.ts",
+  "files": ["dist"],
+  "exports": {
+  ".": {
+      "import": "./dist/public-api.js",
+      "require": "./dist/public-api.cjs",
+      "types": "./dist/public-api.d.ts"
+    },
+    "./parts": {
+      "import": "./dist/parts-api.js",
+      "require": "./dist/parts-api.cjs",
+      "types": "./dist/parts-api.d.ts"
+    }
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsup src/public-api.ts src/parts-api.ts --dts --format esm,cjs --out-dir dist --tsconfig tsconfig.pkg.json --clean",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "peerDependencies": {
+    "react": "^18 || ^19",
+    "react-dom": "^18 || ^19"
+  },
+  "devDependencies": {
+    "sass-embedded": "^1.89.1",
+    "@eslint/js": "^9.25.0",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "@vitejs/plugin-react": "^4.4.1",
+    "eslint": "^9.25.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "globals": "^16.0.0",
+    "typescript": "~5.8.3",
+    "typescript-eslint": "^8.30.1",
+    "vite": "^6.3.5"
+  }
+}
