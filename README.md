@@ -1,3 +1,4 @@
+# [Package README](https://github.com/nrs32/curvy-graphs/blob/main/packages/curvy-graphs/README.md)
 # curvy-graphs
 Package and demo app to generate pretty curvy graphs.
 
