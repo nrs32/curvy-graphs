@@ -1,6 +1,7 @@
 import React from 'react';
 import normalizeDataPoints from '../utils/normalize-data-points';
 import { type LabeledYPoint, type Point } from '../types/graph-types';
+import { getYAxisLabelConfig } from '../utils/get-y-axis-label-config';
 
 export interface YAxisProps {
   height: number;
@@ -34,11 +35,7 @@ const YAxis: React.FC<YAxisProps> = ({
   labelColor,
   spaceBelowData,
 }) => {
-  const textRightPadding = 7;
-  const lengthOfTicks = 10;
-  const textLeftPadding = 20;
-  const endOfTickMark = textSpace + textRightPadding + lengthOfTicks;
-  const svgWidth = textLeftPadding + endOfTickMark + graphWidth;
+  const { textRightPadding, endOfTickMark, svgWidth } = getYAxisLabelConfig(textSpace, graphWidth);
 
   const heightOffset = 10;
 

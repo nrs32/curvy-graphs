@@ -1,40 +1,53 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import normalizeDataPoints from '../utils/normalize-data-points';
-import { SPACE_BELOW_DATA, type Point } from '../types/graph-types';
+import { type Point } from '../types/graph-types';
 
 export interface RightDataLabelProps {
   data: Point[];
-  width: number;
   height: number;
   yRange?: [number, number]; // [minY, maxY] y-axis range to be used, instead of normalized
-  xRange?: [number, number]; // [minY, maxY] y-axis range to be used, instead of normalized
   labelColor: string;
   label: string;
+  spaceBelowData: number;
+  onWidthMeasured?: (width: number) => void, // access rendered width
 
   style?: React.CSSProperties;
 }
 
 const RightDataLabel: React.FC<RightDataLabelProps> = ({
   data,
-  width,
   height,
   yRange,
-  xRange,
   labelColor,
   label,
   style,
+  spaceBelowData,
+  onWidthMeasured,
 }) => {
-  const svgHeight = height - SPACE_BELOW_DATA;
+  const textRef = useRef<SVGTextElement>(null);
+  const [svgWidth, setSvgWidth] = useState(0);
 
-  const normalizedPoints = normalizeDataPoints(data, width, svgHeight, yRange, xRange);
+  const svgHeight = height - spaceBelowData;
+
+  const normalizedPoints = normalizeDataPoints(data, 0, svgHeight, yRange);
   const lastNormalizedPoint = normalizedPoints[normalizedPoints.length - 1];
   const letterHeight = 14;
 
+  useEffect(() => {
+    if (textRef.current) {
+      // Measure the svg text element width to determine what our svg width should be
+      const bbox = textRef.current.getBBox();
+      setSvgWidth(bbox.width);
+      onWidthMeasured?.(bbox.width);
+    }
+  }, [label, letterHeight]);
+
   return (
     <div style={{ ...style }}>
-      <svg height={height}>
+      <svg width={svgWidth} height={height}>
         <g>
           <text
+            ref={textRef}
             x={0}
             y={lastNormalizedPoint.y + letterHeight}
             textAnchor="start"

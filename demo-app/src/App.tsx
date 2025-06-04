@@ -42,6 +42,8 @@ function App() {
           yAxis={{
             labeledPoints: getCombinedYRange(hourlyTemps.map(temp => temp.y)),
             getExtendedYLabel: (y) => getTempAndHumidityLabel(getTemperatureLabel(y), 'N/A'),
+            textSpace: 65,
+            spaceBelowData: 20,
           }}
           dataSets={[
             {

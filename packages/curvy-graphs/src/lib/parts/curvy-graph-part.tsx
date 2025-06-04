@@ -1,5 +1,5 @@
 import normalizeDataPoints from '../utils/normalize-data-points';
-import { SPACE_BELOW_DATA, type GraphType, type Point } from '../types/graph-types';
+import { type GraphType, type Point } from '../types/graph-types';
 
 export type GradientDirection = 'v' | 'h'; // vertical or horizontal
 
@@ -17,6 +17,7 @@ export interface CurvyGraphPartProps {
 
   type: GraphType;
   showAreaShadow?: boolean;  // show shadow above area curve
+  spaceBelowData: number;
 
   // These refs can be passed in to allow a parent component to animate graph elements.
   animationRefs?: {
@@ -25,10 +26,10 @@ export interface CurvyGraphPartProps {
   }
 }
 
-const CurvyGraphPart: React.FC<CurvyGraphPartProps> = ({ id, style, data, gradientstops, gradientDirection = 'v', type, width, height, yRange, xRange, showAreaShadow, animationRefs }) => {  
+const CurvyGraphPart: React.FC<CurvyGraphPartProps> = ({ id, style, data, gradientstops, gradientDirection = 'v', type, width, height, yRange, xRange, showAreaShadow, animationRefs, spaceBelowData }) => {  
   const graphId = `curvy-time-graph-${id}`;
   const [startColor, endColor] = gradientstops;
-  const svgHeight = height - SPACE_BELOW_DATA;
+  const svgHeight = height - spaceBelowData;
 
   const curvyLineStyle: React.CSSProperties = {
     strokeWidth: 4.5,

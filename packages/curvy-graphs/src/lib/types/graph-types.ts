@@ -15,5 +15,3 @@ export interface GraphProps {
 // area is a area graph
 // dashed-line is a dashed line, no area
 export type GraphType = 'line-area' | 'area' | 'dashed-line';
-
-export const SPACE_BELOW_DATA = 20; // Used to help charts look pretty by giving them some room below their lowest point
