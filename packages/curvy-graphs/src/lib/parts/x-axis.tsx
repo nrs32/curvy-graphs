@@ -1,6 +1,7 @@
 import React from 'react';
 import type { LabeledXPoint } from '../types/graph-types';
 import normalizeDataPoints from '../utils/normalize-data-points';
+import { getXAxisLabelConfig } from '../utils/get-x-axis-label-config';
 
 export interface XAxisProps {
   data: LabeledXPoint[];
@@ -17,8 +18,8 @@ export interface XAxisProps {
 const XAxis: React.FC<XAxisProps> = ({
   data, width, xRange, labelFrequency = 1, style, primaryTickColor, secondaryTickColor, labelColor
 }) => {
-  const svgHeight = 60;
-  const widthOffset = 25;
+  const { svgHeight, widthOffset } = getXAxisLabelConfig();
+
   const normalizedPoints = normalizeDataPoints(data.map(x => ({...x, y: 0})), width, svgHeight, undefined, xRange);
 
   const ticks = normalizedPoints.map((point) => point.x);

@@ -7,6 +7,7 @@ import YAxis from "./parts/y-axis";
 import type { GraphType, LabeledXPoint, LabeledYPoint, Point } from "./types/graph-types";
 import ChartTitle from "./parts/chart-title";
 import { getYAxisLabelConfig } from "./utils/get-y-axis-label-config";
+import { getXAxisLabelConfig } from "./utils/get-x-axis-label-config";
 
 export interface CurvyGraphProps {
   chartTitle: string;
@@ -21,7 +22,10 @@ export interface CurvyGraphProps {
     labeledPoints: LabeledXPoint[];
   },
   styles?: {
-    chartTitle: React.CSSProperties,
+    chartTitle?: {
+      height?: number; // px
+      styles?: React.CSSProperties,
+    },
   }
 }
 
@@ -36,22 +40,35 @@ export interface DataSet {
   yRange?: [number, number]; // [minY, maxY] -- if different than data min/max
   animationDelay?: number;
   data: Point[];
+  styles?: {
+    labelTop?: number; // px
+    labelLeft?: number; // px
+  }
 }
 
 const CurvyGraph = ({ chartTitle, yAxis, dataSets, xAxis, styles }: CurvyGraphProps) => {
-  const rightLabelWidths = useRef<number[]>([]);
-  const [rightLabelMaxWidth, setRightLabelMaxWidth] = useState(0);
-
-  const SPACE_BELOW_DATA = yAxis.spaceBelowData === undefined ? 20 : yAxis.spaceBelowData;
-  const dataTop = 59;
-  const dataLeft = 89;
-  const labelTop = dataTop - 18;
+  // TODO: allow graph width/height to be set, but maybe its the entire component that we're setting? 
+  // that'd be maybe crazy so since much is dynamic
+  // but maybe they enter height and then we set everything so that the chart fills whatever the labels don't - could be done
   const graphWidth = 400;
   const graphHeight = 200;
-  const labelLeft = dataLeft + graphWidth + 7;
+  
+  const { svgHeight: xAxisHeight } = getXAxisLabelConfig();
+  
+  const rightLabelWidths = useRef<number[]>([]);
+  const [rightLabelMaxWidth, setRightLabelMaxWidth] = useState(0);
+  
+  const SPACE_BELOW_DATA = yAxis.spaceBelowData === undefined ? 20 : yAxis.spaceBelowData;
+  const dataTop = styles?.chartTitle?.height === undefined ? 50 : styles?.chartTitle?.height;
+  
+  const { endOfTickMark, svgWidth: yAxisWidth } = getYAxisLabelConfig(yAxis.textSpace, graphWidth);
+  const dataLeft = endOfTickMark + 7;
+  
+  const rightDataLabelLeftPos = dataLeft + graphWidth + 7;
 
-  const { svgWidth: yAxisWidth } = getYAxisLabelConfig(yAxis.textSpace, graphWidth);
-
+  const fullHeight = xAxisHeight + graphHeight + dataTop;
+  const fullWidth = yAxisWidth + rightLabelMaxWidth;
+  
   useEffect(() => {
     const maxWidth = Math.max(...rightLabelWidths.current);
     setRightLabelMaxWidth(maxWidth);
@@ -60,9 +77,8 @@ const CurvyGraph = ({ chartTitle, yAxis, dataSets, xAxis, styles }: CurvyGraphPr
   return (
     <div style={{
       position: 'relative',
-      // TODO: height and width of this div so user doesn't need to calculate and define
-      height: '353px',
-      width: `${yAxisWidth + rightLabelMaxWidth}px`,
+      height: `${fullHeight}px`,
+      width: `${fullWidth}px`,
     }}
     >
       <ChartTitle title={chartTitle} graphWidth={graphWidth} dataLeft={dataLeft} styles={styles?.chartTitle}/>
@@ -76,7 +92,7 @@ const CurvyGraph = ({ chartTitle, yAxis, dataSets, xAxis, styles }: CurvyGraphPr
               <CurvyGraphPart animationRefs={refs} id={dataSet.dataId} width={graphWidth} height={graphHeight} spaceBelowData={SPACE_BELOW_DATA} style={{ position: "absolute", top: `${dataTop}px`, left: `${dataLeft}px` }} data={dataSet.data} yRange={dataSet.yRange} gradientstops={dataSet.gradientStops} gradientDirection={dataSet.gradientDirection} type={dataSet.graphStyle}/>
             )}
           </CurvyGraphAnimator>
-          <RightDataLabel spaceBelowData={SPACE_BELOW_DATA} onWidthMeasured={(width) => rightLabelWidths.current[i] = width } label={dataSet.label} labelColor={dataSet.labelColor} height={graphHeight} style={{ position: "absolute", top: `${labelTop}px`, left: `${labelLeft}px` }} data={dataSet.data} yRange={dataSet.yRange}></RightDataLabel>
+          <RightDataLabel spaceBelowData={SPACE_BELOW_DATA} onWidthMeasured={(width) => rightLabelWidths.current[i] = width } label={dataSet.label} labelColor={dataSet.labelColor} height={graphHeight} style={{ position: "absolute", top: `${dataSet.styles?.labelTop === undefined ? dataTop - 18 : dataSet.styles.labelTop}px`, left: `${rightDataLabelLeftPos}px` }} data={dataSet.data} yRange={dataSet.yRange}></RightDataLabel>
         </React.Fragment>
       ))}
 
