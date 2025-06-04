@@ -4,4 +4,5 @@ export { default as CurvyGraphAnimator, type CurvyGraphAnimatorProps as CurvyTim
 export { default as RightDataLabel, type RightDataLabelProps } from './lib/parts/right-data-label'
 export { default as XAxis, type XAxisProps } from './lib/parts/x-axis'
 export { default as YAxis, type YAxisProps } from './lib/parts/y-axis'
+export { default as ChartTitle, type ChartTitleProps } from './lib/parts/chart-title'
 export { default as determineYRangePoints } from './lib/utils/determine-y-range-points'

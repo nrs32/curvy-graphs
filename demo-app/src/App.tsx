@@ -40,10 +40,12 @@ function App() {
         <CurvyGraph 
           chartTitle='Humidity and Temperature (Sun 6/1)' 
           spaceBelowData={20}
+          textColor='#E0E1E2'
           yAxis={{
             labeledPoints: getCombinedYRange(hourlyTemps.map(temp => temp.y)),
             getExtendedYLabel: (y) => getTempAndHumidityLabel(getTemperatureLabel(y), 'N/A'),
             textSpace: 65,
+            labelFrequency: 5,
           }}
           dataSets={[
             {
@@ -70,6 +72,7 @@ function App() {
           ]}
           xAxis={{
             labeledPoints: hourlyTemps,
+            labelFrequency: 4,
           }}/>
       </Card>
     </>

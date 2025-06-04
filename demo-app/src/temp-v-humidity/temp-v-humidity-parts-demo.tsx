@@ -1,9 +1,8 @@
 import Box from '@mui/material/Box';
-import { CurvyGraphAnimator, CurvyGraphPart, RightDataLabel, XAxis, YAxis } from 'curvy-graphs/parts';
+import { ChartTitle, CurvyGraphAnimator, CurvyGraphPart, RightDataLabel, XAxis, YAxis } from 'curvy-graphs/parts';
 import { hourlyTemps } from './hourly-temps';
 import { hourlyHumidity } from './hourly-humidity';
 import { getCombinedYRange, getTempAndHumidityLabel, getTemperatureLabel } from './temp-v-humidity-utils';
-import ChartTitle from '../../../packages/curvy-graphs/src/lib/parts/chart-title';
 
 const TempVHumidityGraphFromParts = () => {
 	const SPACE_BELOW_DATA = 20;

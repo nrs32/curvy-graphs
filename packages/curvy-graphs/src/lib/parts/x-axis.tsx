@@ -6,17 +6,29 @@ import { getXAxisLabelConfig } from '../utils/get-x-axis-label-config';
 export interface XAxisProps {
   data: LabeledXPoint[];
   width: number;
-  xRange?: [number, number]; // [minY, maxY] y-axis range to be used, instead of normalized
-  labelFrequency?: number;   // How often tick labels should show. Every nth label will show. 5 means every 5th tick will be labeled
-  style?: React.CSSProperties;
-
+  xRange?: [number, number]; 
+  labelFrequency?: number;  
   primaryTickColor: string;
   secondaryTickColor: string;
   labelColor: string;
+  style?: React.CSSProperties;
 }
 
+/**
+ * XAxis is a React component that renders the X-axis for a chart, including tick marks and labels.
+ *
+ * Props:
+ * - data: Array of labeled X points, each with a value and label (and optional sublabel).
+ * - width: The width of the chart area in pixels.
+ * - xRange: Optional tuple [minX, maxX] to specify the X-axis range instead of using normalized values from your data min and max.
+ * - labelFrequency: How often tick labels should show (every nth tick is labeled; 5 means every 5th tick will be labeled). Default is 1
+ * - primaryTickColor: Color for primary (labeled) tick marks.
+ * - secondaryTickColor: Color for secondary (unlabeled) tick marks.
+ * - labelColor: Color for the X-axis labels and sublabels.
+ * - style: Optional CSS styles for the X-axis container.
+ */
 const XAxis: React.FC<XAxisProps> = ({
-  data, width, xRange, labelFrequency = 1, style, primaryTickColor, secondaryTickColor, labelColor
+  data, width, xRange, labelFrequency = 1, primaryTickColor, secondaryTickColor, labelColor, style
 }) => {
   const { svgHeight, widthOffset } = getXAxisLabelConfig();
 
@@ -25,7 +37,7 @@ const XAxis: React.FC<XAxisProps> = ({
   const ticks = normalizedPoints.map((point) => point.x);
 
   return (
-    <div style={{ ...style, marginLeft: `-${widthOffset}px` }}>
+    <div style={{ marginLeft: `-${widthOffset}px`, ...style }}>
       <svg width={width + (widthOffset*2)} height={svgHeight}>
         <g>
           {/* Tick Marks */}

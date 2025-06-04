@@ -30,11 +30,13 @@ export interface CurvyGraphProps {
     getExtendedYLabel?: (y: number) => string, 
 
     textSpace: number; // The horizontal space reserved for the text of Y-axis labels in px;
-    showGuideLines: boolean; // show the guidelines behind the chart
+    labelFrequency?: number; // How often tick labels should show (every nth tick is labeled; 5 means every 5th tick will be labeled). Default is 1.
+    showGuideLines?: boolean; // if guidelines should show behind the chart, default true
   },
   dataSets: DataSet[];
   xAxis: {
     labeledPoints: LabeledXPoint[];
+    labelFrequency?: number; // How often tick labels should show (every nth tick is labeled; 5 means every 5th tick will be labeled). Default is 1.
   },
   styles?: {
     chartTitle?: {
@@ -100,7 +102,7 @@ const CurvyGraph = ({ chartTitle, textColor, spaceBelowData, yAxis, dataSets, xA
       <ChartTitle title={chartTitle} color={textColor} widthToCenterOn={graphWidth} leftOffset={dataLeft} styles={styles?.chartTitle}/>
 
       {/* TODO: see about removing textSpace and calculating this ourselves once we have the labels. */}
-      <YAxis style={{ position: "absolute", top: `${dataTop - 1}px`, left: '0px' }} labeledYPoints={yAxis.labeledPoints} spaceBelowData={SPACE_BELOW_DATA}getLabel={yAxis.getExtendedYLabel} graphWidth={graphWidth}height={graphHeight}textSpace={yAxis.textSpace} primaryTickColor={styles?.axis?.primaryTickColor || textColor} secondaryTickColor={styles?.axis?.secondaryTickColor || secondaryAxisTickColor} labelColor={textColor} showGuideLines={yAxis.showGuideLines}/>
+      <YAxis style={{ position: "absolute", top: `${dataTop - 1}px`, left: '0px' }} labeledYPoints={yAxis.labeledPoints} spaceBelowData={SPACE_BELOW_DATA} getLabel={yAxis.getExtendedYLabel} graphWidth={graphWidth} height={graphHeight} textSpace={yAxis.textSpace} primaryTickColor={styles?.axis?.primaryTickColor || textColor} secondaryTickColor={styles?.axis?.secondaryTickColor || secondaryAxisTickColor} labelColor={textColor} labelFrequency={yAxis.labelFrequency} showGuideLines={yAxis.showGuideLines}/>
      
       {dataSets.map((dataSet, i) => (
         <React.Fragment key={dataSet.dataId}>
@@ -113,14 +115,7 @@ const CurvyGraph = ({ chartTitle, textColor, spaceBelowData, yAxis, dataSets, xA
         </React.Fragment>
       ))}
 
-      <XAxis 
-        style={{ position: "absolute", top: `calc(${graphHeight}px + ${dataTop + 7}px)`, left: `${dataLeft}px` }} 
-        width={graphWidth} 
-        data={xAxis.labeledPoints} 
-        labelFrequency={4} 
-        primaryTickColor={styles?.axis?.primaryTickColor || textColor} 
-        secondaryTickColor={styles?.axis?.secondaryTickColor || secondaryAxisTickColor} 
-        labelColor={textColor}/>
+      <XAxis style={{ position: "absolute", top: `${graphHeight + dataTop + 7}px`, left: `${dataLeft}px` }} width={graphWidth} data={xAxis.labeledPoints} labelFrequency={xAxis.labelFrequency} primaryTickColor={styles?.axis?.primaryTickColor || textColor} secondaryTickColor={styles?.axis?.secondaryTickColor || secondaryAxisTickColor} labelColor={textColor}/>
     </div>
   )
 }
