@@ -22,7 +22,7 @@ const TempVHumidityGraphFromParts = () => {
 			width: '615px',
 		}}
 		>
-			<ChartTitle title={'Humidity and Temperature (Sun 6/1)'} dataLeft={dataLeft} graphWidth={graphWidth}/>
+			<ChartTitle title={'Humidity and Temperature (Sun 6/1)'} color={'#E0E1E2'} leftOffset={dataLeft} widthToCenterOn={graphWidth}/>
 
 			<YAxis style={{ position: "absolute", top: `${dataTop - 1}px`, left: `${dataLeft - 89}px` }} labeledYPoints={combinedYPoints} getLabel={(y) => getTempAndHumidityLabel(getTemperatureLabel(y), 'N/A')} graphWidth={graphWidth} height={graphHeight} textSpace={65} primaryTickColor={'#E0E1E2'} secondaryTickColor={'#3A3D4B'} labelColor={'#E0E1E2'} spaceBelowData={SPACE_BELOW_DATA}/>
 

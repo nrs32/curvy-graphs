@@ -1,6 +1,6 @@
 // Parts for advanced use
 export { default as CurvyGraphPart, type CurvyGraphPartProps } from './lib/parts/curvy-graph-part'
-export { default as CurvyGraphAnimator, type CurvyTimeGraphAnimatorProps } from './lib/parts/curvy-graph-animator'
+export { default as CurvyGraphAnimator, type CurvyGraphAnimatorProps as CurvyTimeGraphAnimatorProps } from './lib/parts/curvy-graph-animator'
 export { default as RightDataLabel, type RightDataLabelProps } from './lib/parts/right-data-label'
 export { default as XAxis, type XAxisProps } from './lib/parts/x-axis'
 export { default as YAxis, type YAxisProps } from './lib/parts/y-axis'

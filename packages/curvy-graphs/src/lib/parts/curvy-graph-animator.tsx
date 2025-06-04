@@ -4,7 +4,7 @@ import type { Point } from '../types/graph-types';
 
 export type GradientDirection = 'v' | 'h'; // vertical or horizontal
 
-export interface CurvyTimeGraphAnimatorProps {
+export interface CurvyGraphAnimatorProps {
 	id: string;
 	data: Point[];
 	width: number;
@@ -26,7 +26,7 @@ export interface CurvyTimeGraphAnimatorProps {
 	}) => React.ReactNode;
 }
 
-const CurvyTimeGraphAnimator: React.FC<CurvyTimeGraphAnimatorProps> = ({ data, width, delay, children }) => {
+const CurvyGraphAnimator: React.FC<CurvyGraphAnimatorProps> = ({ data, width, delay, children }) => {
 	const prevData = usePrevious(data);
 	const clipPathRectRef = useRef<SVGRectElement>(null);
 	const svgRootRef = useRef<SVGSVGElement>(null);
@@ -74,4 +74,4 @@ const CurvyTimeGraphAnimator: React.FC<CurvyTimeGraphAnimatorProps> = ({ data, w
 	return <>{children({ clipPathRect: clipPathRectRef, svgRoot: svgRootRef })}</>;
 };
 
-export default CurvyTimeGraphAnimator;
+export default CurvyGraphAnimator;

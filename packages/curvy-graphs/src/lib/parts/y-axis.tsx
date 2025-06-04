@@ -5,16 +5,17 @@ import { getYAxisLabelConfig } from '../utils/get-y-axis-label-config';
 
 export interface YAxisProps {
   height: number;
-  graphWidth: number;        // Used to add guidelines behind the chart
-  labelFrequency?: number;   // How often tick labels should show. Every nth label will show. 5 means every 5th tick will be labeled
-  style?: React.CSSProperties;
-  textSpace: number;         // How much space in px the text needs to be able to show
+  graphWidth: number;        
+  labelFrequency?: number;   
+  textSpace: number;         
   labeledYPoints: LabeledYPoint[],
-  getLabel: (y: number) => string,
+  spaceBelowData: number;
+  getLabel?: (y: number) => string,
   primaryTickColor: string;
   secondaryTickColor: string;
   labelColor: string;
-  spaceBelowData: number;
+  showGuideLines: boolean;
+  style?: React.CSSProperties;
 }
 
 interface TicksAndLabels {
@@ -22,18 +23,38 @@ interface TicksAndLabels {
   labels: string[],
 };
 
+/**
+ * YAxis is a React component that renders the Y-axis for a chart, including tick marks, optional guidelines, and labels.
+ *
+ * Props:
+ * - height: The height of the y-axis in pixels (should match chart height).
+ * - graphWidth: The width of the chart area, used for drawing guidelines.
+ * - labelFrequency: How often tick labels should show (every nth tick is labeled; 5 means every 5th tick will be labeled). 
+ * - textSpace: The horizontal space reserved for the text of Y-axis labels in px;
+ * - labeledYPoints: Array of labeled Y points, each with a value and label.
+ * - spaceBelowData: Extra space below the lowest data point for visual padding.
+ * - getLabel: Optional function that provides a y coordinate and expects a label for that coordinate.
+ *             This is used to fill the y-axis labels for the spaceBelowData if a value > 0 was provided.
+ *              If no callback is defined, the extra labels will be empty strings.
+ * - primaryTickColor: Color for primary (labeled) tick marks.
+ * - secondaryTickColor: Color for secondary (unlabeled) tick marks and guidelines.
+ * - labelColor: Color for the Y-axis labels.
+ * - showGuideLines: Whether to display horizontal guidelines for each primary (labeld) tick.
+ * - style: Optional CSS styles for the Y-axis container.
+ */
 const YAxis: React.FC<YAxisProps> = ({
   height,
   graphWidth,
   labelFrequency = 5,
-  style,
   textSpace,
   labeledYPoints,
+  spaceBelowData,
   getLabel,
   primaryTickColor,
   secondaryTickColor,
   labelColor,
-  spaceBelowData,
+  showGuideLines,
+  style,
 }) => {
   const { textRightPadding, endOfTickMark, svgWidth } = getYAxisLabelConfig(textSpace, graphWidth);
 
@@ -47,7 +68,7 @@ const YAxis: React.FC<YAxisProps> = ({
   const finalLabels = labels.concat(labeledYPoints.map(label => label.yLabel));
 
   return (
-    <div style={{ ...style, marginTop: `-${heightOffset}px` }}>
+    <div style={{ marginTop: `-${heightOffset}px`, ...style }}>
       <svg width={svgWidth} height={height + (heightOffset * 2)}>
         <g>
           {/* Tick Marks */}
@@ -64,7 +85,7 @@ const YAxis: React.FC<YAxisProps> = ({
           ))}
 
           {/* Guidelines */}
-          {finalTicks.map((tickY, index) => (
+          {showGuideLines && finalTicks.map((tickY, index) => (
             <line
             key={`${index}_guideline`}
               x1={endOfTickMark}
@@ -107,7 +128,7 @@ const getLabelsForSpaceBelowData = (
   labeledYPoints: LabeledYPoint[],
   normalizedPoints: Point[],
   height: number,
-  getLabel: (y: number) => string,
+  getLabel?: (y: number) => string,
 ): TicksAndLabels => {
   const result: TicksAndLabels = {
     labels: [],
@@ -127,7 +148,7 @@ const getLabelsForSpaceBelowData = (
   for (let graphYCoor = nextLowestGraphYCoordinate; graphYCoor <= lowestPossibleYCoordinate; graphYCoor += stepBetweenGraphYCoordinates) {
 
     labelYValue -= stepBetweenOriginalYValues;
-    result.labels.unshift(getLabel(labelYValue));
+    result.labels.unshift(getLabel ? getLabel(labelYValue) : '');
 
     result.ticks.unshift(graphYCoor);
   }
