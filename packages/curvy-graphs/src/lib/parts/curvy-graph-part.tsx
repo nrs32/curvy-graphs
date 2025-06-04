@@ -1,32 +1,49 @@
 import normalizeDataPoints from '../utils/normalize-data-points';
-import { type GraphType, type Point } from '../types/graph-types';
-
-export type GradientDirection = 'v' | 'h'; // vertical or horizontal
+import { type GradientDirection, type GraphType, type Point } from '../types/graph-types';
 
 export interface CurvyGraphPartProps {
   id: string;
-  data: Point[];
-  width: number;
-  height: number;
-  yRange?: [number, number]; // [minY, maxY] y-axis range to be used, instead of normalized
-  xRange?: [number, number]; // [minY, maxY] y-axis range to be used, instead of normalized
-
-  style?: React.CSSProperties;
-  gradientstops: [string, string]; // [startColor, endColor]
-  gradientDirection?: GradientDirection;
-
-  type: GraphType;
-  showAreaShadow?: boolean;  // show shadow above area curve
-  spaceBelowData: number;
-
-  // These refs can be passed in to allow a parent component to animate graph elements.
   animationRefs?: {
     clipPathRect: React.Ref<SVGRectElement>;
     svgRoot: React.Ref<SVGSVGElement>;
   }
+  data: Point[];
+  width: number;
+  height: number;
+  yRange?: [number, number];
+  xRange?: [number, number]; 
+  type: GraphType;
+  spaceBelowData: number;
+  gradientstops: [string, string]; 
+  gradientDirection?: GradientDirection;
+  showAreaShadow?: boolean; 
+  style?: React.CSSProperties;
 }
 
-const CurvyGraphPart: React.FC<CurvyGraphPartProps> = ({ id, style, data, gradientstops, gradientDirection = 'v', type, width, height, yRange, xRange, showAreaShadow, animationRefs, spaceBelowData }) => {  
+// TODO: handle types better. Separate transparency to be passed with hex, and have area, line, dashed-line as types 
+// TODO: we can make our line-area with a line and an area thing
+
+/**
+ * CurvyGraphPart is a React component that renders the data of a curvy graph, supporting line, area, and line-area types with gradients and refs for external animation.
+ *
+ * Props:
+ * - id: Unique identifier for the graph part instance.
+ * - animationRefs: Optional refs for SVG elements, allowing parent components to control animation (e.g., for reveal effects).
+ * - data: Array of Point objects representing the data to plot.
+ * - width: Width of the SVG/chart area in pixels.
+ * - height: Height of the SVG/chart area in pixels.
+ * - yRange: Optional [minY, maxY] tuple to specify the Y-axis range to be used instead of normalizing over data min/max
+ * - xRange: Optional [minX, maxX] tuple to specify the X-axis range to be used instead of normalizing over data min/max
+ * - type: GraphType ('area', 'dashed-line', 'line-area', etc.).
+ * - spaceBelowData: Extra space below the lowest data point for visual padding
+ * - gradientstops: [startColor, endColor] for the SVG gradient fill/stroke.
+ * - gradientDirection: 'v' for vertical or 'h' for horizontal gradient direction (default: 'v').
+ * - showAreaShadow: If true, displays a shadow above/behind the area graph.
+ * - style: Optional CSS styles for the container div.
+ *
+ * The component normalizes data points, generates smooth SVG paths, and supports gradient fills and area shadows for enhanced visuals.
+ */
+const CurvyGraphPart: React.FC<CurvyGraphPartProps> = ({ id, animationRefs, data, gradientstops, gradientDirection = 'v', type, width, height, yRange, xRange, showAreaShadow, spaceBelowData, style }) => {  
   const graphId = `curvy-time-graph-${id}`;
   const [startColor, endColor] = gradientstops;
   const svgHeight = height - spaceBelowData;

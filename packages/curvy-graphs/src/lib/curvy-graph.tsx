@@ -109,7 +109,7 @@ const CurvyGraph = ({ chartTitle, textColor, spaceBelowData, animate, yAxis, dat
         <React.Fragment key={dataSet.dataId}>
           <CurvyGraphAnimator id={dataSet.dataId} animate={animate === undefined ? false : animate} width={graphWidth} data={dataSet.data} delay={dataSet.animationDelay || 0}>
             {(refs) => (
-              <CurvyGraphPart animationRefs={refs} id={dataSet.dataId} width={graphWidth} height={graphHeight} spaceBelowData={SPACE_BELOW_DATA} style={{ position: "absolute", top: `${dataTop}px`, left: `${dataLeft}px` }} data={dataSet.data} yRange={dataSet.yRange} gradientstops={dataSet.gradientStops} gradientDirection={dataSet.gradientDirection} type={dataSet.graphStyle}/>
+              <CurvyGraphPart id={dataSet.dataId} animationRefs={refs} style={{ position: "absolute", top: `${dataTop}px`, left: `${dataLeft}px` }} width={graphWidth} height={graphHeight} spaceBelowData={SPACE_BELOW_DATA} data={dataSet.data} yRange={dataSet.yRange} gradientstops={dataSet.gradientStops} gradientDirection={dataSet.gradientDirection} type={dataSet.graphStyle}/>
             )}
           </CurvyGraphAnimator>
           <RightDataLabel spaceBelowData={SPACE_BELOW_DATA} onWidthMeasured={(width) => rightLabelWidths.current[i] = width } label={dataSet.label} labelColor={dataSet.labelColor} height={graphHeight} style={{ position: "absolute", top: `${dataSet.styles?.labelTop === undefined ? dataTop - 18 : dataSet.styles.labelTop}px`, left: `${rightDataLabelLeftPos}px` }} data={dataSet.data} yRange={dataSet.yRange}></RightDataLabel>
