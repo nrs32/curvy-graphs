@@ -20,6 +20,7 @@ export interface CurvyGraphProps {
   // This may also shift your logic for number of tick marks and label frequency for the y-axis
   // Default is 0. Recommend either 0 or a value between 20 and 100.
   spaceBelowData?: number; 
+  animate?: boolean; // Weather the chart should animate on data changes and initialization. Default is false;
   
   yAxis: {
     labeledPoints: LabeledYPoint[];
@@ -59,7 +60,7 @@ export interface DataSet {
   gradientStops: [string, string]; // [startColor, endColor]
   gradientDirection: GradientDirection;
   yRange?: [number, number]; // [minY, maxY] -- if different than data min/max
-  animationDelay?: number;
+  animationDelay?: number; // Seconds to wait before revealing dataset (if using animation). Datasets with different delays can create cool effects. Default is 0.
   data: Point[];
   styles?: {
     labelTop?: number; // px
@@ -67,7 +68,7 @@ export interface DataSet {
   }
 }
 
-const CurvyGraph = ({ chartTitle, textColor, spaceBelowData, yAxis, dataSets, xAxis, styles }: CurvyGraphProps) => {
+const CurvyGraph = ({ chartTitle, textColor, spaceBelowData, animate, yAxis, dataSets, xAxis, styles }: CurvyGraphProps) => {
   // TODO: allow graph width/height to be set, but maybe its the entire component that we're setting? 
   // that'd be maybe crazy so since much is dynamic
   // but maybe they enter height and then we set everything so that the chart fills whatever the labels don't - could be done
@@ -102,11 +103,11 @@ const CurvyGraph = ({ chartTitle, textColor, spaceBelowData, yAxis, dataSets, xA
       <ChartTitle title={chartTitle} color={textColor} widthToCenterOn={graphWidth} leftOffset={dataLeft} styles={styles?.chartTitle}/>
 
       {/* TODO: see about removing textSpace and calculating this ourselves once we have the labels. */}
-      <YAxis style={{ position: "absolute", top: `${dataTop - 1}px`, left: '0px' }} labeledYPoints={yAxis.labeledPoints} spaceBelowData={SPACE_BELOW_DATA} getLabel={yAxis.getExtendedYLabel} graphWidth={graphWidth} height={graphHeight} textSpace={yAxis.textSpace} primaryTickColor={styles?.axis?.primaryTickColor || textColor} secondaryTickColor={styles?.axis?.secondaryTickColor || secondaryAxisTickColor} labelColor={textColor} labelFrequency={yAxis.labelFrequency} showGuideLines={yAxis.showGuideLines}/>
+      <YAxis style={{ position: "absolute", top: `${dataTop - 1}px`, left: '0px' }} labeledYPoints={yAxis.labeledPoints} spaceBelowData={SPACE_BELOW_DATA} getLabel={yAxis.getExtendedYLabel} graphWidth={graphWidth} height={graphHeight} textSpace={yAxis.textSpace} primaryTickColor={styles?.axis?.primaryTickColor || textColor} secondaryTickColor={styles?.axis?.secondaryTickColor || secondaryAxisTickColor} labelColor={textColor} labelFrequency={yAxis.labelFrequency} showGuideLines={yAxis.showGuideLines === undefined ? true : yAxis.showGuideLines}/>
      
       {dataSets.map((dataSet, i) => (
         <React.Fragment key={dataSet.dataId}>
-          <CurvyGraphAnimator id={dataSet.dataId} width={graphWidth} data={dataSet.data} delay={dataSet.animationDelay || 0}>
+          <CurvyGraphAnimator id={dataSet.dataId} animate={animate === undefined ? false : animate} width={graphWidth} data={dataSet.data} delay={dataSet.animationDelay || 0}>
             {(refs) => (
               <CurvyGraphPart animationRefs={refs} id={dataSet.dataId} width={graphWidth} height={graphHeight} spaceBelowData={SPACE_BELOW_DATA} style={{ position: "absolute", top: `${dataTop}px`, left: `${dataLeft}px` }} data={dataSet.data} yRange={dataSet.yRange} gradientstops={dataSet.gradientStops} gradientDirection={dataSet.gradientDirection} type={dataSet.graphStyle}/>
             )}

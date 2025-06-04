@@ -15,7 +15,7 @@ export interface YAxisProps {
   primaryTickColor: string;
   secondaryTickColor: string;
   labelColor: string;
-  showGuideLines?: boolean;
+  showGuideLines: boolean;
   style?: React.CSSProperties;
 }
 

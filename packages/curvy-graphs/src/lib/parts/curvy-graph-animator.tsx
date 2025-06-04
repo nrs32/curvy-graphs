@@ -2,36 +2,49 @@ import React, { useEffect, useRef } from 'react';
 import usePrevious from '../hooks/use-previous-hook';
 import type { Point } from '../types/graph-types';
 
-export type GradientDirection = 'v' | 'h'; // vertical or horizontal
-
 export interface CurvyGraphAnimatorProps {
 	id: string;
-	data: Point[];
-	width: number;
-	delay: number; // delay before beginning animation
-
-	// children allows us to be a wrapper component and pass refs to the child graph without defining the child graph here
-	// This way we don't need to pass child graph props to this animator wrapper
-	// example use:
-	// <CurvyTimeGraphAnimator>
-	// 	{(refs) => (
-	// 		<CurvyTimeGraph
-	// 			animationRefs={refs}
-	// 		/>
-	// 	)}
-	// </CurvyTimeGraphAnimator>
+	animate?: boolean;
+	data: Point[]; 
+	width: number; 
+	delay: number; 
 	children: (refs: {
 		clipPathRect: React.Ref<SVGRectElement>;
 		svgRoot: React.Ref<SVGSVGElement>;
 	}) => React.ReactNode;
 }
 
-const CurvyGraphAnimator: React.FC<CurvyGraphAnimatorProps> = ({ data, width, delay, children }) => {
+/**
+ * CurvyGraphAnimator is a React component that animates the reveal of a graph by expanding a clipping rectangle over time.
+ *
+ * Props:
+ * - id: Unique identifier for the animator instance.
+ * - animate: If false, disables the animation (default: true).
+ * - data: Array of Point objects; changes to this array trigger re-animation.
+ * - width: The target width (in pixels) to animate the reveal to.
+ * - delay: Delay (in seconds) before starting the animation.
+ * - children: Render prop function that receives refs for the clip path rectangle and SVG root, allowing child graph components to use these refs for animation.
+ *
+ * The component uses a wrapper pattern, so the child graph is not defined here. 
+ * Instead, it passes animation refs to its children for flexible integration.
+ *
+ * @example
+ * <CurvyTimeGraphAnimator>
+ *   {(refs) => (
+ *     <CurvyTimeGraph
+ *       animationRefs={refs}
+ *     />
+ *   )}
+ * </CurvyTimeGraphAnimator>
+ */
+const CurvyGraphAnimator: React.FC<CurvyGraphAnimatorProps> = ({ animate, data, width, delay, children }) => {
 	const prevData = usePrevious(data);
 	const clipPathRectRef = useRef<SVGRectElement>(null);
 	const svgRootRef = useRef<SVGSVGElement>(null);
 
 	useEffect(() => {
+		if (animate === false) return;
+
 		const weHaveNoData = !data || data.length === 0;
 		const dataHasNoChanges = JSON.stringify(prevData) === JSON.stringify(data);
 		if (weHaveNoData || dataHasNoChanges) return;

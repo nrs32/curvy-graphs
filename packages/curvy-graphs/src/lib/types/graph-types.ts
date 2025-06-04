@@ -15,3 +15,5 @@ export interface GraphProps {
 // area is a area graph
 // dashed-line is a dashed line, no area
 export type GraphType = 'line-area' | 'area' | 'dashed-line';
+
+export type GradientDirection = 'v' | 'h'; // vertical or horizontal

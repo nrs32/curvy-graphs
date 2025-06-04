@@ -41,6 +41,7 @@ function App() {
           chartTitle='Humidity and Temperature (Sun 6/1)' 
           spaceBelowData={20}
           textColor='#E0E1E2'
+          animate={true}
           yAxis={{
             labeledPoints: getCombinedYRange(hourlyTemps.map(temp => temp.y)),
             getExtendedYLabel: (y) => getTempAndHumidityLabel(getTemperatureLabel(y), 'N/A'),
