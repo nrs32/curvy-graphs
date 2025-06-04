@@ -24,7 +24,6 @@ const determineYRangePoints = (
 
   for (let i = min; labeledYPoints.length < totalDataPoints + 1; i += step) {
     labeledYPoints.push({
-      x: 0,
       y: i,
       yLabel: getLabel(i),
     });

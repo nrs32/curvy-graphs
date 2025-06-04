@@ -40,7 +40,7 @@ const YAxis: React.FC<YAxisProps> = ({
 
   const heightOffset = 10;
 
-  const normalizedPoints = normalizeDataPoints(labeledYPoints, svgWidth, height - SPACE_BELOW_DATA, undefined, undefined);
+  const normalizedPoints = normalizeDataPoints(labeledYPoints.map(y => ({...y, x: 0})), svgWidth, height - SPACE_BELOW_DATA, undefined, undefined);
 
   const { labels, ticks } = getLabelsForSpaceBelowData(labeledYPoints, normalizedPoints, height, getLabel);
 

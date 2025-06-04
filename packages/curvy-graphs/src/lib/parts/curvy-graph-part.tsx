@@ -1,5 +1,5 @@
 import normalizeDataPoints from '../utils/normalize-data-points';
-import { SPACE_BELOW_DATA, type Point } from '../types/graph-types';
+import { SPACE_BELOW_DATA, type GraphType, type Point } from '../types/graph-types';
 
 export type GradientDirection = 'v' | 'h'; // vertical or horizontal
 
@@ -15,10 +15,7 @@ export interface CurvyGraphPartProps {
   gradientstops: [string, string]; // [startColor, endColor]
   gradientDirection?: GradientDirection;
 
-  // line-area is a solid line with a transparent area
-  // area is a area graph
-  // dashed-line is a dashed line, no area
-  type: 'line-area' | 'area' | 'dashed-line';
+  type: GraphType;
   showAreaShadow?: boolean;  // show shadow above area curve
 
   // These refs can be passed in to allow a parent component to animate graph elements.
