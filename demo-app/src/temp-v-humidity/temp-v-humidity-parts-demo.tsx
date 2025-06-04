@@ -3,18 +3,16 @@ import { CurvyGraphAnimator, CurvyGraphPart, RightDataLabel, XAxis, YAxis } from
 import { hourlyTemps } from './hourly-temps';
 import { hourlyHumidity } from './hourly-humidity';
 import { getCombinedYRange, getTempAndHumidityLabel, getTemperatureLabel } from './temp-v-humidity-utils';
+import ChartTitle from '../../../packages/curvy-graphs/src/lib/parts/chart-title';
 
 const TempVHumidityGraphFromParts = () => {
-
 	const combinedYPoints = getCombinedYRange(hourlyTemps.map(temp => temp.y));
-	const chartTop = 7;
-	const chartLeft = 0;
-	const dataTop = chartTop + 59;
-	const dataLeft = chartLeft + 95;
-	const labelTop = dataTop - 18;
-	const graphWidth = 400;
-	const graphHeight = 200;
-	const labelLeft = dataLeft + graphWidth + 7;
+  const dataTop = 59;
+  const dataLeft = 89;
+  const labelTop = dataTop - 18;
+  const graphWidth = 400;
+  const graphHeight = 200;
+  const labelLeft = dataLeft + graphWidth + 7;
 
 	return (
 		<Box sx={{
@@ -23,20 +21,9 @@ const TempVHumidityGraphFromParts = () => {
 			width: '615px',
 		}}
 		>
-			<Box
-				sx={{
-					fontWeight: 700,
-					fontSize: '22px',
-					textAlign: 'center',
-					position: 'absolute',
-					top: `${chartTop}px`,
-					width: '410px',
-					left: `${chartLeft + 93}px`
-				}}
-			>
-				Humidity and Temperature (Sun 6/1)
-			</Box>
-			<YAxis style={{ position: "absolute", top: `${dataTop - 1}px`, left: `${dataLeft - 89}px` }} labeledYPoints={combinedYPoints} getLabel={(y) => getTempAndHumidityLabel(getTemperatureLabel(y), 'N/A')} graphWidth={graphWidth} height={graphHeight} textSpace={65} primaryTickColor={'#E0E1E2'} secondaryTickColor={'#3A3D4B'} labelColor={'#E0E1E2'}></YAxis>
+			<ChartTitle title={'Humidity and Temperature (Sun 6/1)'} dataLeft={dataLeft} graphWidth={graphWidth}/>
+
+			<YAxis style={{ position: "absolute", top: `${dataTop - 1}px`, left: `${dataLeft - 89}px` }} labeledYPoints={combinedYPoints} getLabel={(y) => getTempAndHumidityLabel(getTemperatureLabel(y), 'N/A')} graphWidth={graphWidth} height={graphHeight} textSpace={65} primaryTickColor={'#E0E1E2'} secondaryTickColor={'#3A3D4B'} labelColor={'#E0E1E2'} spaceBelowData={20}></YAxis>
 
 			<CurvyGraphAnimator id="dashed" width={graphWidth} data={hourlyHumidity} delay={0}>
 				{(refs) => (

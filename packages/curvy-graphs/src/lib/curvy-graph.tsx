@@ -5,17 +5,22 @@ import RightDataLabel from "./parts/right-data-label";
 import XAxis from "./parts/x-axis";
 import YAxis from "./parts/y-axis";
 import type { GraphType, LabeledXPoint, LabeledYPoint, Point } from "./types/graph-types";
+import ChartTitle from "./parts/chart-title";
 
 export interface CurvyGraphProps {
   chartTitle: string;
   yAxis: {
     labeledPoints: LabeledYPoint[];
+    spaceBelowData?: number;
     getExtendedYLabel: (y: number) => string
   },
   dataSets: DataSet[];
   xAxis: {
     labeledPoints: LabeledXPoint[];
   },
+  styles?: {
+    chartTitle: React.CSSProperties,
+  }
 }
 
 // TODO: extract and move to type file and export from there
@@ -31,11 +36,10 @@ export interface DataSet {
   data: Point[];
 }
 
-const CurvyGraph = ({ chartTitle, yAxis, dataSets, xAxis }: CurvyGraphProps) => {
-  const chartTop = 7;
-  const chartLeft = 0;
-  const dataTop = chartTop + 59;
-  const dataLeft = chartLeft + 95;
+const CurvyGraph = ({ chartTitle, yAxis, dataSets, xAxis, styles }: CurvyGraphProps) => {
+  const SPACE_BELOW_DATA = yAxis.spaceBelowData || 20;
+  const dataTop = 59;
+  const dataLeft = 89;
   const labelTop = dataTop - 18;
   const graphWidth = 400;
   const graphHeight = 200;
@@ -44,24 +48,14 @@ const CurvyGraph = ({ chartTitle, yAxis, dataSets, xAxis }: CurvyGraphProps) => 
   return (
     <div style={{
       position: 'relative',
+      // TODO: height and width of this div so user doesn't need to calculate and define
       height: '353px',
       width: '615px',
     }}
     >
-      <div
-        style={{
-          fontWeight: 700,
-          fontSize: '22px',
-          textAlign: 'center',
-          position: 'absolute',
-          top: `${chartTop}px`,
-          width: '410px',
-          left: `${chartLeft + 93}px`
-        }}
-      >
-        {chartTitle}
-     </div>
-      <YAxis style={{ position: "absolute", top: `${dataTop - 1}px`, left: `${dataLeft - 89}px` }} labeledYPoints={yAxis.labeledPoints} getLabel={yAxis.getExtendedYLabel} graphWidth={graphWidth} height={graphHeight} textSpace={65} primaryTickColor={'#E0E1E2'} secondaryTickColor={'#3A3D4B'} labelColor={'#E0E1E2'}></YAxis>
+      <ChartTitle title={chartTitle} graphWidth={graphWidth} dataLeft={dataLeft} styles={styles?.chartTitle}/>
+
+      <YAxis style={{ position: "absolute", top: `${dataTop - 1}px`, left: '0px' }} labeledYPoints={yAxis.labeledPoints} getLabel={yAxis.getExtendedYLabel} graphWidth={graphWidth} height={graphHeight} textSpace={65} primaryTickColor={'#E0E1E2'} secondaryTickColor={'#3A3D4B'} labelColor={'#E0E1E2'} spaceBelowData={SPACE_BELOW_DATA}></YAxis>
 
       {dataSets.map(dataSet => (
         <React.Fragment key={dataSet.dataId}>

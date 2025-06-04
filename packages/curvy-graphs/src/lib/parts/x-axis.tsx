@@ -2,7 +2,7 @@ import React from 'react';
 import type { LabeledXPoint } from '../types/graph-types';
 import normalizeDataPoints from '../utils/normalize-data-points';
 
-interface XAxisProps {
+export interface XAxisProps {
   data: LabeledXPoint[];
   width: number;
   xRange?: [number, number]; // [minY, maxY] y-axis range to be used, instead of normalized

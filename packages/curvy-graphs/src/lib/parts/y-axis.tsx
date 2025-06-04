@@ -1,8 +1,8 @@
 import React from 'react';
 import normalizeDataPoints from '../utils/normalize-data-points';
-import { SPACE_BELOW_DATA, type LabeledYPoint, type Point } from '../types/graph-types';
+import { type LabeledYPoint, type Point } from '../types/graph-types';
 
-interface YAxisProps {
+export interface YAxisProps {
   height: number;
   graphWidth: number;        // Used to add guidelines behind the chart
   labelFrequency?: number;   // How often tick labels should show. Every nth label will show. 5 means every 5th tick will be labeled
@@ -13,6 +13,7 @@ interface YAxisProps {
   primaryTickColor: string;
   secondaryTickColor: string;
   labelColor: string;
+  spaceBelowData: number;
 }
 
 interface TicksAndLabels {
@@ -30,7 +31,8 @@ const YAxis: React.FC<YAxisProps> = ({
   getLabel,
   primaryTickColor,
   secondaryTickColor,
-  labelColor
+  labelColor,
+  spaceBelowData,
 }) => {
   const textRightPadding = 7;
   const lengthOfTicks = 10;
@@ -40,7 +42,7 @@ const YAxis: React.FC<YAxisProps> = ({
 
   const heightOffset = 10;
 
-  const normalizedPoints = normalizeDataPoints(labeledYPoints.map(y => ({...y, x: 0})), svgWidth, height - SPACE_BELOW_DATA, undefined, undefined);
+  const normalizedPoints = normalizeDataPoints(labeledYPoints.map(y => ({...y, x: 0})), svgWidth, height - spaceBelowData, undefined, undefined);
 
   const { labels, ticks } = getLabelsForSpaceBelowData(labeledYPoints, normalizedPoints, height, getLabel);
 

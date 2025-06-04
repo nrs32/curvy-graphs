@@ -2,7 +2,7 @@ import React from 'react';
 import normalizeDataPoints from '../utils/normalize-data-points';
 import { SPACE_BELOW_DATA, type Point } from '../types/graph-types';
 
-interface RightDataLabelProps {
+export interface RightDataLabelProps {
   data: Point[];
   width: number;
   height: number;
