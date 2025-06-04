@@ -37,7 +37,7 @@ const TempVHumidityGraphFromParts = () => {
 					<CurvyGraphPart animationRefs={refs} id='line' width={graphWidth} height={graphHeight} style={{ position: "absolute", top: `${dataTop}px`, left: `${dataLeft}px` }} data={hourlyTemps} gradientstops={['#2FF3E0', '#5D6CE9']} type="line-area" spaceBelowData={SPACE_BELOW_DATA}/>
 				)}
 			</CurvyGraphAnimator>
-			<RightDataLabel label="TEMPERATURE" labelColor={'#5D6CE9'} height={graphHeight} style={{ position: "absolute", top: `${labelTop}px`, left: `${labelLeft}px` }} data={hourlyTemps} spaceBelowData={SPACE_BELOW_DATA}></RightDataLabel>
+			<RightDataLabel label="TEMPERATURE" labelColor={'#5D6CE9'} height={graphHeight} style={{ position: "absolute", top: `${labelTop}px`, left: `${labelLeft}px` }} textStyle={{ letterSpacing: '.75px' }} data={hourlyTemps} spaceBelowData={SPACE_BELOW_DATA}></RightDataLabel>
 
 			<XAxis width={graphWidth} style={{ position: "absolute", top: `calc(${graphHeight}px + ${dataTop + 7}px)`, left: `${dataLeft}px` }} data={hourlyTemps} labelFrequency={4} primaryTickColor={'#E0E1E2'} secondaryTickColor={'#3A3D4B'} labelColor={'#E0E1E2'}/>
 		</Box>

@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import CurvyGraphAnimator from "./parts/curvy-graph-animator";
-import CurvyGraphPart, { type GradientDirection } from "./parts/curvy-graph-part";
+import CurvyGraphPart from "./parts/curvy-graph-part";
 import RightDataLabel from "./parts/right-data-label";
 import XAxis from "./parts/x-axis";
 import YAxis from "./parts/y-axis";
-import type { GraphType, LabeledXPoint, LabeledYPoint, Point } from "./types/graph-types";
+import type { GradientDirection, GraphType, LabeledXPoint, LabeledYPoint, Point } from "./types/graph-types";
 import ChartTitle from "./parts/chart-title";
 import { getYAxisLabelConfig } from "./utils/get-y-axis-label-config";
 import { getXAxisLabelConfig } from "./utils/get-x-axis-label-config";
@@ -47,6 +47,10 @@ export interface CurvyGraphProps {
     axis?: {
       primaryTickColor?: string; // Default is same as textColor
       secondaryTickColor?: string; // Default is ~ 25% opacity of textColor
+    },
+    rightDataLabels?: {
+      style?: React.CSSProperties; // style the container right data labels directly
+      textStyle?: React.CSSProperties; // style the SVG text element for the label directly
     }
   }
 }
@@ -112,7 +116,7 @@ const CurvyGraph = ({ chartTitle, textColor, spaceBelowData, animate, yAxis, dat
               <CurvyGraphPart id={dataSet.dataId} animationRefs={refs} style={{ position: "absolute", top: `${dataTop}px`, left: `${dataLeft}px` }} width={graphWidth} height={graphHeight} spaceBelowData={SPACE_BELOW_DATA} data={dataSet.data} yRange={dataSet.yRange} gradientstops={dataSet.gradientStops} gradientDirection={dataSet.gradientDirection} type={dataSet.graphStyle}/>
             )}
           </CurvyGraphAnimator>
-          <RightDataLabel spaceBelowData={SPACE_BELOW_DATA} onWidthMeasured={(width) => rightLabelWidths.current[i] = width } label={dataSet.label} labelColor={dataSet.labelColor} height={graphHeight} style={{ position: "absolute", top: `${dataSet.styles?.labelTop === undefined ? dataTop - 18 : dataSet.styles.labelTop}px`, left: `${rightDataLabelLeftPos}px` }} data={dataSet.data} yRange={dataSet.yRange}></RightDataLabel>
+          <RightDataLabel style={{ position: "absolute", top: `${dataSet.styles?.labelTop === undefined ? dataTop - 18 : dataTop + dataSet.styles.labelTop}px`, left: `${rightDataLabelLeftPos}px`, ...styles?.rightDataLabels?.style }} textStyle={styles?.rightDataLabels?.textStyle} height={graphHeight} spaceBelowData={SPACE_BELOW_DATA} onWidthMeasured={(width) => rightLabelWidths.current[i] = width } data={dataSet.data} label={dataSet.label} labelColor={dataSet.labelColor} yRange={dataSet.yRange}/>
         </React.Fragment>
       ))}
 

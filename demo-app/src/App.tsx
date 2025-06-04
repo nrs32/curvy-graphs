@@ -74,6 +74,11 @@ function App() {
           xAxis={{
             labeledPoints: hourlyTemps,
             labelFrequency: 4,
+          }}
+          styles={{
+            rightDataLabels: {
+              textStyle: { letterSpacing: '.75px' }
+            }
           }}/>
       </Card>
     </>
