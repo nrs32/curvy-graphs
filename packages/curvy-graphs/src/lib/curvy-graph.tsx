@@ -37,9 +37,9 @@ const CurvyGraph = ({ chartTitle, yAxis, dataSets, xAxis }: CurvyGraphProps) => 
   const dataTop = chartTop + 59;
   const dataLeft = chartLeft + 95;
   const labelTop = dataTop - 18;
-  const labelLeft = dataLeft + 113;
   const graphWidth = 400;
   const graphHeight = 200;
+  const labelLeft = dataLeft + graphWidth + 7;
 
   return (
     <div style={{
@@ -70,7 +70,7 @@ const CurvyGraph = ({ chartTitle, yAxis, dataSets, xAxis }: CurvyGraphProps) => 
               <CurvyGraphPart animationRefs={refs} id={dataSet.dataId} width={graphWidth} height={graphHeight} style={{ position: "absolute", top: `${dataTop}px`, left: `${dataLeft}px` }} data={dataSet.data} yRange={dataSet.yRange} gradientstops={dataSet.gradientStops} gradientDirection={dataSet.gradientDirection} type={dataSet.graphStyle}/>
             )}
           </CurvyGraphAnimator>
-          <RightDataLabel label={dataSet.label} labelColor={dataSet.labelColor} width={graphWidth} height={graphHeight} style={{ position: "absolute", top: `${labelTop}px`, left: `${labelLeft - 35}px` }} data={dataSet.data} yRange={dataSet.yRange}></RightDataLabel>
+          <RightDataLabel label={dataSet.label} labelColor={dataSet.labelColor} width={graphWidth} height={graphHeight} style={{ position: "absolute", top: `${labelTop}px`, left: `${labelLeft}px` }} data={dataSet.data} yRange={dataSet.yRange}></RightDataLabel>
         </React.Fragment>
       ))}
 

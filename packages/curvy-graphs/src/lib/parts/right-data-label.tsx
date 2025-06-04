@@ -32,12 +32,12 @@ const RightDataLabel: React.FC<RightDataLabelProps> = ({
 
   return (
     <div style={{ ...style }}>
-      <svg width={width} height={height}>
+      <svg height={height}>
         <g>
           <text
-            x={lastNormalizedPoint.x}
+            x={0}
             y={lastNormalizedPoint.y + letterHeight}
-            textAnchor="end"
+            textAnchor="start"
             fontSize={`${letterHeight}`}
             fill={labelColor}
             // letterSpacing={theme.palette.text.secondaryLetterSpacing} TODO: style options for fonts

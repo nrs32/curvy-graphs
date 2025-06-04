@@ -12,9 +12,9 @@ const TempVHumidityGraphFromParts = () => {
 	const dataTop = chartTop + 59;
 	const dataLeft = chartLeft + 95;
 	const labelTop = dataTop - 18;
-	const labelLeft = dataLeft + 113;
 	const graphWidth = 400;
 	const graphHeight = 200;
+	const labelLeft = dataLeft + graphWidth + 7;
 
 	return (
 		<Box sx={{
@@ -43,7 +43,7 @@ const TempVHumidityGraphFromParts = () => {
 					<CurvyGraphPart animationRefs={refs} id='dashed' width={graphWidth} height={graphHeight} style={{ position: "absolute", top: `${dataTop}px`, left: `${dataLeft}px` }} data={hourlyHumidity} yRange={[0, 100]} gradientstops={['#C332DF', "white"]} gradientDirection='h' type="dashed-line" />
 				)}
 			</CurvyGraphAnimator>
-			<RightDataLabel label="HUMIDITY" labelColor={'#E3A5F0'} width={graphWidth} height={graphHeight} style={{ position: "absolute", top: `${labelTop}px`, left: `${labelLeft - 35}px` }} data={hourlyHumidity} yRange={[0, 100]}></RightDataLabel>
+			<RightDataLabel label="HUMIDITY" labelColor={'#E3A5F0'} width={graphWidth} height={graphHeight} style={{ position: "absolute", top: `${labelTop}px`, left: `${labelLeft}px` }} data={hourlyHumidity} yRange={[0, 100]}></RightDataLabel>
 
 			<CurvyGraphAnimator id="line" width={graphWidth} data={hourlyTemps} delay={.5}>
 				{(refs) => (
