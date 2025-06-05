@@ -13,3 +13,12 @@ export interface GraphProps {
 export type GraphType = 'line' | 'dashed-line' | 'area';
 
 export type GradientDirection = 'v' | 'h'; // vertical or horizontal
+
+export interface YAxisLabelConfig {
+  heightOffset: number;
+  textRightPadding: number;
+  lengthOfTicks: number;
+  textLeftPadding: number;
+  endOfTickMark: number;
+  svgWidth: number;
+}

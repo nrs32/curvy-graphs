@@ -1,4 +1,6 @@
-export const getYAxisLabelConfig = (textSpace: number, graphWidth: number) => {
+import type { YAxisLabelConfig } from "../types/graph-types";
+
+export const getYAxisLabelConfig = (textSpace: number, graphWidth: number): YAxisLabelConfig => {
   const textRightPadding = 7;
   const lengthOfTicks = 10;
   const textLeftPadding = 20;

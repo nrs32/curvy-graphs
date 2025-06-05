@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect, useMemo } from 'react';
 import normalizeDataPoints from '../utils/normalize-data-points';
-import { type LabeledYPoint, type Point } from '../types/graph-types';
+import { type LabeledYPoint, type Point, type YAxisLabelConfig } from '../types/graph-types';
 import { getYAxisLabelConfig } from '../utils/get-y-axis-label-config';
 import useTextWidthSVG from '../hooks/use-text-width-svg';
 
@@ -12,6 +12,7 @@ export interface YAxisProps {
   spaceBelowData: number;
   getLabel?: (y: number) => string,
   yRange?: [number, number]; // [minY, maxY] y-axis range to be used, instead of normalized
+  onConfigMeasured?: (config: YAxisLabelConfig) => void, 
   primaryTickColor: string;
   secondaryTickColor: string;
   labelColor: string;
@@ -37,6 +38,7 @@ interface TicksAndLabels {
  *             This is used to fill the y-axis labels for the spaceBelowData if a value > 0 was provided.
  *              If no callback is defined, the extra labels will be empty strings.
  * - yRange: Optional tuple [minY, maxY] to specify the y-axis range instead of using normalized values from your data min and max.
+ * - onConfigMeasured: Optional callback to access the rendered y-axis config values (in pixels).
  * - primaryTickColor: Color for primary (labeled) tick marks.
  * - secondaryTickColor: Color for secondary (unlabeled) tick marks and guidelines.
  * - labelColor: Color for the Y-axis labels.
@@ -51,6 +53,7 @@ const YAxis: React.FC<YAxisProps> = ({
   yRange,
   spaceBelowData,
   getLabel,
+  onConfigMeasured,
   primaryTickColor,
   secondaryTickColor,
   labelColor,
@@ -59,17 +62,28 @@ const YAxis: React.FC<YAxisProps> = ({
 }) => {
   const fontSize = 12; // TODO: considar allowing use to style text element, but fontSize is here
 
-  const textSpace = useTextWidthSVG(labeledYPoints.map(p => p.yLabel), 12, 5);
-
-  if (textSpace === null) return null; // happens if still loading in hook
-
-  const { heightOffset, textRightPadding, endOfTickMark, svgWidth } = getYAxisLabelConfig(textSpace, graphWidth);
-  const normalizedPoints = normalizeDataPoints(labeledYPoints.map(y => ({...y, x: 0})), svgWidth, height - spaceBelowData, yRange, undefined);
-
+  const normalizedPoints = normalizeDataPoints(labeledYPoints.map(y => ({...y, x: 0})), 0, height - spaceBelowData, yRange, undefined);
   const { labels, ticks } = getLabelsForSpaceBelowData(labeledYPoints, normalizedPoints, height, getLabel);
-
+  
   const finalTicks = ticks.concat(normalizedPoints.map((point) => point.y));
   const finalLabels = labels.concat(labeledYPoints.map(label => label.yLabel));
+  
+  const textSpace = useTextWidthSVG(finalLabels, fontSize, 5);
+  
+  const config = useMemo(() => {
+    // This prevents config from being set unless textSpace or graphWidth change
+    // Since we have a useEffect that depends on config, this is necessary or we create an infinite loop
+    return textSpace !== null ? getYAxisLabelConfig(textSpace, graphWidth) : null;
+  }, [textSpace, graphWidth]);
+
+  useEffect(() => {
+    // If onConfigMeasured exists, pass config values up to parent when they change
+    config && onConfigMeasured?.(config);
+  }, [onConfigMeasured, config]);
+  
+  if (textSpace === null || config === null) return null; // happens if still loading in hook
+
+  const { heightOffset, textRightPadding, endOfTickMark, svgWidth } = config;
 
   return (
     <div style={{ marginTop: `-${heightOffset}px`, ...style }}>

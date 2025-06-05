@@ -9,27 +9,30 @@ function useTextWidthSVG(labels: string[], fontSize: number, padding: number): n
       return;
     }
 
-    // NS supports svg langauge, createElement is HTML only
-    // The link tells NS what language to use, and that is SVG
-    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    svg.setAttribute("style", "position: absolute; top: -9999px; left: -9999px;");
-    document.body.appendChild(svg);
-
-    let widestLabel = 0;
-
-    labels.forEach((label) => {
-      const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
-      text.setAttribute("font-size", fontSize.toString());
-      text.textContent = label;
-      svg.appendChild(text);
-
-      const width = text.getBBox().width;
-      if (width > widestLabel) widestLabel = width;
+    // Don't calculate text measurments until fonts are loaded
+    document.fonts.ready.then(() => {
+      // NS supports svg langauge, createElement is HTML only
+      // The link tells NS what language to use, and that is SVG
+      const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      svg.setAttribute("style", "position: absolute; top: -9999px; left: -9999px;");
+      document.body.appendChild(svg);
+  
+      let widestLabel = 0;
+  
+      labels.forEach((label) => {
+        const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        text.setAttribute("font-size", fontSize.toString());
+        text.textContent = label;
+        svg.appendChild(text);
+  
+        const width = text.getBBox().width;
+        if (width > widestLabel) widestLabel = width;
+      });
+  
+      svg.remove();
+  
+      setMaxWidth(Math.ceil(widestLabel + padding));
     });
-
-    svg.remove();
-
-    setMaxWidth(Math.ceil(widestLabel + padding));
   }, [labels, fontSize, padding]);
 
   return maxWidth;
