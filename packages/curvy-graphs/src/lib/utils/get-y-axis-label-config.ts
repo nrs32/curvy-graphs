@@ -5,6 +5,7 @@ export const getYAxisLabelConfig = (textSpace: number, graphWidth: number) => {
   const endOfTickMark = textSpace + textRightPadding + lengthOfTicks;
 
   return {
+    heightOffset: 10,
     textRightPadding,
     lengthOfTicks,
     textLeftPadding,

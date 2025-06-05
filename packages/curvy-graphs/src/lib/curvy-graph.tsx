@@ -9,7 +9,7 @@ import ChartTitle from "./parts/chart-title";
 import { getYAxisLabelConfig } from "./utils/get-y-axis-label-config";
 import { getXAxisLabelConfig } from "./utils/get-x-axis-label-config";
 
-// TODO: address TODOs and make many chart examples and populate README
+// TODO: address TODOs, dostring here, cleanup, and make many chart examples and populate README
 
 export interface CurvyGraphProps {
   chartTitle: string;
@@ -32,7 +32,6 @@ export interface CurvyGraphProps {
     // If no callback is defined, the extra labels will be empty
     getExtendedYLabel?: (y: number) => string, 
 
-    textSpace: number; // The horizontal space reserved for the text of Y-axis labels in px;
     labelFrequency?: number; // How often tick labels should show (every nth tick is labeled; 5 means every 5th tick will be labeled). Default is 1.
     showGuideLines?: boolean; // if guidelines should show behind the chart, default true
   },
@@ -90,7 +89,8 @@ const CurvyGraph = ({ chartTitle, textColor, spaceBelowData, animate, yAxis, dat
   const SPACE_BELOW_DATA = spaceBelowData || 0;
   const dataTop = styles?.chartTitle?.height === undefined ? 50 : styles?.chartTitle?.height;
   
-  const { endOfTickMark, svgWidth: yAxisWidth } = getYAxisLabelConfig(yAxis.textSpace, graphWidth);
+  // TODO: will have to figure this out and not hardcode here
+  const { endOfTickMark, svgWidth: yAxisWidth } = getYAxisLabelConfig(65, graphWidth);
   const dataLeft = endOfTickMark + 7;
   
   const rightDataLabelLeftPos = dataLeft + graphWidth + 7;
@@ -110,7 +110,7 @@ const CurvyGraph = ({ chartTitle, textColor, spaceBelowData, animate, yAxis, dat
       <ChartTitle title={chartTitle} color={textColor} widthToCenterOn={graphWidth} leftOffset={dataLeft} styles={styles?.chartTitle}/>
 
       {/* TODO: see about removing textSpace and calculating this ourselves once we have the labels. */}
-      <YAxis style={{ position: "absolute", top: `${dataTop - 1}px`, left: '0px' }} labeledYPoints={yAxis.labeledPoints} spaceBelowData={SPACE_BELOW_DATA} getLabel={yAxis.getExtendedYLabel} graphWidth={graphWidth} height={graphHeight} textSpace={yAxis.textSpace} primaryTickColor={styles?.axis?.primaryTickColor || textColor} secondaryTickColor={styles?.axis?.secondaryTickColor || secondaryAxisTickColor} labelColor={textColor} labelFrequency={yAxis.labelFrequency} showGuideLines={yAxis.showGuideLines === undefined ? true : yAxis.showGuideLines}/>
+      <YAxis style={{ position: "absolute", top: `${dataTop - 1}px`, left: '0px' }} labeledYPoints={yAxis.labeledPoints} spaceBelowData={SPACE_BELOW_DATA} getLabel={yAxis.getExtendedYLabel} graphWidth={graphWidth} height={graphHeight} primaryTickColor={styles?.axis?.primaryTickColor || textColor} secondaryTickColor={styles?.axis?.secondaryTickColor || secondaryAxisTickColor} labelColor={textColor} labelFrequency={yAxis.labelFrequency} showGuideLines={yAxis.showGuideLines === undefined ? true : yAxis.showGuideLines}/>
      
       {dataSets.map((dataSet, i) => (
         <React.Fragment key={dataSet.dataId}>

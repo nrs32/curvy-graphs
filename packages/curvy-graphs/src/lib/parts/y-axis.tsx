@@ -2,12 +2,12 @@ import React from 'react';
 import normalizeDataPoints from '../utils/normalize-data-points';
 import { type LabeledYPoint, type Point } from '../types/graph-types';
 import { getYAxisLabelConfig } from '../utils/get-y-axis-label-config';
+import useTextWidthSVG from '../hooks/use-text-width-svg';
 
 export interface YAxisProps {
   height: number;
   graphWidth: number;        
   labelFrequency?: number;   
-  textSpace: number;         
   labeledYPoints: LabeledYPoint[],
   spaceBelowData: number;
   getLabel?: (y: number) => string,
@@ -31,7 +31,6 @@ interface TicksAndLabels {
  * - height: The height of the y-axis in pixels (should match chart height).
  * - graphWidth: The width of the chart area, used for drawing guidelines.
  * - labelFrequency: How often tick labels should show (every nth tick is labeled; 5 means every 5th tick will be labeled). Default is 1.
- * - textSpace: The horizontal space reserved for the text of Y-axis labels in px;
  * - labeledYPoints: Array of labeled Y points, each with a value and label.
  * - spaceBelowData: Extra space below the lowest data point for visual padding.
  * - getLabel: Optional function that provides a y coordinate and expects a label for that coordinate.
@@ -48,7 +47,6 @@ const YAxis: React.FC<YAxisProps> = ({
   height,
   graphWidth,
   labelFrequency = 5,
-  textSpace,
   labeledYPoints,
   yRange,
   spaceBelowData,
@@ -59,10 +57,13 @@ const YAxis: React.FC<YAxisProps> = ({
   showGuideLines,
   style,
 }) => {
-  const { textRightPadding, endOfTickMark, svgWidth } = getYAxisLabelConfig(textSpace, graphWidth);
+  const fontSize = 12; // TODO: considar allowing use to style text element, but fontSize is here
 
-  const heightOffset = 10;
+  const textSpace = useTextWidthSVG(labeledYPoints.map(p => p.yLabel), 12, 5);
 
+  if (textSpace === null) return null; // happens if still loading in hook
+
+  const { heightOffset, textRightPadding, endOfTickMark, svgWidth } = getYAxisLabelConfig(textSpace, graphWidth);
   const normalizedPoints = normalizeDataPoints(labeledYPoints.map(y => ({...y, x: 0})), svgWidth, height - spaceBelowData, yRange, undefined);
 
   const { labels, ticks } = getLabelsForSpaceBelowData(labeledYPoints, normalizedPoints, height, getLabel);
@@ -108,7 +109,7 @@ const YAxis: React.FC<YAxisProps> = ({
                 x={textSpace}
                 y={tickY + heightOffset + 4}
                 textAnchor="end"
-                fontSize="12"
+                fontSize={`${fontSize}`}
                 fill={labelColor}
               >
                 {finalLabels[index]}
