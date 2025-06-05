@@ -10,10 +10,6 @@ export interface GraphProps {
   chartTop: number,
   chartLeft: number,
 }
-
-// line-area is a solid line with a transparent area
-// area is a area graph
-// dashed-line is a dashed line, no area
-export type GraphType = 'line-area' | 'area' | 'dashed-line';
+export type GraphType = 'line' | 'dashed-line' | 'area';
 
 export type GradientDirection = 'v' | 'h'; // vertical or horizontal

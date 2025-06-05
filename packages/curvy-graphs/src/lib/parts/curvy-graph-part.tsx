@@ -14,14 +14,12 @@ export interface CurvyGraphPartProps {
   xRange?: [number, number]; 
   type: GraphType;
   spaceBelowData: number;
-  gradientstops: [string, string]; 
+  gradientColorStops: [string, string]; 
+  gradientTransparencyStops?: [number, number]; 
   gradientDirection?: GradientDirection;
   showAreaShadow?: boolean; 
   style?: React.CSSProperties;
 }
-
-// TODO: handle types better. Separate transparency to be passed with hex, and have area, line, dashed-line as types 
-// TODO: we can make our line-area with a line and an area thing
 
 /**
  * CurvyGraphPart is a React component that renders the data of a curvy graph, supporting line, area, and line-area types with gradients and refs for external animation.
@@ -36,16 +34,17 @@ export interface CurvyGraphPartProps {
  * - xRange: Optional [minX, maxX] tuple to specify the X-axis range to be used instead of normalizing over data min/max
  * - type: GraphType ('area', 'dashed-line', 'line-area', etc.).
  * - spaceBelowData: Extra space below the lowest data point for visual padding
- * - gradientstops: [startColor, endColor] for the SVG gradient fill/stroke.
+ * - gradientColorStops: [startColor, endColor] for the SVG gradient fill/stroke.
+ * - gradientTransparencyStops: Optional [startOpacity, endOpacity] for the SVG gradient fill/stroke. Should be a decimal from 0 - 1.
  * - gradientDirection: 'v' for vertical or 'h' for horizontal gradient direction (default: 'v').
  * - showAreaShadow: If true, displays a shadow above/behind the area graph.
  * - style: Optional CSS styles for the container div.
  *
  * The component normalizes data points, generates smooth SVG paths, and supports gradient fills and area shadows for enhanced visuals.
  */
-const CurvyGraphPart: React.FC<CurvyGraphPartProps> = ({ id, animationRefs, data, gradientstops, gradientDirection = 'v', type, width, height, yRange, xRange, showAreaShadow, spaceBelowData, style }) => {  
+const CurvyGraphPart: React.FC<CurvyGraphPartProps> = ({ id, animationRefs, data, gradientColorStops, gradientTransparencyStops, gradientDirection = 'v', type, width, height, yRange, xRange, showAreaShadow, spaceBelowData, style }) => {  
   const graphId = `curvy-time-graph-${id}`;
-  const [startColor, endColor] = gradientstops;
+  const [startColor, endColor] = gradientColorStops;
   const svgHeight = height - spaceBelowData;
 
   const curvyLineStyle: React.CSSProperties = {
@@ -61,24 +60,25 @@ const CurvyGraphPart: React.FC<CurvyGraphPartProps> = ({ id, animationRefs, data
   const areaPathData = generateAreaPath(pathData, normalizedPoints, svgHeight);
 
   // SVG Gradient Definition
-  const renderGradient = (isTransparent: boolean) => (
-    <linearGradient
-      id={`${graphId}${isTransparent ? "_transparent" : ""}`}
+  const renderGradient = () => {
+    console.log("gradientTransparencyStops", gradientTransparencyStops?.[0] ?? 1)
+    return <linearGradient
+      id={`${graphId}`}
       x1="0%"
       y1="0%"
       x2={gradientDirection === 'h' ? '100%' : '0%'}
       y2={gradientDirection === 'h' ? '0%' : '100%'}
     >
-      <stop offset="0%" stopColor={startColor} stopOpacity={isTransparent ? "0.5" : "1"}/>
-      <stop offset="100%" stopColor={endColor} stopOpacity={isTransparent ? "0" : "1"}/>
+      <stop offset="0%" stopColor={startColor} stopOpacity={gradientTransparencyStops?.[0] ?? 1}/>
+      <stop offset="100%" stopColor={endColor} stopOpacity={gradientTransparencyStops?.[1] ?? 1}/>
     </linearGradient>
-  );
+  };
 
   return (
     <div style={style}>
       <svg id={`${graphId}-svg`} width={width} height={height}>
         <defs>
-          {renderGradient(false)}
+          {renderGradient()}
 
           {type === 'area' && showAreaShadow && 
             <filter id="areaShadow" x="-50%" y="-50%" width="200%" height="200%">
@@ -89,8 +89,6 @@ const CurvyGraphPart: React.FC<CurvyGraphPartProps> = ({ id, animationRefs, data
                 floodColor="rgba(0, 0, 0, 0.15)" />
             </filter>
           }
-
-          {type === 'line-area' && renderGradient(true)}
 
           {/* clipPath is the clipping region that restricts visuals to the clip path
               rect defines the actual shape of that visual area, which is a rectangle for us */}
@@ -116,17 +114,11 @@ const CurvyGraphPart: React.FC<CurvyGraphPartProps> = ({ id, animationRefs, data
             />
           )}
 
-          {type === 'line-area' && (
-            <>
-              <path
-								d={areaPathData}
-								style={{ fill: `url(#${graphId}_transparent)`, stroke: 'none' }}
-							/>
-							<path
-								d={pathData}
-								style={curvyLineStyle}
-							/>
-            </>
+          {type === 'line' && (
+            <path
+              d={pathData}
+              style={curvyLineStyle}
+            />
           )}
         </g>
       </svg>
