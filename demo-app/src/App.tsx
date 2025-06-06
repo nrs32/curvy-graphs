@@ -7,36 +7,28 @@ import { getCombinedYRange, getTempAndHumidityLabel, getTemperatureLabel } from 
 
 function App() {
 
+  // TODO: make many chart examples and populate readme
+
+  const tempHumidityCardStyle: React.CSSProperties = {
+    position: 'relative',
+    color: "#E0E1E2",
+    margin: '20px',
+    width: '593px',
+    height: '312px',
+    padding: '45px',
+    background: `linear-gradient(to bottom right, #272934, #161923)`,
+  };
+
   return (
     <>
       <h1 style={{ marginLeft: '20px' }}>Chart Demo</h1>
       <p>Using Parts</p>
-      <Card
-        sx={{
-          position: 'relative',
-          color: "#E0E1E2",
-          margin: '20px',
-          width: '593px',
-          height: '312px',
-          padding: '45px',
-          background: `linear-gradient(to bottom right, #272934, #161923)`,
-        }}
-      >
+      <Card sx={tempHumidityCardStyle}>
         <TempVHumidityGraphFromParts/>
       </Card>
 
       <p>Using CurvyGraph</p>
-      <Card
-        sx={{
-          position: 'relative',
-          color: "#E0E1E2",
-          margin: '20px',
-          width: '593px',
-          height: '312px',
-          padding: '45px',
-          background: `linear-gradient(to bottom right, #272934, #161923)`,
-        }}
-      >
+      <Card sx={tempHumidityCardStyle}>
         <CurvyGraph 
           chartTitle='Humidity and Temperature (Sun 6/1)' 
           spaceBelowData={20}
@@ -95,17 +87,7 @@ function App() {
       </Card>
 
       <p>Using Curvy Graph Smaller</p>
-      <Card
-        sx={{
-          position: 'relative',
-          color: "#E0E1E2",
-          margin: '20px',
-          width: '500px',
-          height: '250px',
-          padding: '45px',
-          background: `linear-gradient(to bottom right, #272934, #161923)`,
-        }}
-      >
+      <Card sx={{...tempHumidityCardStyle, width: '500px', height: '250px'}}>
         <CurvyGraph 
           chartTitle='Humidity and Temperature (Sun 6/1)' 
           spaceBelowData={15}
@@ -179,11 +161,11 @@ function App() {
       </Card>
 
       <p>Responsive with %s</p>
-      <Card style={{ 
+      <Card style={{...tempHumidityCardStyle, 
         display: "flex", 
+        width: 'unset',
         height: "335px", 
         padding: '45px',
-        background: `linear-gradient(to bottom right, #272934, #161923)`
       }}>
         <div style={{ width: "70%", border: "1px dashed red" }}>
           <ResponsiveCurvyGraph 

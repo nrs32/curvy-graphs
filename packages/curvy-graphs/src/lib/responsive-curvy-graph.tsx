@@ -17,9 +17,7 @@ export type ResponsiveCurvyGraphProps = Omit<CurvyGraphProps, "width" | "height"
  */
 const ResponsiveCurvyGraph = (props: ResponsiveCurvyGraphProps) => {
   const [containerRef, size, isResizing] = useContainerSize();
-
-  const width = size.width;
-  const height = size.height;
+  const { width, height } = size;
 
   const isReady = width > 0 && height > 0;
 
@@ -27,9 +25,9 @@ const ResponsiveCurvyGraph = (props: ResponsiveCurvyGraphProps) => {
     <div
       ref={containerRef}
       style={{
+        position: "relative",
         width: props.width,
         height: props.height,
-        position: "relative",
       }}
     >
       {isReady && (

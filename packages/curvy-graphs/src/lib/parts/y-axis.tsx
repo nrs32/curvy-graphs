@@ -11,7 +11,7 @@ export interface YAxisProps {
   labeledYPoints: LabeledYPoint[],
   spaceBelowData: number;
   getLabel?: (y: number) => string,
-  yRange?: [number, number]; // [minY, maxY] y-axis range to be used, instead of normalized
+  yRange?: [number, number]; 
   onConfigMeasured?: (config: YAxisLabelConfig) => void, 
   primaryTickColor: string;
   secondaryTickColor: string;
