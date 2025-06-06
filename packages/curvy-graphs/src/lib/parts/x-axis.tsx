@@ -12,6 +12,7 @@ export interface XAxisProps {
   secondaryTickColor: string;
   labelColor: string;
   style?: React.CSSProperties;
+  textStyle?: React.CSSProperties;
 }
 
 /**
@@ -26,9 +27,18 @@ export interface XAxisProps {
  * - secondaryTickColor: Color for secondary (unlabeled) tick marks.
  * - labelColor: Color for the X-axis labels and sublabels.
  * - style: Optional CSS styles for the X-axis container.
+ * - textStyle: Optional CSS styles for the labels of the axis.
  */
 const XAxis: React.FC<XAxisProps> = ({
-  data, width, xRange, labelFrequency = 1, primaryTickColor, secondaryTickColor, labelColor, style
+  data, 
+  width, 
+  xRange, 
+  labelFrequency = 1, 
+  primaryTickColor, 
+  secondaryTickColor, 
+  labelColor, 
+  style, 
+  textStyle
 }) => {
   const { svgHeight, widthOffset } = getXAxisLabelConfig();
 
@@ -72,6 +82,7 @@ const XAxis: React.FC<XAxisProps> = ({
                 textAnchor="middle"
                 fontSize="12"
                 fill={labelColor}
+                style={textStyle}
               >
                 {data[index].xSubLabel}
               </text>}

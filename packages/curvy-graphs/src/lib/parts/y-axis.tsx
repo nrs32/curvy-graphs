@@ -18,6 +18,7 @@ export interface YAxisProps {
   labelColor: string;
   showGuideLines: boolean;
   style?: React.CSSProperties;
+  textStyle?: React.CSSProperties;
 }
 
 interface TicksAndLabels {
@@ -44,6 +45,7 @@ interface TicksAndLabels {
  * - labelColor: Color for the Y-axis labels.
  * - showGuideLines: Whether to display horizontal guidelines for each primary (labeld) tick.
  * - style: Optional CSS styles for the Y-axis container.
+ * - textStyle: Optional CSS styles for the labels of the axis.
  */
 const YAxis: React.FC<YAxisProps> = ({
   height,
@@ -59,8 +61,9 @@ const YAxis: React.FC<YAxisProps> = ({
   labelColor,
   showGuideLines,
   style,
+  textStyle,
 }) => {
-  const fontSize = 12; // TODO: considar allowing use to style text element, but fontSize is here
+  const finalTextStyles: React.CSSProperties = { fontSize: '12px', fill: labelColor, ...textStyle };
 
   const normalizedPoints = normalizeDataPoints(labeledYPoints.map(y => ({...y, x: 0})), 0, height - spaceBelowData, yRange, undefined);
   const { labels, ticks } = getLabelsForSpaceBelowData(labeledYPoints, normalizedPoints, height, getLabel);
@@ -68,7 +71,7 @@ const YAxis: React.FC<YAxisProps> = ({
   const finalTicks = ticks.concat(normalizedPoints.map((point) => point.y));
   const finalLabels = labels.concat(labeledYPoints.map(label => label.yLabel));
   
-  const textSpace = useTextWidthSVG(finalLabels, fontSize, 5);
+  const textSpace = useTextWidthSVG(finalLabels, finalTextStyles, 5);
   
   const config = useMemo(() => {
     // This prevents config from being set unless textSpace or graphWidth change
@@ -123,8 +126,7 @@ const YAxis: React.FC<YAxisProps> = ({
                 x={textSpace}
                 y={tickY + heightOffset + 4}
                 textAnchor="end"
-                fontSize={`${fontSize}`}
-                fill={labelColor}
+                style={finalTextStyles}
               >
                 {finalLabels[index]}
               </text>

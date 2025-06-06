@@ -47,6 +47,7 @@ export interface CurvyGraphProps {
     axis?: {
       primaryTickColor?: string; // Default is same as textColor
       secondaryTickColor?: string; // Default is ~ 25% opacity of textColor
+      textStyle?: React.CSSProperties; // style the SVG text element for the axis directly
     },
     rightDataLabels?: {
       style?: React.CSSProperties; // style the container right data labels directly
@@ -68,8 +69,8 @@ export interface DataSet {
   animationDelay?: number; // Seconds to wait before revealing dataset (if using animation). Datasets with different delays can create cool effects. Default is 0.
   data: Point[];
   styles?: {
-    labelTop?: number; // px
-    labelLeft?: number; // px
+    labelTop?: number; // px right data labels
+    labelLeft?: number; // px right data labels
   }
 }
 
@@ -107,10 +108,12 @@ const CurvyGraph = ({ chartTitle, textColor, spaceBelowData, animate, yAxis, dat
   const dataIsReady = !!yAxisConfig;
 
   return (
+    // TODO: considar fallback thing instead of visibility hidden
+    // Or add setTimeout for a bit more time before chart appears? idk
     <div style={{ visibility: !dataIsReady ? 'hidden' : 'visible', position: 'relative', height: `${fullHeight}px`, width: `${fullWidth}px` }}>
       <ChartTitle title={chartTitle} color={textColor} widthToCenterOn={graphWidth} leftOffset={dataLeft} styles={styles?.chartTitle}/>
 
-      <YAxis style={{ position: "absolute", top: `${dataTop - 1}px`, left: '0px' }} onConfigMeasured={setYAxisConfig} labeledYPoints={yAxis.labeledPoints} spaceBelowData={SPACE_BELOW_DATA} getLabel={yAxis.getExtendedYLabel} graphWidth={graphWidth} height={graphHeight} primaryTickColor={styles?.axis?.primaryTickColor || textColor} secondaryTickColor={styles?.axis?.secondaryTickColor || secondaryAxisTickColor} labelColor={textColor} labelFrequency={yAxis.labelFrequency} showGuideLines={yAxis.showGuideLines === undefined ? true : yAxis.showGuideLines}/>
+      <YAxis style={{ position: "absolute", top: `${dataTop - 1}px`, left: '0px' }} textStyle={styles?.axis?.textStyle} onConfigMeasured={setYAxisConfig} labeledYPoints={yAxis.labeledPoints} spaceBelowData={SPACE_BELOW_DATA} getLabel={yAxis.getExtendedYLabel} graphWidth={graphWidth} height={graphHeight} primaryTickColor={styles?.axis?.primaryTickColor || textColor} secondaryTickColor={styles?.axis?.secondaryTickColor || secondaryAxisTickColor} labelColor={textColor} labelFrequency={yAxis.labelFrequency} showGuideLines={yAxis.showGuideLines === undefined ? true : yAxis.showGuideLines}/>
      
       {dataIsReady && dataSets.map((dataSet, i) => (
         <React.Fragment key={dataSet.dataId}>
@@ -123,7 +126,7 @@ const CurvyGraph = ({ chartTitle, textColor, spaceBelowData, animate, yAxis, dat
         </React.Fragment>
       ))}
 
-      <XAxis style={{ position: "absolute", top: `${graphHeight + dataTop + 7}px`, left: `${dataLeft}px` }} width={graphWidth} data={xAxis.labeledPoints} labelFrequency={xAxis.labelFrequency} primaryTickColor={styles?.axis?.primaryTickColor || textColor} secondaryTickColor={styles?.axis?.secondaryTickColor || secondaryAxisTickColor} labelColor={textColor}/>
+      <XAxis style={{ position: "absolute", top: `${graphHeight + dataTop + 7}px`, left: `${dataLeft}px` }} textStyle={styles?.axis?.textStyle} width={graphWidth} data={xAxis.labeledPoints} labelFrequency={xAxis.labelFrequency} primaryTickColor={styles?.axis?.primaryTickColor || textColor} secondaryTickColor={styles?.axis?.secondaryTickColor || secondaryAxisTickColor} labelColor={textColor}/>
     </div>
   )
 }

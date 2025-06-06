@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-function useTextWidthSVG(labels: string[], fontSize: number, padding: number): number | null {
+function useTextWidthSVG(labels: string[], style: React.CSSProperties = {}, padding: number): number | null {
   const [maxWidth, setMaxWidth] = useState<number | null>(null);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ function useTextWidthSVG(labels: string[], fontSize: number, padding: number): n
   
       labels.forEach((label) => {
         const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        text.setAttribute("font-size", fontSize.toString());
+        applyReactCSSAsAttributes(text, style);
         text.textContent = label;
         svg.appendChild(text);
   
@@ -33,9 +33,32 @@ function useTextWidthSVG(labels: string[], fontSize: number, padding: number): n
   
       setMaxWidth(Math.ceil(widestLabel + padding));
     });
-  }, [labels, fontSize, padding]);
+  }, [labels, style, padding]);
 
   return maxWidth;
+}
+
+function applyReactCSSAsAttributes(
+  element: SVGTextElement,
+  style: React.CSSProperties
+) {
+  const styleMap: Record<string, string> = {
+    fontSize: 'font-size',
+    fontFamily: 'font-family',
+    fontWeight: 'font-weight',
+    fontStyle: 'font-style',
+    letterSpacing: 'letter-spacing',
+    wordSpacing: 'word-spacing',
+    textAnchor: 'text-anchor',
+    fill: 'fill',
+  };
+
+  for (const [key, value] of Object.entries(style)) {
+    const svgAttr = styleMap[key];
+    if (svgAttr && value != null) {
+      element.setAttribute(svgAttr, value.toString());
+    }
+  }
 }
 
 export default useTextWidthSVG;
