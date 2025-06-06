@@ -4,6 +4,8 @@ import { CurvyGraph, ResponsiveCurvyGraph } from 'curvy-graphs';
 import { hourlyHumidity } from './temp-v-humidity/hourly-humidity';
 import { hourlyTemps } from './temp-v-humidity/hourly-temps';
 import { getCombinedYRange, getTempAndHumidityLabel, getTemperatureLabel } from './temp-v-humidity/temp-v-humidity-utils';
+import getLabeledYPoints from './weekly-temps/weekly-temp-utils';
+import { WeeklyTempsGraph } from './weekly-temps/weekly-temps-graph';
 
 function App() {
 
@@ -37,8 +39,8 @@ function App() {
           textColor='#E0E1E2'
           animate={true}
           yAxis={{
-            labeledPoints: getCombinedYRange(hourlyTemps.map(temp => temp.y)),
-            getExtendedYLabel: (y) => getTempAndHumidityLabel(getTemperatureLabel(y), 'N/A'),
+            labeledPoints: getLabeledYPoints(),
+            getExtendedYLabel: (y) => getTemperatureLabel(y),
             labelFrequency: 5,
           }}
           dataSets={[
@@ -235,6 +237,11 @@ function App() {
         }}>
           <p>Other layout content could be here</p>
         </div>
+      </Card>
+
+      <p>Area graph</p>
+      <Card sx={{...tempHumidityCardStyle, width: '582px', height: '349px'}}>
+        <WeeklyTempsGraph/>
       </Card>
     </>
   )

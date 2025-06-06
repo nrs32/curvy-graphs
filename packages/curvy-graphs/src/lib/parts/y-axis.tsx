@@ -50,7 +50,7 @@ interface TicksAndLabels {
 const YAxis: React.FC<YAxisProps> = ({
   height,
   graphWidth,
-  labelFrequency = 5,
+  labelFrequency = 1,
   labeledYPoints,
   yRange,
   spaceBelowData,
