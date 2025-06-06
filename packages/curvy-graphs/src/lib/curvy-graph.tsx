@@ -1,82 +1,111 @@
-import React, { useEffect, useRef, useState } from "react";
+import type { DataSet, LabeledXPoint, LabeledYPoint, YAxisLabelConfig } from "./types/graph-types";
+import { getXAxisLabelConfig } from "./utils/get-x-axis-label-config";
 import CurvyGraphAnimator from "./parts/curvy-graph-animator";
+import React, { useEffect, useRef, useState } from "react";
 import CurvyGraphPart from "./parts/curvy-graph-part";
 import RightDataLabel from "./parts/right-data-label";
+import ChartTitle from "./parts/chart-title";
 import XAxis from "./parts/x-axis";
 import YAxis from "./parts/y-axis";
-import type { GradientDirection, GraphType, LabeledXPoint, LabeledYPoint, Point, YAxisLabelConfig } from "./types/graph-types";
-import ChartTitle from "./parts/chart-title";
-import { getXAxisLabelConfig } from "./utils/get-x-axis-label-config";
 
-// TODO: address TODOs, dostring here, cleanup, and make many chart examples and populate README
+// TODO: cleanup, and make many chart examples and populate README
 
 export interface CurvyGraphProps {
   chartTitle: string;
-  textColor: string; // Defines title, x-axis, and y-axis text colors - including guideline and tick marks.
-
-  // A visual space to show below your lowest data point. 
-  // This is useful for area charts and other charts where you may want your y-range to be dynamic, 
-  // but also don't want your lowest value to be directly on the x-axis.
-  // If you use this, you must also set getExtendedYLabel under yAxis
-  // This may also shift your logic for number of tick marks and label frequency for the y-axis
-  // Default is 0. Recommend either 0 or a value between 20 and 100.
+  textColor: string; 
   spaceBelowData?: number; 
-  animate?: boolean; // Weather the chart should animate on data changes and initialization. Default is false;
+  animate?: boolean;
   width: number;
   height: number;
   yAxis: {
     labeledPoints: LabeledYPoint[];
-
-    // A callback that provides a y coordinate and expects a label for that coordinate.
-    // This is used to fill the y-axis labels for the spaceBelowData if a value > 0 was provided.
-    // If no callback is defined, the extra labels will be empty
     getExtendedYLabel?: (y: number) => string, 
-
-    labelFrequency?: number; // How often tick labels should show (every nth tick is labeled; 5 means every 5th tick will be labeled). Default is 1.
-    showGuideLines?: boolean; // if guidelines should show behind the chart, default true
+    labelFrequency?: number; 
+    showGuideLines?: boolean; 
   },
   dataSets: DataSet[];
   xAxis: {
     labeledPoints: LabeledXPoint[];
-    labelFrequency?: number; // How often tick labels should show (every nth tick is labeled; 5 means every 5th tick will be labeled). Default is 1.
+    labelFrequency?: number; 
   },
-  isResizing?: boolean; // Used to handle resize-rendering for responsive graphs. Default false.
+  isResizing?: boolean;
   styles?: {
     chartTitle?: {
-      height?: number; // px
+      minHeight?: number;
       styles?: React.CSSProperties,
     },
     axis?: {
-      primaryTickColor?: string; // Default is same as textColor
-      secondaryTickColor?: string; // Default is ~ 25% opacity of textColor
-      textStyle?: React.CSSProperties; // style the SVG text element for the axis directly
+      primaryTickColor?: string; 
+      secondaryTickColor?: string; 
+      textStyle?: React.CSSProperties; 
     },
     rightDataLabels?: {
-      style?: React.CSSProperties; // style the container right data labels directly
-      textStyle?: React.CSSProperties; // style the SVG text element for the label directly
+      style?: React.CSSProperties; 
+      textStyle?: React.CSSProperties; 
     }
   }
 }
 
-// TODO: extract and move to type file and export from there
-export interface DataSet {
-  dataId: string; // Unique key to identify data set
-  graphStyle: GraphType;
-  label: string;
-  labelColor: string;
-  gradientColorStops: [string, string]; // [startColor, endColor]
-  gradientTransparencyStops?: [number, number]; // [startOpacity, endOpacity]
-  gradientDirection: GradientDirection;
-  yRange?: [number, number]; // [minY, maxY] -- if different than data min/max
-  animationDelay?: number; // Seconds to wait before revealing dataset (if using animation). Datasets with different delays can create cool effects. Default is 0.
-  data: Point[];
-  styles?: {
-    labelTop?: number; // px right data labels
-    labelLeft?: number; // px right data labels
-    pathStyle?: React.CSSProperties;
-  }
-}
-
+/**
+ * CurvyGraph is a highly customizable React component for rendering animated, responsive, and visually rich line/area graphs.
+ *
+ * Features:
+ * - Supports multiple datasets, each with its own style, color, and animation delay.
+ * - Customizable axes, chart title, right-aligned data labels, and responsive layout.
+ * - Animates graph drawing and supports multiple graph types.
+ *
+ * Props:
+ * - chartTitle: Title text for the chart.
+ * - textColor: Color for title and axis labels.
+ * - width, height: Dimensions of the chart in pixels.
+ * - spaceBelowData: Optiona visual space to show below your lowest data point
+ *                   This is useful for area charts and other charts where you may want your y-range to be dynamic, 
+ *                   but also don't want your lowest value to be directly on the x-axis.
+ * 
+ *                   If you use this, you must also set getExtendedYLabel under yAxis
+ *                   This may also shift your logic for number of tick marks and label frequency for the y-axis
+ * 
+ *                   Default is 0.
+ * 
+ * - animate: Whether to animate the chart on data and layout changes.
+ *
+ * - yAxis: Y-axis configuration object:
+ *     - labeledPoints: Array of points with y-values and labels to display on the Y-axis.
+ *     - getExtendedYLabel: Optional callback to label extended Y-axis space (used when spaceBelowData > 0). Defaults to empty labels.
+ *     - labelFrequency: How often tick labels should show (every nth tick is labeled; e.g., 5 means every 5th tick is labeled). Default is 1.
+ *     - showGuideLines: Whether to display horizontal guidelines behind the chart. Default is true.
+ *
+ * - xAxis: X-axis configuration object:
+ *     - labeledPoints: Array of points with x-values and labels to display on the X-axis.
+ *     - labelFrequency: How often tick labels should show (every nth tick is labeled; e.g., 5 means every 5th tick is labeled). Default is 1.
+ *
+ * - dataSets: Array of DataSet objects, each describing a graph:
+ *    - dataId: Unique key for the dataset.
+ *    - graphStyle: ('line', 'dashed-line', 'area').
+ *    - label: Label for the data to appear to the right.
+ *    - labelColor: Color for the right data label.
+ *    - gradientColorStops: [startColor, endColor] for the graph gradient.
+ *    - gradientTransparencyStops: [startOpacity, endOpacity] for gradient transparency (optional).
+ *    - gradientDirection: 'v' or 'h' for vertical/horizontal gradient.
+ *    - yRange: [minY, maxY] Optional y-axis range, if different than the dataSet's min/max values.
+ *    - animationDelay: Delay before animating this dataset (seconds). Can create stagger effects.
+ *    - data: Array of Point objects.
+ *    - styles: Optional custom styles for labelLeft and labelTop position in px, and pathStyle to style the svg path element directly.
+ * 
+ * - styles: Custom styles configuration object:
+ *     - chartTitle:
+ *         - minHeight: minimum height for text of chart title, determines where dataset renders
+ *         - style: override chart title styles
+ *     - axis: Custom colors and text styles for axis ticks and labels. 
+ *         - primaryTickColor: Default is same as textColor
+ *         - secondaryTickColor: Default is ~ 25% opacity of textColor
+ *         - textStyle: style the SVG text element for the axis directly
+ *     - rightDataLabels: Custom styles for the right-aligned data labels container and svg text element
+ *         - style: style label container
+ *         - textStyle: style svg text element directly
+ *
+ * - isResizing: If true, disables animation until resizing completes. Use for responsive charts.
+ */
 const CurvyGraph = ({ width, height, chartTitle, textColor, spaceBelowData, animate, yAxis, dataSets, xAxis, isResizing = false, styles }: CurvyGraphProps) => {
   const { svgHeight: xAxisHeight } = getXAxisLabelConfig();
   
@@ -85,7 +114,7 @@ const CurvyGraph = ({ width, height, chartTitle, textColor, spaceBelowData, anim
   const [yAxisConfig, setYAxisConfig] = useState<YAxisLabelConfig | null>(null);
   
   const SPACE_BELOW_DATA = spaceBelowData || 0;
-  const dataTop = styles?.chartTitle?.height === undefined ? 50 : styles?.chartTitle?.height;
+  const dataTop = styles?.chartTitle?.minHeight === undefined ? 50 : styles?.chartTitle?.minHeight;
   
   const { endOfTickMark = 0, yAxisOutsideGraph = 0 } = yAxisConfig || {};
   const dataLeft = endOfTickMark + 7;
@@ -102,8 +131,6 @@ const CurvyGraph = ({ width, height, chartTitle, textColor, spaceBelowData, anim
   }, [dataSets]);
 
   const dataIsReady = !!yAxisConfig;
-
-  console.log("CHART RENDER")
 
   return (
     <div style={{ visibility: !dataIsReady ? 'hidden' : 'visible', position: 'relative', height: `${height}px`, width: `${width}px` }}>

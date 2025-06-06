@@ -22,3 +22,21 @@ export interface YAxisLabelConfig {
   endOfTickMark: number;
   yAxisOutsideGraph: number;
 }
+
+export interface DataSet {
+  dataId: string; 
+  graphStyle: GraphType;
+  label: string;
+  labelColor: string;
+  gradientColorStops: [string, string];
+  gradientTransparencyStops?: [number, number]; 
+  gradientDirection: GradientDirection;
+  yRange?: [number, number]; 
+  animationDelay?: number; 
+  data: Point[];
+  styles?: {
+    labelTop?: number;
+    labelLeft?: number;
+    pathStyle?: React.CSSProperties;
+  }
+}

@@ -11,12 +11,9 @@ export type ResponsiveCurvyGraphProps = Omit<CurvyGraphProps, "width" | "height"
  * ResponsiveCurvyGraph is a React component that renders a CurvyGraph and automatically makes it responsive to its container size.
  *
  * This component expects `width` and `height` as strings or numbers (e.g., '100%', 400). 
- * It uses these as CSS values for a container div, and then measures the actual pixel size for the CurvyGraph to use.
+ * It uses these as CSS values for a container div, and then measures the actual pixel size of that container for the CurvyGraph to use.
  *
- * Props:
- * - All CurvyGraphProps except `width` and `height` can now be numbers or strings (instead of only numbers).
- *
- * The component ensures the graph fills the specified area of its parent container.
+ * For all other props, see {@link CurvyGraph}.
  */
 const ResponsiveCurvyGraph = (props: ResponsiveCurvyGraphProps) => {
   const [containerRef, size, isResizing] = useContainerSize();

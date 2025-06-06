@@ -5,14 +5,17 @@ import { hourlyHumidity } from './hourly-humidity';
 import { getCombinedYRange, getTempAndHumidityLabel, getTemperatureLabel } from './temp-v-humidity-utils';
 
 const TempVHumidityGraphFromParts = () => {
-	const SPACE_BELOW_DATA = 20;
 	const combinedYPoints = getCombinedYRange(hourlyTemps.map(temp => temp.y));
+	
+  const graphWidth = 400;
+  const graphHeight = 200;
+
   const dataTop = 59;
   const dataLeft = 89;
   const labelTop = dataTop - 18;
-  const graphWidth = 400;
-  const graphHeight = 200;
   const labelLeft = dataLeft + graphWidth + 7;
+	
+	const SPACE_BELOW_DATA = 20;
 
 	return (
 		<Box sx={{
