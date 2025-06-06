@@ -38,6 +38,7 @@ export interface CurvyGraphAnimatorProps {
  * </CurvyTimeGraphAnimator>
  */
 const CurvyGraphAnimator: React.FC<CurvyGraphAnimatorProps> = ({ animate, data, width, delay, children }) => {
+	const prevWidth = usePrevious(width);
 	const prevData = usePrevious(data);
 	const clipPathRectRef = useRef<SVGRectElement>(null);
 	const svgRootRef = useRef<SVGSVGElement>(null);
@@ -45,9 +46,10 @@ const CurvyGraphAnimator: React.FC<CurvyGraphAnimatorProps> = ({ animate, data, 
 	useEffect(() => {
 		if (animate === false) return;
 
+		const widthChanged = prevWidth !== width;
 		const weHaveNoData = !data || data.length === 0;
 		const dataHasNoChanges = JSON.stringify(prevData) === JSON.stringify(data);
-		if (weHaveNoData || dataHasNoChanges) return;
+		if (weHaveNoData || (dataHasNoChanges && !widthChanged)) return;
 
 		const rect = clipPathRectRef.current;
 		const svg = svgRootRef.current;
@@ -82,7 +84,7 @@ const CurvyGraphAnimator: React.FC<CurvyGraphAnimatorProps> = ({ animate, data, 
 		}, delay * 1000);
 
 		return () => cancelAnimationFrame(frameId);
-	}, [data]);
+	}, [data, width]);
 
 	return <>{children({ clipPathRect: clipPathRectRef, svgRoot: svgRootRef })}</>;
 };

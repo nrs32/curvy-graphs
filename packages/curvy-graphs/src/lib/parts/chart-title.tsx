@@ -28,6 +28,9 @@ const ChartTitle = ({ title, color, widthToCenterOn, leftOffset, styles }: Chart
       top: '0',
       width: `${widthToCenterOn}px`,
       left: `${leftOffset}px`,
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
       ...styles,
     }}
   >

@@ -82,7 +82,7 @@ const CurvyGraphPart: React.FC<CurvyGraphPartProps> = ({ id, animationRefs, data
           {renderGradient()}
 
           {type === 'area' && showAreaShadow && 
-            <filter id="areaShadow" x="-50%" y="-50%" width="200%" height="200%">
+            <filter id={`${graphId}-areashadow`} x="-50%" y="-50%" width="200%" height="200%">
               <feDropShadow
                 dx="0"
                 dy="-2" // shadow up 2 px
@@ -104,7 +104,7 @@ const CurvyGraphPart: React.FC<CurvyGraphPartProps> = ({ id, animationRefs, data
           {type === 'area' && (
             <path 
               d={areaPathData} 
-              style={{ fill: `url(#${graphId})`, filter: 'url(#areaShadow)', stroke: 'none', ...pathStyle }}
+              style={{ fill: `url(#${graphId})`, filter: `url(#${graphId}-areashadow)`, stroke: 'none', ...pathStyle }}
             />
           )}
 

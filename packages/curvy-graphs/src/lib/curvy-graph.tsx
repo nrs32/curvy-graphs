@@ -40,6 +40,7 @@ export interface CurvyGraphProps {
     labeledPoints: LabeledXPoint[];
     labelFrequency?: number; // How often tick labels should show (every nth tick is labeled; 5 means every 5th tick will be labeled). Default is 1.
   },
+  isResizing?: boolean; // Used to handle resize-rendering for responsive graphs. Default false.
   styles?: {
     chartTitle?: {
       height?: number; // px
@@ -76,9 +77,7 @@ export interface DataSet {
   }
 }
 
-const CurvyGraph = ({ width, height, chartTitle, textColor, spaceBelowData, animate, yAxis, dataSets, xAxis, styles }: CurvyGraphProps) => {
-  // TODO: allow graph width/height to be percentages!?
-  // that'd be maybe crazy so since much is dynamic
+const CurvyGraph = ({ width, height, chartTitle, textColor, spaceBelowData, animate, yAxis, dataSets, xAxis, isResizing = false, styles }: CurvyGraphProps) => {
   const { svgHeight: xAxisHeight } = getXAxisLabelConfig();
   
   const rightLabelWidths = useRef<number[]>([]);
@@ -114,11 +113,12 @@ const CurvyGraph = ({ width, height, chartTitle, textColor, spaceBelowData, anim
      
       {dataSets.map((dataSet, i) => (
         <React.Fragment key={dataSet.dataId}>
-          <CurvyGraphAnimator id={dataSet.dataId} animate={animate === undefined ? false : animate} width={graphWidth} data={dataSet.data} delay={dataSet.animationDelay || 0}>
-            {(refs) => (
-              <CurvyGraphPart id={dataSet.dataId} animationRefs={refs} style={{ position: "absolute", top: `${dataTop}px`, left: `${dataLeft}px` }} pathStyle={dataSet.styles?.pathStyle} width={graphWidth} height={graphHeight} spaceBelowData={SPACE_BELOW_DATA} data={dataSet.data} yRange={dataSet.yRange} gradientColorStops={dataSet.gradientColorStops} gradientTransparencyStops={dataSet.gradientTransparencyStops} gradientDirection={dataSet.gradientDirection} type={dataSet.graphStyle}/>
-            )}
-          </CurvyGraphAnimator>
+          {!isResizing && 
+            <CurvyGraphAnimator id={dataSet.dataId} animate={animate === undefined ? false : animate} width={graphWidth} data={dataSet.data} delay={dataSet.animationDelay || 0}>
+              {(refs) => (
+                <CurvyGraphPart id={dataSet.dataId} animationRefs={refs} style={{ position: "absolute", top: `${dataTop}px`, left: `${dataLeft}px` }} pathStyle={dataSet.styles?.pathStyle} width={graphWidth} height={graphHeight} spaceBelowData={SPACE_BELOW_DATA} data={dataSet.data} yRange={dataSet.yRange} gradientColorStops={dataSet.gradientColorStops} gradientTransparencyStops={dataSet.gradientTransparencyStops} gradientDirection={dataSet.gradientDirection} type={dataSet.graphStyle}/>
+              )}
+            </CurvyGraphAnimator>}
           <RightDataLabel style={{ position: "absolute", top: `${dataSet.styles?.labelTop === undefined ? dataTop - 18 : dataTop + dataSet.styles.labelTop}px`, left: `${rightDataLabelLeftPos}px`, ...styles?.rightDataLabels?.style }} textStyle={styles?.rightDataLabels?.textStyle} height={graphHeight} spaceBelowData={SPACE_BELOW_DATA} onWidthMeasured={(width) => rightLabelWidths.current[i] = width } data={dataSet.data} label={dataSet.label} labelColor={dataSet.labelColor} yRange={dataSet.yRange}/>
         </React.Fragment>
       ))}
