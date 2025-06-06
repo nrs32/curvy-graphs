@@ -19,6 +19,7 @@ export interface CurvyGraphPartProps {
   gradientDirection?: GradientDirection;
   showAreaShadow?: boolean; 
   style?: React.CSSProperties;
+  pathStyle?: React.CSSProperties;
 }
 
 /**
@@ -39,10 +40,11 @@ export interface CurvyGraphPartProps {
  * - gradientDirection: 'v' for vertical or 'h' for horizontal gradient direction (default: 'v').
  * - showAreaShadow: If true, displays a shadow above/behind the area graph.
  * - style: Optional CSS styles for the container div.
- *
+ * - pathStyle: Optional CSS styles for the path element
+ * 
  * The component normalizes data points, generates smooth SVG paths, and supports gradient fills and area shadows for enhanced visuals.
  */
-const CurvyGraphPart: React.FC<CurvyGraphPartProps> = ({ id, animationRefs, data, gradientColorStops, gradientTransparencyStops, gradientDirection = 'v', type, width, height, yRange, xRange, showAreaShadow, spaceBelowData, style }) => {  
+const CurvyGraphPart: React.FC<CurvyGraphPartProps> = ({ id, animationRefs, data, gradientColorStops, gradientTransparencyStops, gradientDirection = 'v', type, width, height, yRange, xRange, showAreaShadow, spaceBelowData, style, pathStyle }) => {  
   const graphId = `curvy-time-graph-${id}`;
   const [startColor, endColor] = gradientColorStops;
   const svgHeight = height - spaceBelowData;
@@ -102,21 +104,21 @@ const CurvyGraphPart: React.FC<CurvyGraphPartProps> = ({ id, animationRefs, data
           {type === 'area' && (
             <path 
               d={areaPathData} 
-              style={{ fill: `url(#${graphId})`, filter: 'url(#areaShadow)', stroke: 'none' }}
+              style={{ fill: `url(#${graphId})`, filter: 'url(#areaShadow)', stroke: 'none', ...pathStyle }}
             />
           )}
 
           {type === 'dashed-line' && (
             <path 
               d={pathData}
-							style={{...curvyLineStyle, strokeDasharray: '6, 9'}}
+							style={{...curvyLineStyle, strokeDasharray: '6, 9', ...pathStyle}}
             />
           )}
 
           {type === 'line' && (
             <path
               d={pathData}
-              style={curvyLineStyle}
+              style={{...curvyLineStyle, ...pathStyle}}
             />
           )}
         </g>

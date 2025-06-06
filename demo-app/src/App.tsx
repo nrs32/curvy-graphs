@@ -129,6 +129,11 @@ function App() {
               yRange: [0, 100],
               animationDelay: 0,
               data: hourlyHumidity,
+              styles: {
+                pathStyle: {
+                  strokeWidth: 3.5,
+                }
+              }
             },
             {
               dataId: "temperature-line-sm",
@@ -138,7 +143,12 @@ function App() {
               gradientColorStops: ['#2FF3E0', '#5D6CE9'],
               gradientDirection: 'v',
               animationDelay: .5,
-              data: hourlyTemps
+              data: hourlyTemps,
+              styles: {
+                pathStyle: {
+                  strokeWidth: 3.5,
+                }
+              }
             },
             {
               dataId: "temperature-area-sm",
