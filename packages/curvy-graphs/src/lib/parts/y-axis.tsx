@@ -76,8 +76,8 @@ const YAxis: React.FC<YAxisProps> = ({
   const config = useMemo(() => {
     // This prevents config from being set unless textSpace or graphWidth change
     // Since we have a useEffect that depends on config, this is necessary or we create an infinite loop
-    return textSpace !== null ? getYAxisLabelConfig(textSpace, graphWidth) : null;
-  }, [textSpace, graphWidth]);
+    return textSpace !== null ? getYAxisLabelConfig(textSpace) : null;
+  }, [textSpace]);
 
   useEffect(() => {
     // If onConfigMeasured exists, pass config values up to parent when they change
@@ -86,7 +86,8 @@ const YAxis: React.FC<YAxisProps> = ({
   
   if (textSpace === null || config === null) return null; // happens if still loading in hook
 
-  const { heightOffset, textRightPadding, endOfTickMark, svgWidth } = config;
+  const { heightOffset, textRightPadding, endOfTickMark, yAxisOutsideGraph } = config;
+  const svgWidth = yAxisOutsideGraph + graphWidth;
 
   return (
     <div style={{ marginTop: `-${heightOffset}px`, ...style }}>

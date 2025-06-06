@@ -20,5 +20,5 @@ export interface YAxisLabelConfig {
   lengthOfTicks: number;
   textLeftPadding: number;
   endOfTickMark: number;
-  svgWidth: number;
+  yAxisOutsideGraph: number;
 }

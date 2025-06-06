@@ -1,6 +1,6 @@
 import type { YAxisLabelConfig } from "../types/graph-types";
 
-export const getYAxisLabelConfig = (textSpace: number, graphWidth: number): YAxisLabelConfig => {
+export const getYAxisLabelConfig = (textSpace: number): YAxisLabelConfig => {
   const textRightPadding = 7;
   const lengthOfTicks = 10;
   const textLeftPadding = 20;
@@ -12,6 +12,6 @@ export const getYAxisLabelConfig = (textSpace: number, graphWidth: number): YAxi
     lengthOfTicks,
     textLeftPadding,
     endOfTickMark,
-    svgWidth: textLeftPadding + endOfTickMark + graphWidth,
+    yAxisOutsideGraph: textLeftPadding + endOfTickMark,
   }
 }

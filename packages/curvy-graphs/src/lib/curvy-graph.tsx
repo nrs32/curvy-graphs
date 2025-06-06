@@ -22,7 +22,8 @@ export interface CurvyGraphProps {
   // Default is 0. Recommend either 0 or a value between 20 and 100.
   spaceBelowData?: number; 
   animate?: boolean; // Weather the chart should animate on data changes and initialization. Default is false;
-  
+  width: number;
+  height: number;
   yAxis: {
     labeledPoints: LabeledYPoint[];
 
@@ -74,13 +75,9 @@ export interface DataSet {
   }
 }
 
-const CurvyGraph = ({ chartTitle, textColor, spaceBelowData, animate, yAxis, dataSets, xAxis, styles }: CurvyGraphProps) => {
-  // TODO: allow graph width/height to be set, but maybe its the entire component that we're setting? 
+const CurvyGraph = ({ width, height, chartTitle, textColor, spaceBelowData, animate, yAxis, dataSets, xAxis, styles }: CurvyGraphProps) => {
+  // TODO: allow graph width/height to be percentages!?
   // that'd be maybe crazy so since much is dynamic
-  // but maybe they enter height and then we set everything so that the chart fills whatever the labels don't - could be done
-  const graphWidth = 400;
-  const graphHeight = 200;
-  
   const { svgHeight: xAxisHeight } = getXAxisLabelConfig();
   
   const rightLabelWidths = useRef<number[]>([]);
@@ -90,14 +87,13 @@ const CurvyGraph = ({ chartTitle, textColor, spaceBelowData, animate, yAxis, dat
   const SPACE_BELOW_DATA = spaceBelowData || 0;
   const dataTop = styles?.chartTitle?.height === undefined ? 50 : styles?.chartTitle?.height;
   
-  const { endOfTickMark = 0, svgWidth: yAxisWidth = 0 } = yAxisConfig || {};
+  const { endOfTickMark = 0, yAxisOutsideGraph = 0 } = yAxisConfig || {};
   const dataLeft = endOfTickMark + 7;
   
+  const graphWidth = width - yAxisOutsideGraph - rightLabelMaxWidth;
+  const graphHeight = height - xAxisHeight - dataTop;
+  
   const rightDataLabelLeftPos = dataLeft + graphWidth + 7;
-
-  const fullHeight = xAxisHeight + graphHeight + dataTop;
-  const fullWidth = yAxisWidth + rightLabelMaxWidth;
-
   const secondaryAxisTickColor = `${textColor}40`;
   
   useEffect(() => {
@@ -107,15 +103,15 @@ const CurvyGraph = ({ chartTitle, textColor, spaceBelowData, animate, yAxis, dat
 
   const dataIsReady = !!yAxisConfig;
 
+  console.log("CHART RENDER")
+
   return (
-    // TODO: considar fallback thing instead of visibility hidden
-    // Or add setTimeout for a bit more time before chart appears? idk
-    <div style={{ visibility: !dataIsReady ? 'hidden' : 'visible', position: 'relative', height: `${fullHeight}px`, width: `${fullWidth}px` }}>
-      <ChartTitle title={chartTitle} color={textColor} widthToCenterOn={graphWidth} leftOffset={dataLeft} styles={styles?.chartTitle}/>
+    <div style={{ visibility: !dataIsReady ? 'hidden' : 'visible', position: 'relative', height: `${height}px`, width: `${width}px` }}>
+      <ChartTitle title={chartTitle} color={textColor} widthToCenterOn={graphWidth} leftOffset={dataLeft} styles={styles?.chartTitle?.styles}/>
 
       <YAxis style={{ position: "absolute", top: `${dataTop - 1}px`, left: '0px' }} textStyle={styles?.axis?.textStyle} onConfigMeasured={setYAxisConfig} labeledYPoints={yAxis.labeledPoints} spaceBelowData={SPACE_BELOW_DATA} getLabel={yAxis.getExtendedYLabel} graphWidth={graphWidth} height={graphHeight} primaryTickColor={styles?.axis?.primaryTickColor || textColor} secondaryTickColor={styles?.axis?.secondaryTickColor || secondaryAxisTickColor} labelColor={textColor} labelFrequency={yAxis.labelFrequency} showGuideLines={yAxis.showGuideLines === undefined ? true : yAxis.showGuideLines}/>
      
-      {dataIsReady && dataSets.map((dataSet, i) => (
+      {dataSets.map((dataSet, i) => (
         <React.Fragment key={dataSet.dataId}>
           <CurvyGraphAnimator id={dataSet.dataId} animate={animate === undefined ? false : animate} width={graphWidth} data={dataSet.data} delay={dataSet.animationDelay || 0}>
             {(refs) => (

@@ -61,7 +61,6 @@ const CurvyGraphPart: React.FC<CurvyGraphPartProps> = ({ id, animationRefs, data
 
   // SVG Gradient Definition
   const renderGradient = () => {
-    console.log("gradientTransparencyStops", gradientTransparencyStops?.[0] ?? 1)
     return <linearGradient
       id={`${graphId}`}
       x1="0%"

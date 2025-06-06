@@ -25,23 +25,23 @@ const TempVHumidityGraphFromParts = () => {
 
 			<YAxis style={{ position: "absolute", top: `${dataTop - 1}px`, left: `${dataLeft - 94}px` }} labeledYPoints={combinedYPoints} getLabel={(y) => getTempAndHumidityLabel(getTemperatureLabel(y), 'N/A')} graphWidth={graphWidth} height={graphHeight} primaryTickColor={'#E0E1E2'} secondaryTickColor={'#3A3D4B'} labelColor={'#E0E1E2'} spaceBelowData={SPACE_BELOW_DATA} showGuideLines={true}/>
 
-			<CurvyGraphAnimator id="humidity" width={graphWidth} data={hourlyHumidity} delay={0}>
+			<CurvyGraphAnimator id="humidity-parts" width={graphWidth} data={hourlyHumidity} delay={0}>
 				{(refs) => (
-					<CurvyGraphPart animationRefs={refs} id='humidity' width={graphWidth} height={graphHeight} style={{ position: "absolute", top: `${dataTop}px`, left: `${dataLeft}px` }} data={hourlyHumidity} yRange={[0, 100]} gradientColorStops={['#C332DF', "white"]} gradientDirection='h' type="dashed-line" spaceBelowData={SPACE_BELOW_DATA}/>
+					<CurvyGraphPart animationRefs={refs} id='humidity-parts' width={graphWidth} height={graphHeight} style={{ position: "absolute", top: `${dataTop}px`, left: `${dataLeft}px` }} data={hourlyHumidity} yRange={[0, 100]} gradientColorStops={['#C332DF', "white"]} gradientDirection='h' type="dashed-line" spaceBelowData={SPACE_BELOW_DATA}/>
 				)}
 			</CurvyGraphAnimator>
 			<RightDataLabel label="HUMIDITY" labelColor={'#E3A5F0'} height={graphHeight} style={{ position: "absolute", top: `${labelTop}px`, left: `${labelLeft}px` }} data={hourlyHumidity} yRange={[0, 100]} spaceBelowData={SPACE_BELOW_DATA}></RightDataLabel>
 
-			<CurvyGraphAnimator id="temperature-line" width={graphWidth} data={hourlyTemps} delay={.5}>
+			<CurvyGraphAnimator id="temperature-line-parts" width={graphWidth} data={hourlyTemps} delay={.5}>
 				{(refs) => (
-					<CurvyGraphPart animationRefs={refs} id='temperature-line' width={graphWidth} height={graphHeight} style={{ position: "absolute", top: `${dataTop}px`, left: `${dataLeft}px` }} data={hourlyTemps} gradientColorStops={['#2FF3E0', '#5D6CE9']} type="line" spaceBelowData={SPACE_BELOW_DATA}/>
+					<CurvyGraphPart animationRefs={refs} id='temperature-line-parts' width={graphWidth} height={graphHeight} style={{ position: "absolute", top: `${dataTop}px`, left: `${dataLeft}px` }} data={hourlyTemps} gradientColorStops={['#2FF3E0', '#5D6CE9']} type="line" spaceBelowData={SPACE_BELOW_DATA}/>
 				)}
 			</CurvyGraphAnimator>
 			<RightDataLabel label="TEMPERATURE" labelColor={'#5D6CE9'} height={graphHeight} style={{ position: "absolute", top: `${labelTop}px`, left: `${labelLeft}px` }} textStyle={{ letterSpacing: '.75px' }} data={hourlyTemps} spaceBelowData={SPACE_BELOW_DATA}></RightDataLabel>
 
-			<CurvyGraphAnimator id="temperature-area" width={graphWidth} data={hourlyTemps} delay={.5}>
+			<CurvyGraphAnimator id="temperature-area-parts" width={graphWidth} data={hourlyTemps} delay={.5}>
 				{(refs) => (
-					<CurvyGraphPart animationRefs={refs} id='temperature-area' width={graphWidth} height={graphHeight} style={{ position: "absolute", top: `${dataTop}px`, left: `${dataLeft}px` }} data={hourlyTemps} gradientColorStops={['#2FF3E0', '#5D6CE9']} gradientTransparencyStops={[.5, 0]} type="area" spaceBelowData={SPACE_BELOW_DATA}/>
+					<CurvyGraphPart animationRefs={refs} id='temperature-area-parts' width={graphWidth} height={graphHeight} style={{ position: "absolute", top: `${dataTop}px`, left: `${dataLeft}px` }} data={hourlyTemps} gradientColorStops={['#2FF3E0', '#5D6CE9']} gradientTransparencyStops={[.5, 0]} type="area" spaceBelowData={SPACE_BELOW_DATA}/>
 				)}
 			</CurvyGraphAnimator>
 

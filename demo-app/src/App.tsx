@@ -40,6 +40,8 @@ function App() {
         <CurvyGraph 
           chartTitle='Humidity and Temperature (Sun 6/1)' 
           spaceBelowData={20}
+          width={613}
+          height={310}
           textColor='#E0E1E2'
           animate={true}
           yAxis={{
@@ -88,6 +90,80 @@ function App() {
           styles={{
             rightDataLabels: {
               textStyle: { letterSpacing: '.75px' }
+            }
+          }}/>
+      </Card>
+
+      <p>Using Curvy Graph Smaller</p>
+      <Card
+        sx={{
+          position: 'relative',
+          color: "#E0E1E2",
+          margin: '20px',
+          width: '500px',
+          height: '250px',
+          padding: '45px',
+          background: `linear-gradient(to bottom right, #272934, #161923)`,
+        }}
+      >
+        <CurvyGraph 
+          chartTitle='Humidity and Temperature (Sun 6/1)' 
+          spaceBelowData={15}
+          width={500}
+          height={250}
+          textColor='#E0E1E2'
+          animate={true}
+          yAxis={{
+            labeledPoints: getCombinedYRange(hourlyTemps.map(temp => temp.y)),
+            getExtendedYLabel: (y) => getTempAndHumidityLabel(getTemperatureLabel(y), 'N/A'),
+            labelFrequency: 5,
+          }}
+          dataSets={[
+            {
+              dataId: "humidity-sm",
+              graphStyle: 'dashed-line',
+              label: "HUMIDITY",
+              labelColor: '#E3A5F0',
+              gradientColorStops: ['#C332DF', 'white'],
+              gradientDirection: 'h',
+              yRange: [0, 100],
+              animationDelay: 0,
+              data: hourlyHumidity,
+            },
+            {
+              dataId: "temperature-line-sm",
+              graphStyle: 'line',
+              label: "TEMPERATURE",
+              labelColor: '#5D6CE9',
+              gradientColorStops: ['#2FF3E0', '#5D6CE9'],
+              gradientDirection: 'v',
+              animationDelay: .5,
+              data: hourlyTemps
+            },
+            {
+              dataId: "temperature-area-sm",
+              graphStyle: 'area',
+              label: "",
+              labelColor: '#5D6CE9',
+              gradientColorStops: ['#2FF3E0', '#5D6CE9'],
+              gradientTransparencyStops: [0.5, 0],
+              gradientDirection: 'v',
+              animationDelay: .5,
+              data: hourlyTemps,
+            }
+          ]}
+          xAxis={{
+            labeledPoints: hourlyTemps,
+            labelFrequency: 5,
+          }}
+          styles={{
+            chartTitle: {
+              styles: {
+                fontSize: '17px'
+              }
+            },
+            rightDataLabels: {
+              textStyle: { letterSpacing: '.75px', fontSize: '13px' }
             }
           }}/>
       </Card>
