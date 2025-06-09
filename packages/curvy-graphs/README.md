@@ -161,13 +161,13 @@ The result is this
 
 ---
 
-## API Reference
+# API Reference
 
-### `<CurvyGraph />`
+## `<CurvyGraph />`
 
 A comprehensive, all-in-one graph component.
 
-#### Props
+### Props
 - **chartTitle**: `string` — Title text for the chart.
 - **textColor**: `string` — Hex color for title and axis labels.
 - **width, height**: `number` — Dimensions of the chart in pixels. Use `ResponsiveCurvyGraph` for more options.
@@ -218,16 +218,27 @@ A comprehensive, all-in-one graph component.
     - **style**: `React.CSSProperties` (optional) — style label container
     - **textStyle**: `React.CSSProperties` (optional) — style svg text element directly
 
-### `<ResponsiveCurvyGraph />`
+## `<ResponsiveCurvyGraph />`
 A comprehensive, all-in-one graph component supporting responsive layouts.
 
-### Parts
+### Props
+- **width, height**: `string | number` — Dimensions of the chart in pixels, %, or other units.
+- See [CurvyGraph section](#curvygraph-) for all other props.
+
+## Parts
 For even greater customization, use the graph parts that make `CurvyGraph` directly.
 
+- `CurvyGraphPart` — Renders a single graph line/area with gradients and animation refs.
+- `CurvyGraphAnimator` — Handles animated reveal of graph paths.
+- `XAxis`, `YAxis` — Render axes with ticks, labels, and guidelines.
+- `RightDataLabel` — Renders a label next to the last data point.
+- `ChartTitle` — Renders a styled, centered chart title.
+
+---
 
 ## Customization & Styling
 
-- All components accept `style` or `styles` props for fine-grained CSS control.
+- All components accept `style` or `styles` props for fine-grained CSS control. Look for these in [API Reference](#api-reference) for more details.
 - Axis, label, and path styles can be overridden for branding or theming.
 - Gradients and transparency can be customized per dataset.
 
