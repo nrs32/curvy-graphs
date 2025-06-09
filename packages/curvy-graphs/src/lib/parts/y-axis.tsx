@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo } from 'react';
 import normalizeDataPoints from '../utils/normalize-data-points';
-import { type LabeledYPoint, type Point, type YAxisLabelConfig } from '../types/graph-types';
+import { type LabeledYPoint, type YAxisLabelConfig } from '../types/graph-types';
 import { getYAxisLabelConfig } from '../utils/get-y-axis-label-config';
 import useTextWidthSVG from '../hooks/use-text-width-svg';
 

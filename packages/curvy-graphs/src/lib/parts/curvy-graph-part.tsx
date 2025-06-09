@@ -173,7 +173,7 @@ const generateSmoothPath = (points: Point[]) => {
 const generateSharpPath = (points: Point[]) => {
   let lastValidPoint: Point | null = null;
 
-  const d = points.map((point, i) => {
+  const d = points.map(point => {
     if (point.y === null || point.x === null) {
       lastValidPoint = null;
       return ''; // Skip null point
