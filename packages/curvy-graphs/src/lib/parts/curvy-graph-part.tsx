@@ -24,7 +24,7 @@ export interface CurvyGraphPartProps {
 }
 
 /**
- * CurvyGraphPart is a React component that renders the data of a curvy graph, supporting line, area, and line-area types with gradients and refs for external animation.
+ * CurvyGraphPart is a React component that renders the data of a curvy graph, supporting line, area, and dashed-line types with gradients and refs for external animation.
  *
  * Props:
  * - id: Unique identifier for the graph part instance.
@@ -34,7 +34,7 @@ export interface CurvyGraphPartProps {
  * - height: Height of the SVG/chart area in pixels.
  * - yRange: Optional [minY, maxY] tuple to specify the Y-axis range to be used instead of normalizing over data min/max
  * - xRange: Optional [minX, maxX] tuple to specify the X-axis range to be used instead of normalizing over data min/max
- * - type: GraphType ('area', 'dashed-line', 'line-area', etc.).
+ * - type: GraphType ('area', 'dashed-line', 'line', etc.).
  * - spaceBelowData: Extra space below the lowest data point for visual padding
  * - gradientColorStops: [startColor, endColor] for the SVG gradient fill/stroke.
  * - gradientTransparencyStops: Optional [startOpacity, endOpacity] for the SVG gradient fill/stroke. Should be a decimal from 0 - 1.

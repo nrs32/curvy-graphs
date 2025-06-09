@@ -32,7 +32,7 @@ export interface CurvyGraphProps {
   styles?: {
     chartTitle?: {
       minHeight?: number;
-      styles?: React.CSSProperties,
+      style?: React.CSSProperties,
     },
     axes ?: {
       primaryTickColor?: string; 
@@ -149,7 +149,7 @@ const CurvyGraph = ({ width, height, chartTitle, textColor, spaceBelowData = 0, 
     <>
       <div style={{ display: graphTooSmall ? 'flex' : 'none', position: 'relative', height: `${height}px`, width: `${width}px`, textAlign: 'center', alignItems: 'center' }}>Graph is too small to display</div>
       <div style={{ visibility: canRender ? 'visible' : 'hidden', position: 'relative', height: `${height}px`, width: `${width}px` }}>
-        <ChartTitle title={chartTitle} color={textColor} widthToCenterOn={graphWidth} leftOffset={dataLeft} styles={styles?.chartTitle?.styles}/>
+        <ChartTitle title={chartTitle} color={textColor} widthToCenterOn={graphWidth} leftOffset={dataLeft} style={styles?.chartTitle?.style}/>
 
         <YAxis style={{ position: "absolute", top: `${dataTop - 1}px`, left: '0px' }} textStyle={styles?.axes ?.textStyle} onConfigMeasured={setYAxisConfig} labeledYPoints={yAxis.labeledPoints} spaceBelowData={ spaceBelowData} getLabel={yAxis.getExtendedYLabel} graphWidth={graphWidth} height={graphHeight} primaryTickColor={styles?.axes ?.primaryTickColor || textColor} secondaryTickColor={styles?.axes ?.secondaryTickColor || secondaryAxisTickColor} labelColor={textColor} labelFrequency={yAxis.labelFrequency} showGuideLines={yAxis.showGuideLines === undefined ? true : yAxis.showGuideLines}/>
       

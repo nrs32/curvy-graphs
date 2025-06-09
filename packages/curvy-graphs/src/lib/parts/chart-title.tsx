@@ -3,7 +3,7 @@ export interface ChartTitleProps {
   color: string;
   widthToCenterOn: number;
   leftOffset: number;
-  styles?: React.CSSProperties;
+  style?: React.CSSProperties;
 }
 
 /**
@@ -14,10 +14,10 @@ export interface ChartTitleProps {
  * - title: The text to display as the chart title.
  * - widthToCenterOn: The width (in pixels) used to center the title.
  * - leftOffset: The left offset (in pixels) for positioning the title.
- * - styles: Optional additional CSS styles to apply to the title. 
+ * - style: Optional additional CSS styles to apply to the title. 
  *           This will also override the default styles (including the default width and left values controlled by props).
  */
-const ChartTitle = ({ title, color, widthToCenterOn, leftOffset, styles }: ChartTitleProps) => {
+const ChartTitle = ({ title, color, widthToCenterOn, leftOffset, style }: ChartTitleProps) => {
   return (<div
     style={{
       fontWeight: 700,
@@ -31,7 +31,7 @@ const ChartTitle = ({ title, color, widthToCenterOn, leftOffset, styles }: Chart
       whiteSpace: 'nowrap',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
-      ...styles,
+      ...style,
     }}
   >
     {title}

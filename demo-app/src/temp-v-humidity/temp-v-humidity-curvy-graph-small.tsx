@@ -66,7 +66,7 @@ export const TempVHumidityCurvyGraphSmall = () => {
     }}
     styles={{
       chartTitle: {
-        styles: {
+        style: {
           fontSize: '17px'
         }
       },
