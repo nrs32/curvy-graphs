@@ -1,16 +1,17 @@
 import type { LabeledYPoint } from "../types/graph-types";
 
 /**
- * Takes a y-axis range and returns a list of evenly distributed points
+ * Generates an array of evenly distributed LabeledYPoint objects across a given y-axis range.
  *
- * E.g. Range: [2, 10]; totalDataPoints: 5; List will contain points with Y value of 2, 4, 6, 8, 10
+ * For example, given yRange = [2, 10] and totalDataPoints = 5, the result will be:
+ *   [ { y: 2, yLabel: ... }, { y: 4, yLabel: ... }, { y: 6, yLabel: ... }, { y: 8, yLabel: ... }, { y: 10, yLabel: ... } ]
  *
- * NOTE, yAxis adds SPACE_BELOW_CHART meaning the total ticks on a chart will be (totalDataPoints + # of ticks to fill the space below the chart)
+ * If your chart uses spaceBelowData (e.g., for visual padding), you may need to add additional ticks for that space.
  *
- * @param yRange - [min, max] range to be used
- * @param totalDataPoints - How many data points you want back
- *
- * @returns An evenly distributed array of LabeledYPoints
+ * @param yRange - [min, max] range for the Y-axis (inclusive)
+ * @param totalDataPoints - The number of points to generate
+ * @param getLabel - Function to generate a label for each Y value
+ * @returns An array of LabeledYPoint objects with evenly spaced y values and generated labels
  */
 const determineYRangePoints = (
   yRange: [number, number],
@@ -22,7 +23,7 @@ const determineYRangePoints = (
   const step = (max - min) / totalDataPoints;
   const labeledYPoints: LabeledYPoint[] = [];
 
-  for (let i = min; labeledYPoints.length < totalDataPoints + 1; i += step) {
+  for (let i = min; labeledYPoints.length < totalDataPoints; i += step) {
     labeledYPoints.push({
       y: i,
       yLabel: getLabel(i),
