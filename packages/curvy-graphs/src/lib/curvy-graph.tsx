@@ -28,6 +28,7 @@ export interface CurvyGraphProps {
     labelFrequency?: number; 
   },
   isResizing?: boolean;
+  isSharp?: boolean;
   styles?: {
     chartTitle?: {
       minHeight?: number;
@@ -104,8 +105,9 @@ export interface CurvyGraphProps {
  *         - textStyle: style svg text element directly
  *
  * - isResizing: If true, disables animation until resizing completes. Use for responsive charts.
+ * - isSharp: If true, renders straight lines between data points (sharp/linear). If false, renders smooth, curvy lines using Bézier curves. Default is false (curvy).
  */
-const CurvyGraph = ({ width, height, chartTitle, textColor, spaceBelowData = 0, animate = false, yAxis, dataSets, xAxis, isResizing = false, styles }: CurvyGraphProps) => {
+const CurvyGraph = ({ width, height, chartTitle, textColor, spaceBelowData = 0, animate = false, yAxis, dataSets, xAxis, isResizing = false, isSharp = false, styles }: CurvyGraphProps) => {
   if (spaceBelowData > 0 && yAxis.getExtendedYLabel === undefined) {
     console.warn("CurvyGraph: `getExtendedYLabel` should be provided when `spaceBelowData` is used.");
   }
@@ -150,7 +152,7 @@ const CurvyGraph = ({ width, height, chartTitle, textColor, spaceBelowData = 0, 
             {(!isResizing && canRender) && 
               <CurvyGraphAnimator id={dataSet.dataId} animate={animate} width={graphWidth} data={dataSet.data} delay={dataSet.animationDelay || 0}>
                 {(refs) => (
-                  <CurvyGraphPart id={dataSet.dataId} animationRefs={refs} style={{ position: "absolute", top: `${dataTop}px`, left: `${dataLeft}px` }} pathStyle={dataSet.styles?.pathStyle} width={graphWidth} height={graphHeight} spaceBelowData={ spaceBelowData} data={dataSet.data} yRange={dataSet.yRange} gradientColorStops={dataSet.gradientColorStops} gradientTransparencyStops={dataSet.gradientTransparencyStops} gradientDirection={dataSet.gradientDirection} type={dataSet.graphStyle}/>
+                  <CurvyGraphPart id={dataSet.dataId} animationRefs={refs} style={{ position: "absolute", top: `${dataTop}px`, left: `${dataLeft}px` }} pathStyle={dataSet.styles?.pathStyle} isSharp={isSharp} width={graphWidth} height={graphHeight} spaceBelowData={ spaceBelowData} data={dataSet.data} yRange={dataSet.yRange} gradientColorStops={dataSet.gradientColorStops} gradientTransparencyStops={dataSet.gradientTransparencyStops} gradientDirection={dataSet.gradientDirection} type={dataSet.graphStyle}/>
                 )}
               </CurvyGraphAnimator>}
             <RightDataLabel style={{ position: "absolute", top: `${dataSet.styles?.labelTop === undefined ? dataTop - 18 : dataTop + dataSet.styles.labelTop}px`, left: `${rightDataLabelLeftPos}px`, ...styles?.rightDataLabels?.style }} textStyle={styles?.rightDataLabels?.textStyle} height={graphHeight} spaceBelowData={ spaceBelowData} onWidthMeasured={(labelWidth) => handleRightLabelWidthMeasured(i, labelWidth)} data={dataSet.data} label={dataSet.label} labelColor={dataSet.labelColor} yRange={dataSet.yRange}/>

@@ -17,6 +17,7 @@ export interface CurvyGraphPartProps {
   gradientColorStops: [string, string]; 
   gradientTransparencyStops?: [number, number]; 
   gradientDirection?: GradientDirection;
+  isSharp?: boolean;
   showAreaShadow?: boolean; 
   style?: React.CSSProperties;
   pathStyle?: React.CSSProperties;
@@ -39,12 +40,13 @@ export interface CurvyGraphPartProps {
  * - gradientTransparencyStops: Optional [startOpacity, endOpacity] for the SVG gradient fill/stroke. Should be a decimal from 0 - 1.
  * - gradientDirection: 'v' for vertical or 'h' for horizontal gradient direction (default: 'v').
  * - showAreaShadow: If true, displays a shadow above/behind the area graph.
+ * - isSharp: If true, renders straight lines between data points (sharp/linear). If false, renders smooth, curvy lines using Bézier curves. Default is false (curvy).
  * - style: Optional CSS styles for the container div.
  * - pathStyle: Optional CSS styles for the path element
  * 
  * The component normalizes data points, generates smooth SVG paths, and supports gradient fills and area shadows for enhanced visuals.
  */
-const CurvyGraphPart: React.FC<CurvyGraphPartProps> = ({ id, animationRefs, data, gradientColorStops, gradientTransparencyStops, gradientDirection = 'v', type, width, height, yRange, xRange, showAreaShadow, spaceBelowData, style, pathStyle }) => {  
+const CurvyGraphPart: React.FC<CurvyGraphPartProps> = ({ id, animationRefs, data, gradientColorStops, gradientTransparencyStops, gradientDirection = 'v', type, width, height, yRange, xRange, showAreaShadow, spaceBelowData, isSharp = false, style, pathStyle }) => {  
   const graphId = `curvy-time-graph-${id}`;
   const [startColor, endColor] = gradientColorStops;
   const svgHeight = height - spaceBelowData;
@@ -58,7 +60,7 @@ const CurvyGraphPart: React.FC<CurvyGraphPartProps> = ({ id, animationRefs, data
   }
 
   const normalizedPoints = normalizeDataPoints(data, width, svgHeight, yRange, xRange);
-  const pathData = generateSmoothPath(normalizedPoints);
+  const pathData = isSharp ? generateSharpPath(normalizedPoints) : generateSmoothPath(normalizedPoints);
   const areaPathData = generateAreaPath(pathData, normalizedPoints, svgHeight);
 
   // SVG Gradient Definition
@@ -150,6 +152,19 @@ const generateSmoothPath = (points: Point[]) => {
   const secondLast = points[points.length - 2];
   const last = points[points.length - 1];
   d.push(`Q ${secondLast.x},${secondLast.y} ${last.x},${last.y}`);
+
+  return d.join(' ');
+};
+
+const generateSharpPath = (points: Point[]) => {
+  const d = points.map((point, i) => {
+
+    // Move to the starting x, y, without drawing a line
+    if (i === 0) return `M ${point.x},${point.y}`;
+
+    // Draw a line to the next point
+    return `L ${point.x},${point.y}`;
+  });
 
   return d.join(' ');
 };
