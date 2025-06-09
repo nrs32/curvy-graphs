@@ -126,13 +126,12 @@ const CurvyGraph = ({ width, height, chartTitle, textColor, spaceBelowData = 0, 
   const dataTop: number = styles?.chartTitle?.minHeight ?? 50;
   const dataLeft: number = endOfTickMark + 7;
   
-  const graphWidth: number = width - yAxisOutsideGraph - rightLabelMaxWidth;
-  const graphHeight: number = height - xAxisHeight - dataTop;
+  const graphWidth: number = Math.max(width - yAxisOutsideGraph - rightLabelMaxWidth, 0);
+  const graphHeight: number = Math.max(height - xAxisHeight - dataTop, 0);
   
   const rightDataLabelLeftPos: number = dataLeft + graphWidth + 7;
 
   const secondaryAxisTickColor: string = `${textColor}40`;
-  console.log("secondaryAxisTickColor", secondaryAxisTickColor)
 
   const dataIsReady: boolean = !!yAxisConfig;
   const graphTooSmall: boolean = graphWidth < 10 || graphHeight < 10;
