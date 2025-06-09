@@ -8,7 +8,7 @@ export const WaterLevelGraph = () => {
   const yRangeLabels = determineYRangePoints(yRange, 15, (y) => `${Math.round(y)} in.`);
 
   return <CurvyGraph 
-      chartTitle='Hourly Water Levels' 
+      chartTitle='Hourly Water Levels*' 
       width={500}
       height={400}
       textColor='#E0E1E2'
@@ -26,7 +26,7 @@ export const WaterLevelGraph = () => {
           gradientColorStops: ['#174a66', '#0f2d5540'],
           gradientDirection: 'v',
           yRange: yRange,
-          animationDelay: 4.5,
+          animationDelay: 3,
           data: waterLevels5th
         },
         {
@@ -37,7 +37,7 @@ export const WaterLevelGraph = () => {
           gradientColorStops: ['#257480', '#154060cc'],
           gradientDirection: 'v',
           yRange: yRange,
-          animationDelay: 3,
+          animationDelay: 1.5,
           data: waterLevels6th
         },
         {
@@ -48,7 +48,7 @@ export const WaterLevelGraph = () => {
           gradientColorStops: ['#00bad9', '#00bad9'],
           gradientDirection: 'h',
           yRange: yRange,
-          animationDelay: 1.5,
+          animationDelay: 0,
           data: waterLevels7th,
           styles: {
             labelTop: 5,

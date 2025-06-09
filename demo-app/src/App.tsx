@@ -7,13 +7,15 @@ import { getCombinedYRange, getTempAndHumidityLabel, getTemperatureLabel } from 
 import getLabeledYPoints from './weekly-temps/weekly-temp-utils';
 import { WeeklyTempsGraph } from './weekly-temps/weekly-temps-graph';
 import { WaterLevelGraph } from './water-level-ludington/water-level-graph';
+import { TempVApparentGraph } from './temp-v-apparent/temp-v-apparent-graph';
 
 function App() {
 
-  // TODO: make many chart examples and populate readme
-  // TODO: one more chart example
-  // TODO: refactor to label points on hover somehow (?)
+  // TODO: make many chart examples and populate readme (dashboard considaration)
   // TODO: handle chart too small for the other svgs as well, happens if the calcuated px is negative -- have responsive graph say something about that for curvy graph to not render any of its parts if thats the case
+  // TODO: refactor to label points on hover somehow (?)
+  // TODO: add sharp instead of curvy
+  // TODO: remove space below chart in favor of y-range exansion (?)
 
   const tempHumidityCardStyle: React.CSSProperties = {
     position: 'relative',
@@ -253,8 +255,14 @@ function App() {
       <p>Data For water levels from <a href="https://tidesandcurrents.noaa.gov/waterlevels.html?id=9087023&type=Tide+Data&name=Ludington&state=MI" target="_blank">NOAA</a> @ Ludington Beach, Michigan</p>
       <p>Inches above LWD (576 ft for Lake Michigan)</p>
       <p>LWD is the standardized low point for lake michigan used to compare and track water levels</p>
-      <Card sx={{...tempHumidityCardStyle, width: '500px', height: '390px', background: `#040940`}}>
+      <Card sx={{...tempHumidityCardStyle, width: '600px', height: '440px', background: `#040940`, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <WaterLevelGraph/>
+        <p style={{ fontStyle: "italic", fontSize: "14px", textAlign: "center" }}>*Water level above LWD - the standardized low point for Lake Michigan (576 ft)</p>
+      </Card>
+
+      <p>Temp V Apparent</p>
+      <Card sx={{...tempHumidityCardStyle, background: `#f4f6f8`}}>
+        <TempVApparentGraph/>
       </Card>
     </>
   )
