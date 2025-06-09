@@ -228,11 +228,96 @@ A comprehensive, all-in-one graph component supporting responsive layouts.
 ## Parts
 For even greater customization, use the graph parts that make `CurvyGraph` directly.
 
-- `CurvyGraphPart` — Renders a single graph line/area with gradients and animation refs.
-- `CurvyGraphAnimator` — Handles animated reveal of graph paths.
-- `XAxis`, `YAxis` — Render axes with ticks, labels, and guidelines.
-- `RightDataLabel` — Renders a label next to the last data point.
 - `ChartTitle` — Renders a styled, centered chart title.
+  - **title**: The text to display as the chart title.
+  - **widthToCenterOn**: The width (in pixels) used to center the title.
+  - **leftOffset**: The left offset (in pixels) for positioning the title.
+  - **style**: Optional additional CSS styles to apply to the title.  
+    This will also override the default styles (including the default width and left values controlled by props).
+
+- `CurvyGraphPart` — renders the data of a curvy graph, supporting line, area, and dashed-line types with gradients and refs for external animation.
+  - **id**: Unique identifier for the graph part instance.
+  - **animationRefs**: Optional refs for SVG elements, allowing parent components to control animation (e.g., for reveal effects).
+  - **data**: Array of `Point` objects representing the data to plot.
+  - **width**: Width of the SVG/chart area in pixels.
+  - **height**: Height of the SVG/chart area in pixels.
+  - **yRange**: Optional `[minY, maxY]` tuple to specify the Y-axis range to be used instead of normalizing over data min/max.
+  - **xRange**: Optional `[minX, maxX]` tuple to specify the X-axis range to be used instead of normalizing over data min/max.
+  - **type**: `GraphType` (`'area'`, `'dashed-line'`, `'line'`, etc.).
+  - **spaceBelowData**: Extra space below the lowest data point for visual padding.
+  - **gradientColorStops**: `[startColor, endColor]` for the SVG gradient fill/stroke.
+  - **gradientTransparencyStops**: Optional `[startOpacity, endOpacity]` for the SVG gradient fill/stroke. Should be a decimal from 0 - 1.
+  - **gradientDirection**: `'v'` for vertical or `'h'` for horizontal gradient direction (default: `'v'`).
+  - **showAreaShadow**: If `true`, displays a shadow above/behind the area graph.
+  - **isSharp**: If `true`, renders straight lines between data points (sharp/linear). If `false`, renders smooth, curvy lines   using Bézier curves. Default is `false` (curvy).
+  - **style**: Optional CSS styles for the container `div`.
+  - **pathStyle**: Optional CSS styles for the `path` element.
+
+- `CurvyGraphAnimator` — Handles animated reveal of graph paths.
+  - **id**: Unique identifier for the animator instance.
+  - **animate**: If `false`, disables the animation (default: `true`).
+  - **data**: Array of `Point` objects; changes to this array trigger re-animation.
+  - **width**: The target width (in pixels) to animate the reveal to.
+  - **delay**: Delay (in seconds) before starting the animation.
+  - **children**: Render prop function that receives refs for the clip path rectangle and SVG root, allowing child graph components to use these refs for animation.
+
+    The component uses a wrapper pattern, so the child graph is not defined here.  
+    Instead, it passes animation refs to its children for flexible integration.
+
+    Example
+
+    ```jsx
+      <CurvyTimeGraphAnimator>
+        {(refs) => (
+          <CurvyTimeGraph
+            animationRefs={refs}
+          />
+        )}
+      </CurvyTimeGraphAnimator>
+    ```
+
+- `XAxis` — Render x-axis with ticks and labels.
+  - **data**: Array of labeled X points, each with a value and label (and optional sublabel).
+  - **width**: The width of the chart area in pixels.
+  - **xRange**: Optional tuple `[minX, maxX]` to specify the X-axis range instead of using normalized values from your data min and max.
+  - **labelFrequency**: How often tick labels should show (every nth tick is labeled; `5` means every 5th tick will be labeled). Default is `1`.
+  - **primaryTickColor**: Color for primary (labeled) tick marks.
+  - **secondaryTickColor**: Color for secondary (unlabeled) tick marks.
+  - **labelColor**: Color for the X-axis labels and sublabels.
+  - **style**: Optional CSS styles for the X-axis container.
+  - **textStyle**: Optional CSS styles for the labels of the axis.
+
+- `YAxis` — Render y-axis with ticks, labels, and guidelines.
+  - **height**: The height of the y-axis in pixels (should match chart height).
+  - **graphWidth**: The width of the chart area, used for drawing guidelines.
+  - **labelFrequency**: How often tick labels should show (every nth tick is labeled; `5` means every 5th tick will be labeled). Default is `1`.
+  - **labeledYPoints**: Array of labeled Y points, each with a value and label.
+  - **spaceBelowData**: Optional Extra space below the lowest data point for visual padding.
+  - **getLabel**: Optional function that provides a y coordinate and expects a label for that coordinate.  
+    This is used to fill the y-axis labels for the `spaceBelowData` if a value > 0 was provided.  
+    If no callback is defined, the extra labels will be empty strings.
+  - **yRange**: Optional tuple `[minY, maxY]` to specify the y-axis range instead of using normalized values from your data min and max.
+  - **onConfigMeasured**: Optional callback to access the rendered y-axis config values (in pixels).
+  - **primaryTickColor**: Color for primary (labeled) tick marks.
+  - **secondaryTickColor**: Color for secondary (unlabeled) tick marks and guidelines.
+  - **labelColor**: Color for the Y-axis labels.
+  - **showGuideLines**: Whether to display horizontal guidelines for each primary (labeled) tick.
+  - **style**: Optional CSS styles for the Y-axis container.
+  - **textStyle**: Optional CSS styles for the labels of the axis.
+
+- `RightDataLabel` — Renders a label next to the last data point. The component normalizes data points, positions the label at the last data point, and dynamically measures its width for layout purposes.
+  - **data**: Array of `Point` objects representing the data to plot.  
+    We do this to calculate the normalized y values the same way the chart data does.  
+    This way we get an accurate final y value to position the text relative to.
+  - **height**: Height of the SVG/chart area in pixels.
+  - **yRange**: Optional `[minY, maxY]` tuple to specify the Y-axis range instead of the data min/max.
+  - **labelColor**: Color for the label text.
+  - **label**: The text to display as the label.
+  - **spaceBelowData**: Optional extra space below the lowest data point for visual padding.  
+    Again used for position calculations to match where the data is actually rendered in the chart.
+  - **onWidthMeasured**: Optional callback to access the rendered label width (in pixels).
+  - **style**: Optional CSS styles for the container `div`.
+  - **textStyle**: Optional CSS styles for the SVG text element directly. Can also override default values.
 
 ---
 
