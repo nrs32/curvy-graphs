@@ -130,21 +130,35 @@ const CurvyGraphPart: React.FC<CurvyGraphPartProps> = ({ id, animationRefs, data
 };
 
 const generateSmoothPath = (points: Point[]) => {
-  const d = points.map((point, i, arr) => {
+  let lastValidPoint: Point | null = null;
+
+  const d = points.map(point => {
+
+    if (point.y === null || point.x === null) {
+      lastValidPoint = null;
+      return ''; // Skip null point
+    }
 
     // Move to the starting x, y, without drawing a line
-    if (i === 0) return `M ${point.x},${point.y}`;
+    // first point, or after a break in data
+    if (!lastValidPoint) {
+      lastValidPoint = point;
+      return `M ${point.x},${point.y}`;
+    }
 
     // Get the previous position
-    const prev = arr[i - 1];
+    // const prev = arr[i - 1];
 
     // control points: midpoints between current and previous x,y positions
-    const cx = (prev.x + point.x) / 2;
-    const cy = (prev.y + point.y) / 2;
+    const cx = ((lastValidPoint.x ?? 0) + point.x) / 2;
+    const cy = ((lastValidPoint.y ?? 0) + point.y) / 2;
+
 
     // Quadratic Bézier curve
     // Draws a curve toward x, y with the bend based on the controlPoints
-    return `Q ${prev.x},${prev.y} ${cx},${cy}`;
+    const nextCurveSegment = `Q ${lastValidPoint.x},${lastValidPoint.y} ${cx},${cy}`;
+    lastValidPoint = point;
+    return nextCurveSegment;
   });
 
   // The above map loop will end the curve at the midpoint between the second to last, and last points
@@ -157,13 +171,26 @@ const generateSmoothPath = (points: Point[]) => {
 };
 
 const generateSharpPath = (points: Point[]) => {
+  let lastValidPoint: Point | null = null;
+
   const d = points.map((point, i) => {
+    if (point.y === null || point.x === null) {
+      lastValidPoint = null;
+      return ''; // Skip null point
+    }
+
 
     // Move to the starting x, y, without drawing a line
-    if (i === 0) return `M ${point.x},${point.y}`;
+    // first point, or after a break in data
+    if (!lastValidPoint) {
+      lastValidPoint = point;
+      return `M ${point.x},${point.y}`;
+    }
 
     // Draw a line to the next point
-    return `L ${point.x},${point.y}`;
+    const nextLineSegment = `L ${point.x},${point.y}`;
+    lastValidPoint = point;
+    return nextLineSegment;
   });
 
   return d.join(' ');

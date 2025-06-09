@@ -44,7 +44,7 @@ const XAxis: React.FC<XAxisProps> = ({
 
   const normalizedPoints = normalizeDataPoints(data.map(x => ({...x, y: 0})), width, svgHeight, undefined, xRange);
 
-  const ticks = normalizedPoints.map((point) => point.x);
+  const ticks = normalizedPoints.map((point) => point.x) as number[];
 
   return (
     <div style={{ marginLeft: `-${widthOffset}px`, ...style }}>

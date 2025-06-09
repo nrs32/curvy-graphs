@@ -66,9 +66,10 @@ const YAxis: React.FC<YAxisProps> = ({
   const finalTextStyles: React.CSSProperties = { fontSize: '12px', fill: labelColor, ...textStyle };
 
   const normalizedPoints = normalizeDataPoints(labeledYPoints.map(y => ({...y, x: 0})), 0, height - spaceBelowData, yRange, undefined);
-  const { labels, ticks } = getLabelsForSpaceBelowData(labeledYPoints, normalizedPoints, height, getLabel);
+  const yValues = normalizedPoints.map((point) => point.y) as number[];
+  const { labels, ticks } = getLabelsForSpaceBelowData(labeledYPoints, yValues, height, getLabel);
   
-  const finalTicks = ticks.concat(normalizedPoints.map((point) => point.y));
+  const finalTicks = ticks.concat(yValues);
   const finalLabels = labels.concat(labeledYPoints.map(label => label.yLabel));
   
   const textSpace = useTextWidthSVG(finalLabels, finalTextStyles, 5);
@@ -147,7 +148,7 @@ const YAxis: React.FC<YAxisProps> = ({
  */
 const getLabelsForSpaceBelowData = (
   labeledYPoints: LabeledYPoint[],
-  normalizedPoints: Point[],
+  normalizedYValues: number[],
   height: number,
   getLabel?: (y: number) => string,
 ): TicksAndLabels => {
@@ -160,8 +161,8 @@ const getLabelsForSpaceBelowData = (
   const stepBetweenOriginalYValues = labeledYPoints[1].y - lowestYValue;
 
   const lowestPossibleYCoordinate = height;
-  const lowestExistingGraphYCoordinate = normalizedPoints[0].y;
-  const stepBetweenGraphYCoordinates = lowestExistingGraphYCoordinate - normalizedPoints[1].y;
+  const lowestExistingGraphYCoordinate = normalizedYValues[0];
+  const stepBetweenGraphYCoordinates = lowestExistingGraphYCoordinate - normalizedYValues[1];
   const nextLowestGraphYCoordinate = lowestExistingGraphYCoordinate + stepBetweenGraphYCoordinates;
 
   let labelYValue = lowestYValue;

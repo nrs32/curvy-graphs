@@ -53,6 +53,7 @@ export interface CurvyGraphProps {
  * - Supports multiple datasets, each with its own style, color, and animation delay.
  * - Customizable axes, chart title, right-aligned data labels, and responsive layout.
  * - Animates graph drawing and supports multiple graph types.
+ * - When rendering multiple overlapping datasets, each dataset is drawn in order, so the last dataset in the array will appear on top of the others.
  *
  * Props:
  * - chartTitle: Title text for the chart.
@@ -80,7 +81,7 @@ export interface CurvyGraphProps {
  *     - labelFrequency: How often tick labels should show (every nth tick is labeled; e.g., 5 means every 5th tick is labeled). Default is 1.
  *
  * - dataSets: Array of DataSet objects, each describing a graph:
- *    - dataId: Unique key for the dataset.
+ *    - dataId: Unique key for the dataset (no spaces).
  *    - graphStyle: ('line', 'dashed-line', 'area').
  *    - label: Label for the data to appear to the right.
  *    - labelColor: Color for the right data label.
@@ -110,6 +111,11 @@ export interface CurvyGraphProps {
 const CurvyGraph = ({ width, height, chartTitle, textColor, spaceBelowData = 0, animate = false, yAxis, dataSets, xAxis, isResizing = false, isSharp = false, styles }: CurvyGraphProps) => {
   if (spaceBelowData > 0 && yAxis.getExtendedYLabel === undefined) {
     console.warn("CurvyGraph: `getExtendedYLabel` should be provided when `spaceBelowData` is used.");
+  }
+
+  const dataSetsWithSpaces = dataSets.filter(data => data.dataId.includes(' '));
+  if (dataSetsWithSpaces.length > 0) {
+    console.error(`CurvyGraph: 'dataId' can not contain spaces. dataId: '${dataSetsWithSpaces[0].dataId}' for chart "${chartTitle}" is invalid.`);
   }
 
   const rightLabelWidths = useRef<number[]>([]);

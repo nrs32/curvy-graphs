@@ -50,7 +50,8 @@ const RightDataLabel: React.FC<RightDataLabelProps> = ({
   const svgHeight = height - spaceBelowData;
 
   const normalizedPoints = normalizeDataPoints(data, 0, svgHeight, yRange);
-  const lastNormalizedPoint = normalizedPoints[normalizedPoints.length - 1];
+  const nonNullPoints: {y: number}[] = normalizedPoints.filter(point => point.y !== null) as {y: number}[];
+  const lastNormalizedPoint = nonNullPoints[nonNullPoints.length - 1];
   const letterHeight = 14;
 
   useEffect(() => {

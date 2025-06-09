@@ -1,4 +1,4 @@
-export type Point = { x: number; y: number };
+export type Point = { x: number | null; y: number | null };
 
 export type LabeledYPoint = { yLabel: string, y: number };
 

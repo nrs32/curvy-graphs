@@ -25,7 +25,7 @@ const normalizeDataPoints = (
   if (yRange) {
     [minY, maxY] = yRange;
   } else {
-    const yValues = points.map(p => p.y);
+    const yValues = points.map(p => p.y).filter(y => y !== null);
     minY = Math.min(...yValues);
     maxY = Math.max(...yValues);
   }
@@ -34,7 +34,7 @@ const normalizeDataPoints = (
     [minX, maxX] = xRange;
 
   } else {
-    const xValues = points.map(p => p.x);
+    const xValues = points.map(p => p.x).filter(x => x !== null);
     minX = Math.min(...xValues);
     maxX = Math.max(...xValues);
   }
@@ -44,8 +44,8 @@ const normalizeDataPoints = (
   const yShift = 2;
 
   return points.map(p => ({
-    x: ((p.x - minX) / xSpan) * graphWidth,
-    y: ((1 - (p.y - minY) / ySpan) * graphHeight) + yShift,
+    x: p.x === null ? null : ((p.x - minX) / xSpan) * graphWidth,
+    y: p.y === null ? null : ((1 - (p.y - minY) / ySpan) * graphHeight) + yShift,
   }));
 }
 
