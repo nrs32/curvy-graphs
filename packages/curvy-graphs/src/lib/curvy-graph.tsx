@@ -89,7 +89,7 @@ export interface CurvyGraphProps {
  *    - gradientTransparencyStops: [startOpacity, endOpacity] for gradient transparency (optional).
  *    - gradientDirection: 'v' or 'h' for vertical/horizontal gradient.
  *    - yRange: [minY, maxY] Optional y-axis range, if different than the dataSet's min/max values.
- *    - animationDelay: Delay before animating this dataset (seconds). Can create stagger effects.
+ *    - animationDelay: Delay before animating this dataset (seconds). Can create stagger effects. Default 0.
  *    - data: Array of Point objects.
  *    - styles: Optional custom styles for labelLeft and labelTop position in px, and pathStyle to style the svg path element directly.
  * 

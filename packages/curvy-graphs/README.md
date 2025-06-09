@@ -46,7 +46,7 @@ npm install curvy-graphs
 
 ### Basic Usage
 
-Below is a basic example of <CurvyGraph /> using only the required props.
+Below is a basic example of `<CurvyGraph />` using only the required props.
 
 See [API Reference](#api-reference) for full details.
 
@@ -98,8 +98,64 @@ import { CurvyGraph } from 'curvy-graphs';
   ]}
 />
 ```
-The above code will produce this chart:
 
+The above code will produce this chart:
+![Basic Temperatures Graph](https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/basicWeeklyTemperatureExample.png)
+
+To animate the chart, add the `animate` prop to `CurvyGraph`, and optionally add `animationDelay` to your dataset(s).
+
+### Responsive Usage
+
+In the basic usage example, we set the chart’s width and height using pixels. Alternatively, you can use percentages via the `ResponsiveCurvyGraph` component.
+
+The only difference in usage between these two components is how the width and height props are handled. Instead of numbers (for pixels), you can pass string percentages or numbers.
+
+Below, we recreate the basic usage example, but with a width of 100% within a flex layout:
+
+```tsx
+import { ResponsiveCurvyGraph } from 'curvy-graphs';
+
+<div style={{ width: "70%", border: "1px dashed red" }}>
+  <ResponsiveCurvyGraph
+    width={'100%'}
+    height={310}
+    // ... rest of props ...
+  />
+</div>
+
+<div style={{
+  flex: 1,
+  padding: "20px",
+  border: "1px dashed blue",
+  color: 'white',
+  alignContent: 'center',
+  textAlign: 'center',
+}}>
+  <p>Other layout content could be here</p>
+</div>
+```
+
+The result is this
+![Basic Temperatures Graph](https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/basicWeeklyTemperatureExample.png)
+
+We can also add animation like this:
+```tsx
+  <ResponsiveCurvyGraph
+    width={'100%'}
+    height={310}
+    animate={true}
+    // ... rest of props ...
+    dataSets={[
+      {
+        // ... other props ...
+        animationDelay: 0, // Default is 0, but this is where you can set delays
+      }
+    ]}
+  />
+```
+
+The result is this
+![Basic Temperatures Graph](https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/basicWeeklyTemperatureExample.png)
 
 ---
 
