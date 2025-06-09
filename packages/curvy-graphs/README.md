@@ -43,6 +43,64 @@ npm install curvy-graphs
 ---
 
 ## Quick Start
+
+### Basic Usage
+
+Below is a basic example of <CurvyGraph /> using only the required props.
+
+See [API Reference](#api-reference) for full details.
+
+```tsx
+import { CurvyGraph } from 'curvy-graphs';
+
+<CurvyGraph
+  chartTitle="Weekly Temperatures"
+  textColor="#E0E1E2"
+  width={613}
+  height={310}
+  yAxis={{
+    labeledPoints: [
+      { y: 0, yLabel: '0°F' },
+      { y: 10, yLabel: '10°F' },
+      { y: 20, yLabel: '20°F' },
+      { y: 30, yLabel: '30°F' },
+    ],
+  }}
+  xAxis={{
+    labeledPoints: [
+      { x: 0, xLabel: 'Mon' },
+      { x: 1, xLabel: 'Tue' },
+      { x: 2, xLabel: 'Wed' },
+      { x: 3, xLabel: 'Thu' },
+      { x: 4, xLabel: 'Fri' },
+      { x: 5, xLabel: 'Sat' },
+      { x: 6, xLabel: 'Sun' },
+    ],
+  }}
+  dataSets={[
+    {
+      dataId: "temperatures",
+      graphStyle: 'line',
+      label: "Temperature",
+      labelColor: '#5D6CE9',
+      gradientColorStops: ['#2FF3E0', '#5D6CE9'],
+      gradientDirection: 'v',
+      data: [
+        { x: 0, y: 12 },
+        { x: 1, y: 15 },
+        { x: 2, y: 18 },
+        { x: 3, y: 20 },
+        { x: 4, y: 17 },
+        { x: 5, y: 14 },
+        { x: 6, y: 13 },
+      ]
+    }
+  ]}
+/>
+```
+The above code will produce this chart:
+
+
 ---
 
 ## API Reference
@@ -81,3 +139,4 @@ Pull requests and issues are welcome. Please open an issue to discuss your idea 
 ## Acknowledgements
 
 - Built with ❤️ by [nrs32](https://github.com/nrs32)
+- You can also find me on [LinkedIn](https://www.linkedin.com/in/nikita-sietsema-5a553a17a/) *(Please note: I do not respond to support requests via LinkedIn.)*

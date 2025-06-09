@@ -68,7 +68,7 @@ export interface CurvyGraphProps {
  * 
  *                   Default is 0.
  * 
- * - animate: Whether to animate the chart on data and layout changes.
+ * - animate: If true, the chart will animate on data and layout changes. Default false.
  *
  * - yAxis: Y-axis configuration object:
  *     - labeledPoints: Array of points with y-values and labels to display on the Y-axis.
@@ -158,7 +158,7 @@ const CurvyGraph = ({ width, height, chartTitle, textColor, spaceBelowData = 0, 
             {(!isResizing && canRender) && 
               <CurvyGraphAnimator id={dataSet.dataId} animate={animate} width={graphWidth} data={dataSet.data} delay={dataSet.animationDelay || 0}>
                 {(refs) => (
-                  <CurvyGraphPart id={dataSet.dataId} animationRefs={refs} style={{ position: "absolute", top: `${dataTop}px`, left: `${dataLeft}px` }} pathStyle={dataSet.styles?.pathStyle} isSharp={isSharp} width={graphWidth} height={graphHeight} spaceBelowData={ spaceBelowData} data={dataSet.data} yRange={dataSet.yRange} gradientColorStops={dataSet.gradientColorStops} gradientTransparencyStops={dataSet.gradientTransparencyStops} gradientDirection={dataSet.gradientDirection} type={dataSet.graphStyle}/>
+                  <CurvyGraphPart id={dataSet.dataId} animationRefs={animate ? refs : undefined} style={{ position: "absolute", top: `${dataTop}px`, left: `${dataLeft}px` }} pathStyle={dataSet.styles?.pathStyle} isSharp={isSharp} width={graphWidth} height={graphHeight} spaceBelowData={ spaceBelowData} data={dataSet.data} yRange={dataSet.yRange} gradientColorStops={dataSet.gradientColorStops} gradientTransparencyStops={dataSet.gradientTransparencyStops} gradientDirection={dataSet.gradientDirection} type={dataSet.graphStyle}/>
                 )}
               </CurvyGraphAnimator>}
             <RightDataLabel style={{ position: "absolute", top: `${dataSet.styles?.labelTop === undefined ? dataTop - 18 : dataTop + dataSet.styles.labelTop}px`, left: `${rightDataLabelLeftPos}px`, ...styles?.rightDataLabels?.style }} textStyle={styles?.rightDataLabels?.textStyle} height={graphHeight} spaceBelowData={ spaceBelowData} onWidthMeasured={(labelWidth) => handleRightLabelWidthMeasured(i, labelWidth)} data={dataSet.data} label={dataSet.label} labelColor={dataSet.labelColor} yRange={dataSet.yRange}/>

@@ -7,6 +7,7 @@ import { PrecipitationGraph } from './precipitation/precipitation-graph';
 import { TempVHumidityCurvyGraph } from './temp-v-humidity/temp-v-humidity-curvy-graph';
 import { TempVHumidityCurvyGraphSmall } from './temp-v-humidity/temp-v-humidity-curvy-graph-small';
 import { TempVHumidityCurvyGraphResponsive } from './temp-v-humidity/temp-v-humidity-curvy-graph-responsive';
+import { CurvyGraph } from 'curvy-graphs';
 
 function App() {
 
@@ -79,6 +80,54 @@ function App() {
         <PrecipitationGraph isCumulative={true}/>
       </Card>
       
+      <p>Basic Example</p>
+      <Card sx={{...tempHumidityCardStyle }}>
+
+        <CurvyGraph
+          chartTitle="Weekly Temperatures"
+          textColor="#E0E1E2"
+          width={613}
+          height={310}
+          yAxis={{
+            labeledPoints: [
+              { y: 0, yLabel: '0°F' },
+              { y: 10, yLabel: '10°F' },
+              { y: 20, yLabel: '20°F' },
+              { y: 30, yLabel: '30°F' },
+            ],
+          }}
+          xAxis={{
+            labeledPoints: [
+              { x: 0, xLabel: 'Mon' },
+              { x: 1, xLabel: 'Tue' },
+              { x: 2, xLabel: 'Wed' },
+              { x: 3, xLabel: 'Thu' },
+              { x: 4, xLabel: 'Fri' },
+              { x: 5, xLabel: 'Sat' },
+              { x: 6, xLabel: 'Sun' },
+            ],
+          }}
+          dataSets={[
+            {
+              dataId: "temperatures",
+              graphStyle: 'line',
+              label: "Temperature",
+              labelColor: '#5D6CE9',
+              gradientColorStops: ['#2FF3E0', '#5D6CE9'],
+              gradientDirection: 'v',
+              data: [
+                { x: 0, y: 12 },
+                { x: 1, y: 15 },
+                { x: 2, y: 18 },
+                { x: 3, y: 20 },
+                { x: 4, y: 17 },
+                { x: 5, y: 14 },
+                { x: 6, y: 13 },
+              ]
+            }
+          ]}
+        />
+      </Card>
     </>
   )
 }
