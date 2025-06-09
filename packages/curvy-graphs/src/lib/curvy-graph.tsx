@@ -133,27 +133,32 @@ const CurvyGraph = ({ width, height, chartTitle, textColor, spaceBelowData = 0, 
   const secondaryAxisTickColor: string = `${textColor}40`;
 
   const dataIsReady: boolean = !!yAxisConfig;
+  const graphTooSmall: boolean = graphWidth < 10 || graphHeight < 10;
+  const canRender = dataIsReady && !graphTooSmall;
 
   return (
-    <div style={{ visibility: dataIsReady ? 'visible' : 'hidden', position: 'relative', height: `${height}px`, width: `${width}px` }}>
-      <ChartTitle title={chartTitle} color={textColor} widthToCenterOn={graphWidth} leftOffset={dataLeft} styles={styles?.chartTitle?.styles}/>
+    <>
+      <div style={{ display: graphTooSmall ? 'flex' : 'none', position: 'relative', height: `${height}px`, width: `${width}px`, textAlign: 'center', alignItems: 'center' }}>Graph is too small to display</div>
+      <div style={{ visibility: canRender ? 'visible' : 'hidden', position: 'relative', height: `${height}px`, width: `${width}px` }}>
+        <ChartTitle title={chartTitle} color={textColor} widthToCenterOn={graphWidth} leftOffset={dataLeft} styles={styles?.chartTitle?.styles}/>
 
-      <YAxis style={{ position: "absolute", top: `${dataTop - 1}px`, left: '0px' }} textStyle={styles?.axis?.textStyle} onConfigMeasured={setYAxisConfig} labeledYPoints={yAxis.labeledPoints} spaceBelowData={ spaceBelowData} getLabel={yAxis.getExtendedYLabel} graphWidth={graphWidth} height={graphHeight} primaryTickColor={styles?.axis?.primaryTickColor || textColor} secondaryTickColor={styles?.axis?.secondaryTickColor || secondaryAxisTickColor} labelColor={textColor} labelFrequency={yAxis.labelFrequency} showGuideLines={yAxis.showGuideLines === undefined ? true : yAxis.showGuideLines}/>
-     
-      {dataSets.map((dataSet, i) => (
-        <React.Fragment key={dataSet.dataId}>
-          {!isResizing && 
-            <CurvyGraphAnimator id={dataSet.dataId} animate={animate} width={graphWidth} data={dataSet.data} delay={dataSet.animationDelay || 0}>
-              {(refs) => (
-                <CurvyGraphPart id={dataSet.dataId} animationRefs={refs} style={{ position: "absolute", top: `${dataTop}px`, left: `${dataLeft}px` }} pathStyle={dataSet.styles?.pathStyle} width={graphWidth} height={graphHeight} spaceBelowData={ spaceBelowData} data={dataSet.data} yRange={dataSet.yRange} gradientColorStops={dataSet.gradientColorStops} gradientTransparencyStops={dataSet.gradientTransparencyStops} gradientDirection={dataSet.gradientDirection} type={dataSet.graphStyle}/>
-              )}
-            </CurvyGraphAnimator>}
-          <RightDataLabel style={{ position: "absolute", top: `${dataSet.styles?.labelTop === undefined ? dataTop - 18 : dataTop + dataSet.styles.labelTop}px`, left: `${rightDataLabelLeftPos}px`, ...styles?.rightDataLabels?.style }} textStyle={styles?.rightDataLabels?.textStyle} height={graphHeight} spaceBelowData={ spaceBelowData} onWidthMeasured={(labelWidth) => handleRightLabelWidthMeasured(i, labelWidth)} data={dataSet.data} label={dataSet.label} labelColor={dataSet.labelColor} yRange={dataSet.yRange}/>
-        </React.Fragment>
-      ))}
+        <YAxis style={{ position: "absolute", top: `${dataTop - 1}px`, left: '0px' }} textStyle={styles?.axis?.textStyle} onConfigMeasured={setYAxisConfig} labeledYPoints={yAxis.labeledPoints} spaceBelowData={ spaceBelowData} getLabel={yAxis.getExtendedYLabel} graphWidth={graphWidth} height={graphHeight} primaryTickColor={styles?.axis?.primaryTickColor || textColor} secondaryTickColor={styles?.axis?.secondaryTickColor || secondaryAxisTickColor} labelColor={textColor} labelFrequency={yAxis.labelFrequency} showGuideLines={yAxis.showGuideLines === undefined ? true : yAxis.showGuideLines}/>
+      
+        {dataSets.map((dataSet, i) => (
+          <React.Fragment key={dataSet.dataId}>
+            {(!isResizing && canRender) && 
+              <CurvyGraphAnimator id={dataSet.dataId} animate={animate} width={graphWidth} data={dataSet.data} delay={dataSet.animationDelay || 0}>
+                {(refs) => (
+                  <CurvyGraphPart id={dataSet.dataId} animationRefs={refs} style={{ position: "absolute", top: `${dataTop}px`, left: `${dataLeft}px` }} pathStyle={dataSet.styles?.pathStyle} width={graphWidth} height={graphHeight} spaceBelowData={ spaceBelowData} data={dataSet.data} yRange={dataSet.yRange} gradientColorStops={dataSet.gradientColorStops} gradientTransparencyStops={dataSet.gradientTransparencyStops} gradientDirection={dataSet.gradientDirection} type={dataSet.graphStyle}/>
+                )}
+              </CurvyGraphAnimator>}
+            <RightDataLabel style={{ position: "absolute", top: `${dataSet.styles?.labelTop === undefined ? dataTop - 18 : dataTop + dataSet.styles.labelTop}px`, left: `${rightDataLabelLeftPos}px`, ...styles?.rightDataLabels?.style }} textStyle={styles?.rightDataLabels?.textStyle} height={graphHeight} spaceBelowData={ spaceBelowData} onWidthMeasured={(labelWidth) => handleRightLabelWidthMeasured(i, labelWidth)} data={dataSet.data} label={dataSet.label} labelColor={dataSet.labelColor} yRange={dataSet.yRange}/>
+          </React.Fragment>
+        ))}
 
-      <XAxis style={{ position: "absolute", top: `${graphHeight + dataTop + 7}px`, left: `${dataLeft}px` }} textStyle={styles?.axis?.textStyle} width={graphWidth} data={xAxis.labeledPoints} labelFrequency={xAxis.labelFrequency} primaryTickColor={styles?.axis?.primaryTickColor || textColor} secondaryTickColor={styles?.axis?.secondaryTickColor || secondaryAxisTickColor} labelColor={textColor}/>
-    </div>
+        <XAxis style={{ position: "absolute", top: `${graphHeight + dataTop + 7}px`, left: `${dataLeft}px` }} textStyle={styles?.axis?.textStyle} width={graphWidth} data={xAxis.labeledPoints} labelFrequency={xAxis.labelFrequency} primaryTickColor={styles?.axis?.primaryTickColor || textColor} secondaryTickColor={styles?.axis?.secondaryTickColor || secondaryAxisTickColor} labelColor={textColor}/>
+      </div>
+    </>
   )
 }
 

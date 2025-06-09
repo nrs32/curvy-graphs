@@ -6,10 +6,14 @@ import { hourlyTemps } from './temp-v-humidity/hourly-temps';
 import { getCombinedYRange, getTempAndHumidityLabel, getTemperatureLabel } from './temp-v-humidity/temp-v-humidity-utils';
 import getLabeledYPoints from './weekly-temps/weekly-temp-utils';
 import { WeeklyTempsGraph } from './weekly-temps/weekly-temps-graph';
+import { WaterLevelGraph } from './water-level-ludington/water-level-graph';
 
 function App() {
 
   // TODO: make many chart examples and populate readme
+  // TODO: one more chart example
+  // TODO: refactor to label points on hover somehow (?)
+  // TODO: handle chart too small for the other svgs as well, happens if the calcuated px is negative -- have responsive graph say something about that for curvy graph to not render any of its parts if thats the case
 
   const tempHumidityCardStyle: React.CSSProperties = {
     position: 'relative',
@@ -24,6 +28,7 @@ function App() {
   return (
     <>
       <h1 style={{ marginLeft: '20px' }}>Chart Demo</h1>
+      <p>Data For Humidity and Temperature graph, and min/avg/max Temperatures from openmeteo 2025</p>
       <p>Using Parts</p>
       <Card sx={tempHumidityCardStyle}>
         <TempVHumidityGraphFromParts/>
@@ -242,6 +247,14 @@ function App() {
       <p>Area graph</p>
       <Card sx={{...tempHumidityCardStyle, width: '582px', height: '349px'}}>
         <WeeklyTempsGraph/>
+      </Card>
+
+      <p>Tidal no gradient</p>
+      <p>Data For water levels from <a href="https://tidesandcurrents.noaa.gov/waterlevels.html?id=9087023&type=Tide+Data&name=Ludington&state=MI" target="_blank">NOAA</a> @ Ludington Beach, Michigan</p>
+      <p>Inches above LWD (576 ft for Lake Michigan)</p>
+      <p>LWD is the standardized low point for lake michigan used to compare and track water levels</p>
+      <Card sx={{...tempHumidityCardStyle, width: '500px', height: '390px', background: `#040940`}}>
+        <WaterLevelGraph/>
       </Card>
     </>
   )
