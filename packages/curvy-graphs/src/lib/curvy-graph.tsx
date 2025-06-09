@@ -81,16 +81,16 @@ export interface CurvyGraphProps {
  *     - labelFrequency: How often tick labels should show (every nth tick is labeled; e.g., 5 means every 5th tick is labeled). Default is 1.
  *
  * - dataSets: Array of DataSet objects, each describing a graph:
- *    - dataId: Unique key for the dataset (no spaces).
+ *    - dataId: Unique key accross all charts (no spaces).
  *    - graphStyle: ('line', 'dashed-line', 'area').
- *    - label: Label for the data to appear to the right.
+ *    - label: Label that appears to the right of the dataset.
  *    - labelColor: Color for the right data label.
- *    - gradientColorStops: [startColor, endColor] for the graph gradient.
+ *    - gradientColorStops: [startColor, endColor] for the graph gradient.  Use the same hex for both if no gradient is needed.
  *    - gradientTransparencyStops: [startOpacity, endOpacity] for gradient transparency (optional).
  *    - gradientDirection: 'v' or 'h' for vertical/horizontal gradient.
- *    - yRange: [minY, maxY] Optional y-axis range, if different than the dataSet's min/max values.
+ *    - yRange: [minY, maxY] Custom Y-axis range for this dataset. Default is your data's min and max.
  *    - animationDelay: Delay before animating this dataset (seconds). Can create stagger effects. Default 0.
- *    - data: Array of Point objects.
+ *    - data: Array of data points `{ x: number | null, y: number | null }`. Null is accepted for data breaks.
  *    - styles: Optional custom styles for labelLeft and labelTop position in px, and pathStyle to style the svg path element directly.
  * 
  * - styles: Custom styles configuration object:
@@ -106,7 +106,7 @@ export interface CurvyGraphProps {
  *         - textStyle: style svg text element directly
  *
  * - isResizing: If true, disables animation until resizing completes. Use for responsive charts.
- * - isSharp: If true, renders straight lines between data points (sharp/linear). If false, renders smooth, curvy lines using Bézier curves. Default is false (curvy).
+ * - isSharp: If true, renders sharp/linear lines between points. Default is false (curvy).
  */
 const CurvyGraph = ({ width, height, chartTitle, textColor, spaceBelowData = 0, animate = false, yAxis, dataSets, xAxis, isResizing = false, isSharp = false, styles }: CurvyGraphProps) => {
   if (spaceBelowData > 0 && yAxis.getExtendedYLabel === undefined) {
