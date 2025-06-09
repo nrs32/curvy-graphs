@@ -163,6 +163,19 @@ The result is this
 
 ## API Reference
 
+### `<CurvyGraph />`
+
+A comprehensive, all-in-one graph component.
+
+
+
+
+### `<ResponsiveCurvyGraph />`
+A comprehensive, all-in-one graph component supporting responsive layouts.
+
+### Parts
+For even greater customization, use the graph parts that make `CurvyGraph` directly.
+
 
 ## Customization & Styling
 
