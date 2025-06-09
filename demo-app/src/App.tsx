@@ -8,13 +8,15 @@ import getLabeledYPoints from './weekly-temps/weekly-temp-utils';
 import { WeeklyTempsGraph } from './weekly-temps/weekly-temps-graph';
 import { WaterLevelGraph } from './water-level-ludington/water-level-graph';
 import { TempVApparentGraph } from './temp-v-apparent/temp-v-apparent-graph';
+import { PrecipitationGraph } from './precipitation/precipitation-graph';
 
 function App() {
 
   // TODO: make many chart examples and populate readme (dashboard considaration)
   // TODO: refactor to label points on hover somehow (?)
   // TODO: add sharp instead of curvy
-  // TODO: remove space below chart in favor of y-range exansion (?)
+
+  // TODO: furture could potentially support: sharp lines with optional dots at data points, other charts like bar and pie
 
   const tempHumidityCardStyle: React.CSSProperties = {
     position: 'relative',
@@ -104,7 +106,7 @@ function App() {
           textColor='#E0E1E2'
           animate={true}
           yAxis={{
-            labeledPoints: getCombinedYRange(hourlyTemps.map(temp => temp.y)),
+            labeledPoints: getCombinedYRange(hourlyTemps.map(temp => temp.y) as number[]),
             getExtendedYLabel: (y) => getTempAndHumidityLabel(getTemperatureLabel(y), 'N/A'),
             labelFrequency: 5,
           }}
@@ -184,7 +186,7 @@ function App() {
             textColor='#E0E1E2'
             animate={true}
             yAxis={{
-              labeledPoints: getCombinedYRange(hourlyTemps.map(temp => temp.y)),
+              labeledPoints: getCombinedYRange(hourlyTemps.map(temp => temp.y) as number[]),
               getExtendedYLabel: (y) => getTempAndHumidityLabel(getTemperatureLabel(y), 'N/A'),
               labelFrequency: 5,
             }}
@@ -261,6 +263,15 @@ function App() {
       <Card sx={{...tempHumidityCardStyle, background: `#f4f6f8`}}>
         <TempVApparentGraph/>
       </Card>
+
+      <p>Cumulative Precipitation - different color/style example - sharp</p>
+      <p>Data for precipitation <a href="https://www.wunderground.com/history" target='_blank'>wunderground</a> GR, Michigan</p>
+      <Card sx={{...tempHumidityCardStyle, background: `#ffffff`, height: '645px' }}>
+        <PrecipitationGraph isCumulative={false}/>
+        <div style={{ height: '45px', width: '100%' }}></div>
+        <PrecipitationGraph isCumulative={true}/>
+      </Card>
+      
     </>
   )
 }
