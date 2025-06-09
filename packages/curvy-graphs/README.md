@@ -136,26 +136,28 @@ import { ResponsiveCurvyGraph } from 'curvy-graphs';
 ```
 
 The result is this
-![Basic Temperatures Graph](https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/basicWeeklyTemperatureExample.png)
+![Responsive Temperatures Graph](https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/responsiveExample.gif)
 
 We can also add animation like this:
 ```tsx
-  <ResponsiveCurvyGraph
-    width={'100%'}
-    height={310}
-    animate={true}
-    // ... rest of props ...
-    dataSets={[
-      {
-        // ... other props ...
-        animationDelay: 0, // Default is 0, but this is where you can set delays
-      }
-    ]}
-  />
+import { ResponsiveCurvyGraph } from 'curvy-graphs';
+
+<ResponsiveCurvyGraph
+  width={'100%'}
+  height={310}
+  animate={true}
+  // ... rest of props ...
+  dataSets={[
+    {
+      // ... other props ...
+      animationDelay: 0, // Default is 0, but this is where you can set delays
+    }
+  ]}
+/>
 ```
 
 The result is this
-![Basic Temperatures Graph](https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/basicWeeklyTemperatureExample.png)
+![Animated Responsive Temperatures Graph](https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/responsiveAnimatedExample.gif)
 
 ---
 
