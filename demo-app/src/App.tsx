@@ -11,8 +11,7 @@ import { CurvyGraph, ResponsiveCurvyGraph } from 'curvy-graphs';
 
 function App() {
 
-  // TODO: make many chart examples and populate readme 
-  // TODO: dashboard considaration
+  // TODO: Add to readme additional chart examples
   // TODO: refactor to label points on hover somehow (?)
   // TODO: furture could potentially support: sharp lines with optional dots at data points, other charts like bar and pie
 
