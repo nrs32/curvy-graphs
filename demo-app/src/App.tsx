@@ -1,5 +1,5 @@
 import Card from '@mui/material/Card';
-import TempVHumidityGraphFromParts from './temp-v-humidity/temp-v-humidity-parts-demo';
+import TempVHumidityGraphFromParts from './temp-v-humidity/temp-v-humidity-curvy-graph-parts';
 import { WeeklyTempsGraph } from './weekly-temp-trend/weekly-temps-graph';
 import { WaterLevelGraph } from './water-level-ludington/water-level-graph';
 import { TempVApparentGraph } from './temp-v-apparent/temp-v-apparent-graph';
