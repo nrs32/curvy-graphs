@@ -1,5 +1,5 @@
 import { CurvyGraph, type LabeledXPoint } from "curvy-graphs"
-import { determineYRangePoints } from "curvy-graphs/parts";
+import { generateLabeledYPoints } from "curvy-graphs/parts";
 import { getMinMaxTemps, tempVApparentData } from "./temp-v-apparent-data";
 import { getTemperatureLabel } from "../temp-v-humidity/temp-v-humidity-utils";
 
@@ -8,7 +8,7 @@ export const TempVApparentGraph = () => {
   const yRange: [number, number] = [minMaxTemps[0] - 4, minMaxTemps[1]];
 
   const xPoints: LabeledXPoint[] = tempVApparentData.map((data, i) => ({ x: i, xLabel: data.time }));
-  const yRangeLabels = determineYRangePoints(yRange, 10, getTemperatureLabel);
+  const yRangeLabels = generateLabeledYPoints(yRange, 11, getTemperatureLabel);
 
   return <CurvyGraph 
       chartTitle='Actual And Apparent Temperature' 

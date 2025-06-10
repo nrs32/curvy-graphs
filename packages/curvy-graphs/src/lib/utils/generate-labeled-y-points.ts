@@ -13,7 +13,7 @@ import type { LabeledYPoint } from "../types/graph-types";
  * @param getLabel - Function to generate a label for each Y value
  * @returns An array of LabeledYPoint objects with evenly spaced y values and generated labels
  */
-const determineYRangePoints = (
+const generateLabeledYPoints = (
   yRange: [number, number],
   totalDataPoints: number,
   getLabel: (y: number) => string,
@@ -33,4 +33,4 @@ const determineYRangePoints = (
   return labeledYPoints;
 }
 
-export default determineYRangePoints;
+export default generateLabeledYPoints;

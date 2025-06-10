@@ -1,5 +1,5 @@
 import type { LabeledYPoint } from "curvy-graphs";
-import { determineYRangePoints } from "curvy-graphs/parts";
+import { generateLabeledYPoints } from "curvy-graphs/parts";
 
 export const getTempAndHumidityLabel = (tempLabel: string, humidityLabel: string): string => {
 	return `${tempLabel} • ${humidityLabel}`
@@ -11,12 +11,12 @@ export const getCombinedYRange = (temperatures: number[]): LabeledYPoint[] => {
 	// So we can combine the lables for each data set
 	// And they should line up correctly on the graph
 
-	const totalDataPoints = 23;
+	const totalDataPoints = 24;
 	const maxTemp: number = Math.max(...temperatures);
 	const minTemp: number = Math.min(...temperatures);
-	const tempLabels: LabeledYPoint[] = determineYRangePoints([minTemp, maxTemp], totalDataPoints, getTemperatureLabel);
+	const tempLabels: LabeledYPoint[] = generateLabeledYPoints([minTemp, maxTemp], totalDataPoints, getTemperatureLabel);
 
-	const humidityLabels: LabeledYPoint[] = determineYRangePoints([0, 100], totalDataPoints, getHumidityLabel);
+	const humidityLabels: LabeledYPoint[] = generateLabeledYPoints([0, 100], totalDataPoints, getHumidityLabel);
 
 	return tempLabels.map((tempY, i) => ({
 		...tempY,

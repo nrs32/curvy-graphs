@@ -1,6 +1,6 @@
 import { CurvyGraph, type LabeledXPoint } from "curvy-graphs"
-import { determineYRangePoints } from "curvy-graphs/parts";
-import { cumulativeRainfall2015, cumulativeRainfall2020, cumulativeRainfall2025, rainfall2015, rainfall2020, rainfall2025 } from "./precipitation-data-";
+import { generateLabeledYPoints } from "curvy-graphs/parts";
+import { cumulativeRainfall2015, cumulativeRainfall2020, cumulativeRainfall2025, rainfall2015, rainfall2020, rainfall2025 } from "./precipitation-data";
 
 export type PrecipitationGraphProps = { isCumulative: boolean };
 
@@ -10,7 +10,7 @@ export const PrecipitationGraph = ({ isCumulative }: PrecipitationGraphProps) =>
   const getYLabel = (y: number) => `${Math.round(y)} in`;
 
   const xRangeLabels: LabeledXPoint[] = rainfall2025.map((data, i) => ({ x: i, xLabel: data.xLabel }));
-  const yRangeLabels = determineYRangePoints(yRange, 5, getYLabel);
+  const yRangeLabels = generateLabeledYPoints(yRange, 6, getYLabel);
 
   return <CurvyGraph 
       chartTitle={`${isCumulative ? 'Cumulative ' : 'Monthly'} Precipitation`}

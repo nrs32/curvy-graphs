@@ -185,7 +185,7 @@ A comprehensive, all-in-one graph component.
 - **yAxis**: `{ ... }` — Y-axis configuration:
   - **labeledPoints**: `LabeledYPoint[]` — Array of `{ y, yLabel }` for axis labels and ticks.
   
-    Note: The `determineYRangePoints` helper function can generate your labeledYPoints! There is a section for `determineYRangePoints` under [Parts - Advanced Use](#parts---advanced-use).
+    Note: The `generateLabeledYPoints` helper function can generate your labeledYPoints! There is a section for `generateLabeledYPoints` under [Parts - Advanced Use](#parts---advanced-use).
   - **getExtendedYLabel**: `(y: number) => string` (optional) — Used to label the extra Y-axis space added when `spaceBelowData` is used. Defaults to empty labels.
   - **labelFrequency**: `number` (optional) — Show a label on every nth tick mark. Default is 1.
   - **showGuideLines**: `boolean` (optional) — Show horizontal guidelines behind chart. Default is true.
@@ -294,7 +294,7 @@ For even greater customization, use the graph parts that make `CurvyGraph` direc
   - **height**: `number` — The height of the y-axis in pixels (should match chart height).
   - **graphWidth**: `number` — The width of the chart area, used for drawing guidelines.
   - **labelFrequency**: `number` (optional) — How often tick labels should show (every nth tick is labeled; 5 means every 5th tick will be labeled). Default is 1.
-  - **labeledYPoints**: `{ yLabel: string, y: number }[]` — Array of labeled Y points, each with a value and label. The `determineYRangePoints` utils function is exported as part of the library. You can use this to help create your labeledYPoints! See `determineYRangePoints` as a bullet point below.
+  - **labeledYPoints**: `{ yLabel: string, y: number }[]` — Array of labeled Y points, each with a value and label. The `generateLabeledYPoints` utils function is exported as part of the library. You can use this to help create your labeledYPoints! See `generateLabeledYPoints` as a bullet point below.
   - **spaceBelowData**: `number` (optional) — Extra space below the lowest data point for visual padding.
   - **getLabel**: `(y: number) => string` (optional) — Function that provides a y coordinate and expects a label for that coordinate. Used to fill the y-axis labels for the spaceBelowData if a value > 0 was provided. If no callback is defined, the extra labels will be empty strings.
   - **yRange**: `[number, number]` (optional) — Y-axis range to use instead of normalized values from your data min and max.
@@ -317,7 +317,7 @@ For even greater customization, use the graph parts that make `CurvyGraph` direc
   - **style**: `React.CSSProperties` (optional) — CSS styles for the container div.
   - **textStyle**: `React.CSSProperties` (optional) — CSS styles for the SVG text element directly. Can also override default values.
 
-- `determineYRangePoints` 
+- `generateLabeledYPoints` 
 
   Utils function that produces an array of evenly distributed `LabeledYPoint` - `{ yLabel: string, y: number }[]` objects across a given Y-axis range.
     

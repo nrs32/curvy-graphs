@@ -2,14 +2,14 @@ import { CurvyGraph, type LabeledYPoint } from "curvy-graphs"
 import { getTemperatureLabel } from "../temp-v-humidity/temp-v-humidity-utils"
 import { weeklyMins } from "./weekly-mins";
 import { weeklyMaxes } from "./weekly-maxes";
-import { determineYRangePoints } from "curvy-graphs/parts";
+import { generateLabeledYPoints } from "curvy-graphs/parts";
 import { weeklyAvgs } from "./weekly-avgs";
 
 export const WeeklyTempsGraph = () => {
   const weeklyMin: number = Math.min(...weeklyMins.map(day => day.y));
   const weeklyMax: number = Math.max(...weeklyMaxes.map(day => day.y));
 
-  const dailyYPoints: LabeledYPoint[] = determineYRangePoints([weeklyMin, weeklyMax], 23, getTemperatureLabel);
+  const dailyYPoints: LabeledYPoint[] = generateLabeledYPoints([weeklyMin, weeklyMax], 24, getTemperatureLabel);
 
   return <CurvyGraph 
     chartTitle='Temperature Trend This Week' 

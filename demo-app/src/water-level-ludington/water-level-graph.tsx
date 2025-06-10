@@ -1,11 +1,11 @@
 import { CurvyGraph } from "curvy-graphs"
 import { getMinMaxWaterLevel, waterLevels5th, waterLevels6th, waterLevels7th } from "./water-level-data"
-import { determineYRangePoints } from "curvy-graphs/parts";
+import { generateLabeledYPoints } from "curvy-graphs/parts";
 
 export const WaterLevelGraph = () => {
   const minMaxWaterLevel = getMinMaxWaterLevel();
   const yRange: [number, number] = [minMaxWaterLevel[0] - 1, minMaxWaterLevel[1] + 1];
-  const yRangeLabels = determineYRangePoints(yRange, 15, (y) => `${Math.round(y)} in.`);
+  const yRangeLabels = generateLabeledYPoints(yRange, 15, (y) => `${Math.round(y)} in.`);
 
   return <CurvyGraph 
       chartTitle='Hourly Water Levels*' 
