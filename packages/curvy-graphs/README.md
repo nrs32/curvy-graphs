@@ -26,14 +26,25 @@ Basic code examples are included in the readme, these charts are more advanced, 
 ![Humidity And Temperature](https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/humidityAndTemperature.gif)
 **Caret buttons used to change the date in the Humidity And Temperature chart are not part of this graph library.*
   
-![Temperature Trend](https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/tempTrend.gif)
-  
-![Water Levels](https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/waterLevels.png)
-  
-![Actual and Apparent Temperature](https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/actualAndApparentTemperature.png)
-  
-![Precipitation](https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/precipitation.png)
-  
+<table border="0" style="border-collapse: collapse; border: none;">
+  <tr>
+    <td style="border: none; padding: 0;">
+      <img src="https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/tempTrend.gif" width="100%" alt="Temperature Trend" />
+    </td>
+    <td style="border: none; padding: 0;">
+      <img src="https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/waterLevels.png" width="100%" alt="Water Levels" />
+    </td>
+  </tr>
+  <tr>
+    <td style="border: none; padding: 0;">
+      <img src="https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/actualAndApparentTemperature.png" width="100%" alt="Actual and Apparent Temperature" />
+    </td>
+    <td style="border: none; padding: 0;">
+      <img src="https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/precipitation.png" width="100%" alt="Precipitation" />
+    </td>
+  </tr>
+</table>
+
 ---
 
 ## Installation
