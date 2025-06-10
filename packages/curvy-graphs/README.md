@@ -214,8 +214,10 @@ For simplicity, the example graphs use hard-coded data.
 - **isSharp**: `boolean` (optional) — If true, renders sharp/linear lines between points. Default is false (curvy).
 
 - **yAxis**: `{ ... }` — Y-axis configuration:
-  - **labeledPoints**: `LabeledYPoint[]` — Array of `{ y, yLabel }` for axis labels and ticks.
+  - **labeledPoints**: `LabeledYPoint[]` — Array of `{ y, yLabel }` for axis labels and ticks. See [`generateLabeledYPoints`](#generatelabeledypoints-helper-method) for a helper method that can generate your LabeledYPoints!
+  - **getExtendedYLabel**: `(y: number) => string` (optional) callback to label extended Y-axis space (used when spaceBelowData > 0). Defaults to empty labels.
   - **labelFrequency**: `number` (optional) — Show a label on every nth tick mark. Default is 1.
+  - **showGuidelines**: `boolean` (optional) - If true, horizontal guidelines will display behind the chart for each primary (labeled) tick. Default is true.
 
 - **dataSets**: `DataSet[]` — Array of datasets to plot. Each dataset:
   - **dataId**: `string` — Unique key accross all charts (no spaces).
@@ -355,7 +357,7 @@ For even greater customization, use the graph parts that make `CurvyGraph` direc
   - **primaryTickColor**: `string` — Color for primary (labeled) tick marks.
   - **secondaryTickColor**: `string` — Color for secondary (unlabeled) tick marks and guidelines.
   - **labelColor**: `string` — Color for the Y-axis labels.
-  - **showGuideLines**: `boolean` (optional) — Whether to display horizontal guidelines for each primary (labeled) tick.
+  - **showGuideLines**: `boolean` (optional) — If true, horizontal guidelines will display behind the chart for each primary (labeled) tick. Default is true.
   - **style**: `React.CSSProperties` (optional) — CSS styles for the Y-axis container.
   - **textStyle**: `React.CSSProperties` (optional) — CSS styles for the labels of the axis.
 
