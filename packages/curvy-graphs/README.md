@@ -21,7 +21,9 @@ A modern, highly customizable React component library for rendering beautiful, a
 ## Examples
 Below are example charts created with this library to showcase its possibilities.
 
-Basic code examples are included in the readme, these first few example are more advanced. To see the code for these charts, click on the images. For simplicity, data has been hard-coded in the example graphs.
+Basic usage examples are included later in this README. The examples below demonstrate more advanced use cases.
+
+Click on any image to view the source code for that chart. For simplicity, the example graphs use hard-coded data.
 
 <a href="https://github.com/nrs32/curvy-graphs/blob/main/demo-app/src/temp-v-humidity/temp-v-humidity-curvy-graph-responsive.tsx" target="_blank">
   <img src="https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/humidityAndTemperature.gif" alt="Humidity And Temperature" />
