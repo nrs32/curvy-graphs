@@ -1,3 +1,4 @@
+// Data from https://open-meteo.com/
 export const weeklyAvgs = [
     {
         "x": 0,

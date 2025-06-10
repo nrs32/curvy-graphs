@@ -1,3 +1,4 @@
+// Data compiled from https://tidesandcurrents.noaa.gov/waterlevels.html?id=9087023&type=Tide+Data&name=Ludington&state=MI
 // x is month 0 - 11
 // y is in above LWD
 

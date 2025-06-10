@@ -1,5 +1,6 @@
 import type { Point } from "curvy-graphs";
 
+// Data from https://open-meteo.com/
 export const hourlyHumidity: Point[] = [
 	{
 		"x": 0,

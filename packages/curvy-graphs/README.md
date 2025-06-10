@@ -21,26 +21,37 @@ A modern, highly customizable React component library for rendering beautiful, a
 ## Examples
 Below are example charts created with this library to showcase its possibilities.
 
-Basic code examples are included in the readme, these charts are more advanced, to see their code, go here....
+Basic code examples are included in the readme, these first few example are more advanced. To see the code for these charts, click on the images. For simplicity, data has been hard-coded in the example graphs.
 
-![Humidity And Temperature](https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/humidityAndTemperature.gif)
+<a href="https://github.com/nrs32/curvy-graphs/blob/main/demo-app/src/temp-v-humidity/temp-v-humidity-curvy-graph-responsive.tsx" target="_blank">
+  <img src="https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/humidityAndTemperature.gif" alt="Humidity And Temperature" />
+</a>
+
 **Caret buttons used to change the date in the Humidity And Temperature chart are not part of this graph library.*
-  
+
 <table border="0" style="border-collapse: collapse; border: none;">
   <tr style="border: none;">
     <td style="border: none; padding: 0;">
-      <img src="https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/tempTrend.gif" width="100%" alt="Temperature Trend" />
+      <a href="https://github.com/nrs32/curvy-graphs/blob/main/demo-app/src/weekly-temps/weekly-temps-graph.tsx" target="_blank">
+        <img src="https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/tempTrend.gif" width="100%" alt="Temperature Trend" />
+      </a>
     </td>
     <td style="border: none; padding: 0; background: none;">
-      <img src="https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/actualAndApparentTemperature.png" width="100%" alt="Actual and Apparent Temperature" />
+      <a href="https://github.com/nrs32/curvy-graphs/blob/main/demo-app/src/temp-v-apparent/temp-v-apparent-graph.tsx" target="_blank">
+        <img src="https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/actualAndApparentTemperature.png" width="100%" alt="Actual and Apparent Temperature" />
+      </a>
     </td>
   </tr>
   <tr style="background: none; border: none;">
     <td style="border: none; padding: 0; background: none;">
-      <img src="https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/precipitation.png" width="100%" alt="Precipitation" />
+      <a href="https://github.com/nrs32/curvy-graphs/blob/main/demo-app/src/precipitation/precipitation-graph.tsx" target="_blank">
+        <img src="https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/precipitation.png" width="100%" alt="Precipitation" />
+      </a>
     </td>
     <td style="border: none; padding: 0;">
-      <img src="https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/waterLevels.png" width="100%" alt="Water Levels" />
+      <a href="https://github.com/nrs32/curvy-graphs/blob/main/demo-app/src/water-level-ludington/water-level-graph.tsx" target="_blank">
+        <img src="https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/waterLevels.png" width="100%" alt="Water Levels" />
+      </a>
     </td>
   </tr>
 </table>
@@ -195,14 +206,6 @@ A comprehensive, all-in-one graph component.
 
 - **yAxis**: `{ ... }` — Y-axis configuration:
   - **labeledPoints**: `LabeledYPoint[]` — Array of `{ y, yLabel }` for axis labels and ticks.
-  
-    Note: The [`generateLabeledYPoints`](#generatelabeledypoints-helper-method) helper function can generate your labeledYPoints!
-  - **getExtendedYLabel**: `(y: number) => string` (optional) — Used to label the extra Y-axis space added when `spaceBelowData` is used. Defaults to empty labels.
-  - **labelFrequency**: `number` (optional) — Show a label on every nth tick mark. Default is 1.
-  - **showGuideLines**: `boolean` (optional) — Show horizontal guidelines behind chart. Default is true.
-
-- **xAxis**: `{ ... }` — X-axis configuration:
-  - **labeledPoints**: `LabeledXPoint[]` — Array of `{ x, xLabel, xSubLabel? }` for axis ticks.
   - **labelFrequency**: `number` (optional) — Show a label on every nth tick mark. Default is 1.
 
 - **dataSets**: `DataSet[]` — Array of datasets to plot. Each dataset:

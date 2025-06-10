@@ -1,3 +1,4 @@
+// Data compiled from https://www.wunderground.com/history
 export const cumulativeRainfall2015 = [
   { x: 0, xLabel: 'Jan', y: 1.37 },
   { x: 1, xLabel: 'Feb', y: 2.22 },

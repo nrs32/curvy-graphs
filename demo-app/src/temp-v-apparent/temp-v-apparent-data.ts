@@ -1,3 +1,4 @@
+// Data from https://open-meteo.com/
 export const tempVApparentData = [
     {
         "time": "12 AM",

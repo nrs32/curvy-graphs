@@ -1,5 +1,6 @@
 import type { LabeledXPoint, Point } from "curvy-graphs";
 
+// Data from https://open-meteo.com/
 export const hourlyTemps: (LabeledXPoint & Point)[] = [
 	{
 		"x": 0,
