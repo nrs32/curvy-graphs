@@ -20,7 +20,7 @@ export const WaterLevelGraph = () => {
       }}
       dataSets={[
         {
-          dataId: 'water-levels-5th',
+          id: 'water-levels-5th',
           graphStyle: 'area',
           label: 'Wednesday',
           labelColor: '#174a66',
@@ -31,7 +31,7 @@ export const WaterLevelGraph = () => {
           data: waterLevels5th,
         },
         {
-          dataId: 'water-levels-6th',
+          id: 'water-levels-6th',
           graphStyle: 'area',
           label: 'Yesterday',
           labelColor: '#257480',
@@ -42,7 +42,7 @@ export const WaterLevelGraph = () => {
           data: waterLevels6th,
         },
         {
-          dataId: 'water-levels-7th',
+          id: 'water-levels-7th',
           graphStyle: 'area',
           label: 'Today',
           labelColor: '#00bad9',

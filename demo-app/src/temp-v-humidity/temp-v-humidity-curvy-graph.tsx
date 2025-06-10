@@ -21,7 +21,7 @@ export const TempVHumidityCurvyGraph = () => {
       }}
       dataSets={[
         {
-          dataId: 'humidity',
+          id: 'humidity',
           graphStyle: 'dashed-line',
           label: 'HUMIDITY',
           labelColor: themePinkLight,
@@ -32,7 +32,7 @@ export const TempVHumidityCurvyGraph = () => {
           data: hourlyHumidity,
         },
         {
-          dataId: 'temperature-line',
+          id: 'temperature-line',
           graphStyle: 'line',
           label: 'TEMPERATURE',
           labelColor: themePurpleMain,
@@ -42,7 +42,7 @@ export const TempVHumidityCurvyGraph = () => {
           data: hourlyTemps,
         },
         {
-          dataId: 'temperature-area',
+          id: 'temperature-area',
           graphStyle: 'area',
           label: '',
           labelColor: themePurpleMain,

@@ -115,7 +115,7 @@ function App() {
           }}
           dataSets={[
             {
-              dataId: 'temperatures',
+              id: 'temperatures',
               graphStyle: 'line',
               label: 'Temperature',
               labelColor: '#5D6CE9',
@@ -171,7 +171,7 @@ function App() {
             }}
             dataSets={[
               {
-                dataId: 'responsive-temperatures',
+                id: 'responsive-temperatures',
                 graphStyle: 'line',
                 label: 'Temperature',
                 labelColor: '#5D6CE9',

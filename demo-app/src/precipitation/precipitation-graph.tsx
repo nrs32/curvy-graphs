@@ -36,7 +36,7 @@ export const PrecipitationGraph = ({ isCumulative }: PrecipitationGraphProps) =>
       }}
       dataSets={[
         {
-          dataId: 'cumulative-precipation-2015',
+          id: 'cumulative-precipation-2015',
           graphStyle: 'line',
           label: '2015',
           labelColor: ORANGE,
@@ -47,7 +47,7 @@ export const PrecipitationGraph = ({ isCumulative }: PrecipitationGraphProps) =>
           data: isCumulative ? cumulativeRainfall2015 : rainfall2015,
         },
         {
-          dataId: 'cumulative-precipation-2020',
+          id: 'cumulative-precipation-2020',
           graphStyle: 'line',
           label: '2020',
           labelColor: PURPLE,
@@ -58,7 +58,7 @@ export const PrecipitationGraph = ({ isCumulative }: PrecipitationGraphProps) =>
           data: isCumulative ? cumulativeRainfall2020 : rainfall2020,
         },
         {
-          dataId: 'cumulative-precipation-2025',
+          id: 'cumulative-precipation-2025',
           graphStyle: 'line',
           label: '2025',
           labelColor: PURPLE_BLUE,

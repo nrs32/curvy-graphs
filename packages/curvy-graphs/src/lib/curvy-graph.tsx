@@ -81,7 +81,7 @@ export interface CurvyGraphProps {
  *     - labelFrequency: How often tick labels should show (every nth tick is labeled; e.g., 5 means every 5th tick is labeled). Default is 1.
  *
  * - dataSets: Array of DataSet objects, each describing a graph:
- *    - dataId: Unique key accross all charts (no spaces).
+ *    - id: Unique key accross all charts (no spaces).
  *    - graphStyle: ('line', 'dashed-line', 'area').
  *    - label: Label that appears to the right of the dataset.
  *    - labelColor: Color for the right data label.
@@ -113,9 +113,9 @@ const CurvyGraph = ({ width, height, chartTitle, textColor, spaceBelowData = 0, 
     console.warn("CurvyGraph: `getExtendedYLabel` should be provided when `spaceBelowData` is used.");
   }
 
-  const dataSetsWithSpaces = dataSets.filter(data => data.dataId.includes(' '));
+  const dataSetsWithSpaces = dataSets.filter(data => data.id.includes(' '));
   if (dataSetsWithSpaces.length > 0) {
-    console.error(`CurvyGraph: 'dataId' can not contain spaces. dataId: '${dataSetsWithSpaces[0].dataId}' for chart "${chartTitle}" is invalid.`);
+    console.error(`CurvyGraph: 'id' can not contain spaces. id: '${dataSetsWithSpaces[0].id}' for chart "${chartTitle}" is invalid.`);
   }
 
   const rightLabelWidths = useRef<number[]>([]);
@@ -154,11 +154,11 @@ const CurvyGraph = ({ width, height, chartTitle, textColor, spaceBelowData = 0, 
         <YAxis style={{ position: "absolute", top: `${dataTop - 1}px`, left: '0px' }} textStyle={styles?.axes ?.textStyle} onConfigMeasured={setYAxisConfig} labeledYPoints={yAxis.labeledPoints} spaceBelowData={ spaceBelowData} getLabel={yAxis.getExtendedYLabel} graphWidth={graphWidth} height={graphHeight} primaryTickColor={styles?.axes ?.primaryTickColor || textColor} secondaryTickColor={styles?.axes ?.secondaryTickColor || secondaryAxisTickColor} labelColor={textColor} labelFrequency={yAxis.labelFrequency} showGuideLines={yAxis.showGuideLines === undefined ? true : yAxis.showGuideLines}/>
       
         {dataSets.map((dataSet, i) => (
-          <React.Fragment key={dataSet.dataId}>
+          <React.Fragment key={dataSet.id}>
             {(!isResizing && canRender) && 
-              <CurvyGraphAnimator id={dataSet.dataId} animate={animate} width={graphWidth} data={dataSet.data} delay={dataSet.animationDelay || 0}>
+              <CurvyGraphAnimator id={dataSet.id} animate={animate} width={graphWidth} data={dataSet.data} delay={dataSet.animationDelay || 0}>
                 {(refs) => (
-                  <CurvyGraphPart id={dataSet.dataId} animationRefs={animate ? refs : undefined} style={{ position: "absolute", top: `${dataTop}px`, left: `${dataLeft}px` }} pathStyle={dataSet.styles?.pathStyle} isSharp={isSharp} width={graphWidth} height={graphHeight} spaceBelowData={ spaceBelowData} data={dataSet.data} yRange={dataSet.yRange} gradientColorStops={dataSet.gradientColorStops} gradientTransparencyStops={dataSet.gradientTransparencyStops} gradientDirection={dataSet.gradientDirection} type={dataSet.graphStyle}/>
+                  <CurvyGraphPart id={dataSet.id} animationRefs={animate ? refs : undefined} style={{ position: "absolute", top: `${dataTop}px`, left: `${dataLeft}px` }} pathStyle={dataSet.styles?.pathStyle} isSharp={isSharp} width={graphWidth} height={graphHeight} spaceBelowData={ spaceBelowData} data={dataSet.data} yRange={dataSet.yRange} gradientColorStops={dataSet.gradientColorStops} gradientTransparencyStops={dataSet.gradientTransparencyStops} gradientDirection={dataSet.gradientDirection} type={dataSet.graphStyle}/>
                 )}
               </CurvyGraphAnimator>}
             <RightDataLabel style={{ position: "absolute", top: `${dataSet.styles?.labelTop === undefined ? dataTop - 18 : dataTop + dataSet.styles.labelTop}px`, left: `${rightDataLabelLeftPos}px`, ...styles?.rightDataLabels?.style }} textStyle={styles?.rightDataLabels?.textStyle} height={graphHeight} spaceBelowData={ spaceBelowData} onWidthMeasured={(labelWidth) => handleRightLabelWidthMeasured(i, labelWidth)} data={dataSet.data} label={dataSet.label} labelColor={dataSet.labelColor} yRange={dataSet.yRange}/>

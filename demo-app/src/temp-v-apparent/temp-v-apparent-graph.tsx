@@ -30,7 +30,7 @@ export const TempVApparentGraph = () => {
       }}
       dataSets={[
         {
-          dataId: 'actual-temperature',
+          id: 'actual-temperature',
           graphStyle: 'line',
           label: 'Actual Temperature',
           labelColor: BLUE,
@@ -46,7 +46,7 @@ export const TempVApparentGraph = () => {
           },
         },
         {
-          dataId: 'apparent-temperatures',
+          id: 'apparent-temperatures',
           graphStyle: 'area',
           label: 'Apparent (Feels Like)',
           labelColor: RED,

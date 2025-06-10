@@ -24,7 +24,7 @@ export interface YAxisLabelConfig {
 }
 
 export interface DataSet {
-  dataId: string; 
+  id: string; 
   graphStyle: GraphType;
   label: string;
   labelColor: string;

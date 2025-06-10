@@ -65,7 +65,7 @@ import { CurvyGraph } from 'curvy-graphs';
   }}
   dataSets={[
     {
-      dataId: 'temperatures', // Unique id accross all charts and datasets
+      id: 'temperatures', // Unique id accross all charts and datasets
       graphStyle: 'line',
       label: 'Temperature',
       labelColor: '#5D6CE9',
@@ -204,23 +204,37 @@ For simplicity, the example graphs use hard-coded data.
 - **chartTitle**: `string` — Title text for the chart.
 - **textColor**: `string` — Hex color for title and axis labels.
 - **width, height**: `number` — Dimensions of the chart in pixels. Use `ResponsiveCurvyGraph` for more options.
-- **spaceBelowData**: `number` (optional) — Extra visual space below the lowest data point.
-  Useful for area charts and dynamic Y-axis ranges where you don’t want the lowest value to sit on the X-axis.
+- **spaceBelowData**: `number` (optional) — Adds extra visual padding (in pixels) beneath the lowest data point. 
+
+  > Note: If you use this, you **must** also provide `getExtendedYLabel` in `yAxis`. This will affect Y-axis tick mark logic and label frequency. 
   
-  If you use this, you **must** also provide `getExtendedYLabel` in `yAxis`. This may affect Y-axis tick mark logic and label frequency. 
+  <details>
+  <summary>More context and use cases</summary>
+
+  This is useful for dynamic y-axis ranges when you want to avoid data touching the x-axis and are working with multiple datasets of different units. e.g. if you are visualizing temperature and humidity on the same chart and want both datasets to have a consistent visual gap below their lowest points, `spaceBelowData` ensures that. 
   
-  Default is `0`.
+  > The [first graph](#curvy-graphs) in this README uses `spaceBelowData`. You can click on the graph to view its source code.
+
+  When you use `spaceBelowData`, the y-axis will determine an extended y-axis minimum value based on the gap you want (px) and your lowest y-value in the dataset. Since this creates new y-axis values, `getExtendedYLabel` is required to generate labels for those extended points.
+
+  You can also use this if you want a fixed number of pixels between your lowest data point and the x-axis.
+
+  **Tip**: If your datasets share the same y-axis unit, you can simply pad the yRange that you use for your datasets and y-axis. e.g. if you are visualizing temperatures and your lowest value is 15, you can set the min in your yRange to 10. This achieves the same effect and avoids the need for `spaceBelowData`.
+  </details>
+
+  Default is `0` (no padding).
+
 - **animate**: `boolean` (optional) — Animate the chart on data or layout changes. Default is `false`.
 - **isSharp**: `boolean` (optional) — If true, renders sharp/linear lines between points. Default is false (curvy).
 
 - **yAxis**: `{ ... }` — Y-axis configuration:
   - **labeledPoints**: `LabeledYPoint[]` — Array of `{ y, yLabel }` for axis labels and ticks. See [`generateLabeledYPoints`](#generatelabeledypoints-helper-method) for a helper method that can generate your LabeledYPoints!
-  - **getExtendedYLabel**: `(y: number) => string` (optional) callback to label extended Y-axis space (used when spaceBelowData > 0). Defaults to empty labels.
+  - **getExtendedYLabel**: `(y: number) => string` (optional) callback to label extended Y-axis space (used when `spaceBelowData` > 0). Defaults to empty labels.
   - **labelFrequency**: `number` (optional) — Show a label on every nth tick mark. Default is 1.
   - **showGuidelines**: `boolean` (optional) - If true, horizontal guidelines will display behind the chart for each primary (labeled) tick. Default is true.
 
 - **dataSets**: `DataSet[]` — Array of datasets to plot. Each dataset:
-  - **dataId**: `string` — Unique key accross all charts (no spaces).
+  - **id**: `string` — Unique key accross all charts (no spaces).
   - **graphStyle**: `'line' | 'dashed-line' | 'area'`
   - **label**: `string` — Label that appears to the right of the dataset.
   - **labelColor**: `string` — Color for the right data label.
@@ -229,7 +243,8 @@ For simplicity, the example graphs use hard-coded data.
   - **gradientDirection**: `'v' | 'h'` — Vertical or horizontal gradient.
   - **yRange**: `[number, number]` (optional) — Custom Y-axis range for this dataset. Default is your data's min and max.
   - **animationDelay**: `number` (optional) — Delay (in seconds) before animating this dataset. Can create staggered effects. Default is 0.
-  - **data**: `Point[]` — Array of data points `{ x: number | null, y: number | null }`. Null is accepted for data breaks.
+  - **data**: `Point[]` — Array of data points `{ x: number | null, y: number | null }`.
+  Supports null values for incomplete data. Null points are skipped; lines are not drawn between points separated by null.
   - **styles**: `object` (optional) — Optional custom styles:
     - **labelTop**: `number` — Top offset for the right-side label relative to its original position (in px).
     - **labelLeft**: `number` — Left offset for the right-side label relative to its original position (in px).

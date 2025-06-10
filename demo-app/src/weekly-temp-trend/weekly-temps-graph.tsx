@@ -27,7 +27,7 @@ export const WeeklyTempsGraph = () => {
       }}
       dataSets={[
         {
-          dataId: 'max-daily-temp',
+          id: 'max-daily-temp',
           graphStyle: 'area',
           label: 'MAX DAILY TEMP',
           labelColor: themePinkLight,
@@ -38,7 +38,7 @@ export const WeeklyTempsGraph = () => {
           data: dailyMaxes
         },
         {
-          dataId: 'avg-daily-temp',
+          id: 'avg-daily-temp',
           graphStyle: 'area',
           label: 'AVG DAILY TEMP',
           labelColor: '#35B5D4',
@@ -49,7 +49,7 @@ export const WeeklyTempsGraph = () => {
           data: dailyAvgs
         },
         {
-          dataId: 'min-daily-temp',
+          id: 'min-daily-temp',
           graphStyle: 'area',
           label: 'MIN DAILY TEMP',
           labelColor: themePinkMain,
