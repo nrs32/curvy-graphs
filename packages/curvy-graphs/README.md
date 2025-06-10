@@ -80,8 +80,8 @@ See [API Reference](#api-reference) for full details.
 import { CurvyGraph } from 'curvy-graphs';
 
 <CurvyGraph
-  chartTitle="Weekly Temperatures"
-  textColor="#E0E1E2"
+  chartTitle='Weekly Temperatures'
+  textColor='#E0E1E2'
   width={613}
   height={310}
   yAxis={{
@@ -105,9 +105,9 @@ import { CurvyGraph } from 'curvy-graphs';
   }}
   dataSets={[
     {
-      dataId: "temperatures",
+      dataId: 'temperatures',
       graphStyle: 'line',
-      label: "Temperature",
+      label: 'Temperature',
       labelColor: '#5D6CE9',
       gradientColorStops: ['#2FF3E0', '#5D6CE9'],
       gradientDirection: 'v',
@@ -141,7 +141,7 @@ Below, we recreate the basic usage example, but with a width of 100% within a fl
 ```tsx
 import { ResponsiveCurvyGraph } from 'curvy-graphs';
 
-<div style={{ width: "70%", border: "1px dashed red" }}>
+<div style={{ width: '70%', border: '1px dashed red' }}>
   <ResponsiveCurvyGraph
     width={'100%'}
     height={310}
@@ -151,8 +151,8 @@ import { ResponsiveCurvyGraph } from 'curvy-graphs';
 
 <div style={{
   flex: 1,
-  padding: "20px",
-  border: "1px dashed blue",
+  padding: '20px',
+  border: '1px dashed blue',
   color: 'white',
   alignContent: 'center',
   textAlign: 'center',
@@ -364,7 +364,7 @@ For even greater customization, use the graph parts that make `CurvyGraph` direc
 
 Here is an example of using parts. To reduce complexities in this example, the graph is not responsive or dynamic in its dimensions.
 ```tsx
-import { ChartTitle, CurvyGraphAnimator, CurvyGraphPart, XAxis, YAxis, RightDataLabel } from "curvy-graphs/parts";
+import { ChartTitle, CurvyGraphAnimator, CurvyGraphPart, XAxis, YAxis, RightDataLabel } from 'curvy-graphs/parts';
 
 export const BasicPartsGraph = () => {
   const themePrimary = '#E0E1E2';
@@ -384,7 +384,7 @@ export const BasicPartsGraph = () => {
   return (
     <div style={{ position: 'relative', width: width, height: height}}>
       <ChartTitle
-        title="Weekly Temperatures"
+        title='Weekly Temperatures'
         color={themePrimary}
         widthToCenterOn={width - yAxisWidth}
         leftOffset={yAxisWidth}
@@ -402,13 +402,13 @@ export const BasicPartsGraph = () => {
         graphWidth={width - yAxisWidth}
         height={height - 50}
         primaryTickColor={themePrimary}
-        secondaryTickColor="#E0E1E240"
+        secondaryTickColor='#E0E1E240'
         labelColor={themePrimary}
         labelFrequency={1}
         showGuideLines={true}
       />
       <CurvyGraphAnimator
-        id="temperatures-parts"
+        id='temperatures-parts'
         animate={true}
         width={width}
         delay={0}
@@ -420,7 +420,7 @@ export const BasicPartsGraph = () => {
           }) => (
           <>
             <CurvyGraphPart
-              id="temperatures-parts"
+              id='temperatures-parts'
               animationRefs={refs}
               style={{ position: 'absolute', top: 50, left: yAxisWidth }}
               width={width - yAxisWidth}
@@ -430,8 +430,8 @@ export const BasicPartsGraph = () => {
               yRange={undefined}
               xRange={undefined}
               gradientColorStops={['#2FF3E0', '#5D6CE9']}
-              gradientDirection="v"
-              type="line"
+              gradientDirection='v'
+              type='line'
               isSharp={false}
             />
             <RightDataLabel
@@ -439,7 +439,7 @@ export const BasicPartsGraph = () => {
               height={height - 50}
               spaceBelowData={0}
               data={data}
-              label={"Temperature"}
+              label={'Temperature'}
               labelColor={'#5D6CE9'}
               yRange={undefined}
             />
@@ -460,7 +460,7 @@ export const BasicPartsGraph = () => {
         ]}
         labelFrequency={1}
         primaryTickColor={themePrimary}
-        secondaryTickColor="#E0E1E240"
+        secondaryTickColor='#E0E1E240'
         labelColor={themePrimary}
       />
     </div>

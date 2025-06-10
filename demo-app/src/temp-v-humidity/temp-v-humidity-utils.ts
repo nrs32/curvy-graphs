@@ -1,5 +1,5 @@
-import type { LabeledYPoint } from "curvy-graphs";
-import { generateLabeledYPoints } from "curvy-graphs/parts";
+import type { LabeledYPoint } from 'curvy-graphs';
+import { generateLabeledYPoints } from 'curvy-graphs/parts';
 
 export const getTempAndHumidityLabel = (tempLabel: string, humidityLabel: string): string => {
 	return `${tempLabel} • ${humidityLabel}`

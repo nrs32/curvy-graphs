@@ -1,4 +1,4 @@
-import { ChartTitle, CurvyGraphAnimator, CurvyGraphPart, XAxis, YAxis, RightDataLabel } from "curvy-graphs/parts";
+import { ChartTitle, CurvyGraphAnimator, CurvyGraphPart, XAxis, YAxis, RightDataLabel } from 'curvy-graphs/parts';
 
 export const BasicPartsGraph = () => {
   const themePrimary = '#E0E1E2';
@@ -18,7 +18,7 @@ export const BasicPartsGraph = () => {
   return (
     <div style={{ position: 'relative', width: width, height: height}}>
       <ChartTitle
-        title="Weekly Temperatures"
+        title='Weekly Temperatures'
         color={themePrimary}
         widthToCenterOn={width - yAxisWidth}
         leftOffset={yAxisWidth}
@@ -36,13 +36,13 @@ export const BasicPartsGraph = () => {
         graphWidth={width - yAxisWidth}
         height={height - 50}
         primaryTickColor={themePrimary}
-        secondaryTickColor="#E0E1E240"
+        secondaryTickColor='#E0E1E240'
         labelColor={themePrimary}
         labelFrequency={1}
         showGuideLines={true}
       />
       <CurvyGraphAnimator
-        id="temperatures-parts"
+        id='temperatures-parts'
         animate={true}
         width={width}
         delay={0}
@@ -54,7 +54,7 @@ export const BasicPartsGraph = () => {
           }) => (
           <>
             <CurvyGraphPart
-              id="temperatures-parts"
+              id='temperatures-parts'
               animationRefs={refs}
               style={{ position: 'absolute', top: 50, left: yAxisWidth }}
               width={width - yAxisWidth}
@@ -64,8 +64,8 @@ export const BasicPartsGraph = () => {
               yRange={undefined}
               xRange={undefined}
               gradientColorStops={['#2FF3E0', '#5D6CE9']}
-              gradientDirection="v"
-              type="line"
+              gradientDirection='v'
+              type='line'
               isSharp={false}
             />
             <RightDataLabel
@@ -73,7 +73,7 @@ export const BasicPartsGraph = () => {
               height={height - 50}
               spaceBelowData={0}
               data={data}
-              label={"Temperature"}
+              label={'Temperature'}
               labelColor={'#5D6CE9'}
               yRange={undefined}
             />
@@ -94,7 +94,7 @@ export const BasicPartsGraph = () => {
         ]}
         labelFrequency={1}
         primaryTickColor={themePrimary}
-        secondaryTickColor="#E0E1E240"
+        secondaryTickColor='#E0E1E240'
         labelColor={themePrimary}
       />
     </div>

@@ -1,6 +1,6 @@
 import Card from '@mui/material/Card';
 import TempVHumidityGraphFromParts from './temp-v-humidity/temp-v-humidity-parts-demo';
-import { WeeklyTempsGraph } from './weekly-temps/weekly-temps-graph';
+import { WeeklyTempsGraph } from './weekly-temp-trend/weekly-temps-graph';
 import { WaterLevelGraph } from './water-level-ludington/water-level-graph';
 import { TempVApparentGraph } from './temp-v-apparent/temp-v-apparent-graph';
 import { PrecipitationGraph } from './precipitation/precipitation-graph';
@@ -12,18 +12,17 @@ import { BasicPartsGraph } from './basic-parts-example';
 
 function App() {
 
-  // TODO: Improve variable and chart naming for demo charts and code
   // TODO: improve readme as needed
   // TODO: publish npm pkg 😱
   //
   // TODO: refactor to label points on hover (?)
   // TODO: furture could potentially support: 
   //       - sharp lines with optional dots at data points
-  //      - other charts like bar and pie
+  //       - other charts like bar and pie
 
   const tempHumidityCardStyle: React.CSSProperties = {
     position: 'relative',
-    color: "#E0E1E2",
+    color: '#E0E1E2',
     margin: '20px',
     width: '593px',
     height: '312px',
@@ -53,9 +52,9 @@ function App() {
       <p>Responsive with %s</p>
       <Card style={{
         ...tempHumidityCardStyle,
-        display: "flex",
+        display: 'flex',
         width: 'unset',
-        height: "335px",
+        height: '335px',
         padding: '45px',
       }}>
         <TempVHumidityCurvyGraphResponsive />
@@ -67,10 +66,10 @@ function App() {
       </Card>
 
       <p>Water Levels - different color/style example</p>
-      <p>Data For water levels from <a href="https://tidesandcurrents.noaa.gov/waterlevels.html?id=9087023&type=Tide+Data&name=Ludington&state=MI" target="_blank">NOAA</a> @ Ludington Beach, Michigan</p>
+      <p>Data For water levels from <a href='https://tidesandcurrents.noaa.gov/waterlevels.html?id=9087023&type=Tide+Data&name=Ludington&state=MI' target='_blank'>NOAA</a> @ Ludington Beach, Michigan</p>
       <Card sx={{ ...tempHumidityCardStyle, width: '600px', height: '440px', background: `#040940`, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <WaterLevelGraph />
-        <p style={{ fontStyle: "italic", fontSize: "14px", textAlign: "center" }}>*Water level above LWD - the standardized low point for Lake Michigan (576 ft)</p>
+        <p style={{ fontStyle: 'italic', fontSize: '14px', textAlign: 'center' }}>*Water level above LWD - the standardized low point for Lake Michigan (576 ft)</p>
       </Card>
 
       <p>Temp V Apparent - different color/style example</p>
@@ -79,7 +78,7 @@ function App() {
       </Card>
 
       <p>Cumulative Precipitation - isSharp = true</p>
-      <p>Data for precipitation <a href="https://www.wunderground.com/history" target='_blank'>wunderground</a> GR, Michigan</p>
+      <p>Data for precipitation <a href='https://www.wunderground.com/history' target='_blank'>wunderground</a> GR, Michigan</p>
       <Card sx={{ ...tempHumidityCardStyle, background: `#ffffff`, height: '645px' }}>
         <PrecipitationGraph isCumulative={false} />
         <div style={{ height: '45px', width: '100%' }}></div>
@@ -89,8 +88,8 @@ function App() {
       <p>Basic Example</p>
       <Card sx={{ ...tempHumidityCardStyle }}>
         <CurvyGraph
-          chartTitle="Weekly Temperatures"
-          textColor="#E0E1E2"
+          chartTitle='Weekly Temperatures'
+          textColor='#E0E1E2'
           width={613}
           height={310}
           yAxis={{
@@ -114,9 +113,9 @@ function App() {
           }}
           dataSets={[
             {
-              dataId: "temperatures",
+              dataId: 'temperatures',
               graphStyle: 'line',
-              label: "Temperature",
+              label: 'Temperature',
               labelColor: '#5D6CE9',
               gradientColorStops: ['#2FF3E0', '#5D6CE9'],
               gradientDirection: 'v',
@@ -137,15 +136,15 @@ function App() {
       <p>Basic Responsive Example</p>
       <Card style={{
         ...tempHumidityCardStyle,
-        display: "flex",
+        display: 'flex',
         width: 'unset',
-        height: "335px",
+        height: '335px',
         padding: '45px',
       }}>
-        <div style={{ width: "70%", border: "1px dashed red" }}>
+        <div style={{ width: '70%', border: '1px dashed red' }}>
           <ResponsiveCurvyGraph
-            chartTitle="Weekly Temperatures"
-            textColor="#E0E1E2"
+            chartTitle='Weekly Temperatures'
+            textColor='#E0E1E2'
             width={'100%'}
             height={310}
             animate={true}
@@ -170,9 +169,9 @@ function App() {
             }}
             dataSets={[
               {
-                dataId: "responsive-temperatures",
+                dataId: 'responsive-temperatures',
                 graphStyle: 'line',
-                label: "Temperature",
+                label: 'Temperature',
                 labelColor: '#5D6CE9',
                 gradientColorStops: ['#2FF3E0', '#5D6CE9'],
                 gradientDirection: 'v',
@@ -192,8 +191,8 @@ function App() {
 
         <div style={{
           flex: 1,
-          padding: "20px",
-          border: "1px dashed blue",
+          padding: '20px',
+          border: '1px dashed blue',
           color: 'white',
           alignContent: 'center',
           textAlign: 'center',
