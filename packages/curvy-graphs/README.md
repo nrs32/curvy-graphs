@@ -121,7 +121,7 @@ To animate the chart, add the `animate` prop to `CurvyGraph`, and optionally add
 
 In the basic usage example, we set the chart’s width and height using pixels. Alternatively, you can use percentages via the `ResponsiveCurvyGraph` component.
 
-The only difference in usage between these two components is how the width and height props are handled. Instead of numbers (for pixels), you can pass string percentages or numbers.
+The only difference in usage between these two components is how the width and height props are handled. Instead of numbers (for pixels), you can pass string percentages or other units.
 
 Below, we recreate the basic usage example, but with a width of 100% within a flex layout:
 
