@@ -12,6 +12,8 @@ import { BasicPartsGraph } from './basic-parts-example';
 
 function App() {
 
+  // TODO: remove spaceBelowChart and yAxis method
+  // TODO: explain what example charts showcase and link in props
   // TODO: improve readme as needed
   // TODO: publish npm pkg 😱
   //
@@ -145,7 +147,7 @@ function App() {
           <ResponsiveCurvyGraph
             chartTitle='Weekly Temperatures'
             textColor='#E0E1E2'
-            width={'100%'}
+            width='100%'
             height={310}
             animate={true}
             yAxis={{
