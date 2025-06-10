@@ -27,20 +27,20 @@ Basic code examples are included in the readme, these charts are more advanced, 
 **Caret buttons used to change the date in the Humidity And Temperature chart are not part of this graph library.*
   
 <table border="0" style="border-collapse: collapse; border: none;">
-  <tr>
+  <tr style="border: none;">
     <td style="border: none; padding: 0;">
       <img src="https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/tempTrend.gif" width="100%" alt="Temperature Trend" />
     </td>
-    <td style="border: none; padding: 0;">
-      <img src="https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/waterLevels.png" width="100%" alt="Water Levels" />
-    </td>
-  </tr>
-  <tr>
-    <td style="border: none; padding: 0;">
+    <td style="border: none; padding: 0; background: none;">
       <img src="https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/actualAndApparentTemperature.png" width="100%" alt="Actual and Apparent Temperature" />
     </td>
-    <td style="border: none; padding: 0;">
+  </tr>
+  <tr style="background: none; border: none;">
+    <td style="border: none; padding: 0; background: none;">
       <img src="https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/precipitation.png" width="100%" alt="Precipitation" />
+    </td>
+    <td style="border: none; padding: 0;">
+      <img src="https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/waterLevels.png" width="100%" alt="Water Levels" />
     </td>
   </tr>
 </table>
