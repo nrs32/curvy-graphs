@@ -12,9 +12,14 @@ import { BasicPartsGraph } from './basic-parts-example';
 
 function App() {
 
-  // TODO: Add to readme additional chart examples
-  // TODO: refactor to label points on hover somehow (?)
-  // TODO: furture could potentially support: sharp lines with optional dots at data points, other charts like bar and pie
+  // TODO: Improve variable and chart naming for demo charts and code
+  // TODO: improve readme as needed
+  // TODO: publish npm pkg 😱
+  //
+  // TODO: refactor to label points on hover (?)
+  // TODO: furture could potentially support: 
+  //       - sharp lines with optional dots at data points
+  //      - other charts like bar and pie
 
   const tempHumidityCardStyle: React.CSSProperties = {
     position: 'relative',
