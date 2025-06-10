@@ -207,7 +207,7 @@ A comprehensive, all-in-one graph component.
 - **isSharp**: `boolean` (optional) — If true, renders sharp/linear lines between points. Default is false (curvy).
 
 - **yAxis**: `{ ... }` — Y-axis configuration:
-  - **labeledPoints**: `LabeledYPoint[]` — Array of `{ y, yLabel }` for axis labels and ticks.
+  - **labeledPoints**: `LabeledYPoint[]` — Array of `{ y, yLabel }` for axis labels and ticks. See [`generateLabeledYPoints`](#generatelabeledypoints-helper-method) for a helper method that can generate your LabeledYPoints!
   - **labelFrequency**: `number` (optional) — Show a label on every nth tick mark. Default is 1.
 
 - **dataSets**: `DataSet[]` — Array of datasets to plot. Each dataset:
