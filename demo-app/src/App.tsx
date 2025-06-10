@@ -12,6 +12,7 @@ import { BasicPartsGraph } from './basic-parts-example';
 
 function App() {
 
+  // TODO: note where to find examples of things e.g. spaceBelowGraph and such, and for first charts note what option things they have so people can reference them
   // TODO: improve readme as needed
   // TODO: publish npm pkg 😱
   //
