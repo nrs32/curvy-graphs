@@ -8,6 +8,7 @@ import { TempVHumidityCurvyGraph } from './temp-v-humidity/temp-v-humidity-curvy
 import { TempVHumidityCurvyGraphSmall } from './temp-v-humidity/temp-v-humidity-curvy-graph-small';
 import { TempVHumidityCurvyGraphResponsive } from './temp-v-humidity/temp-v-humidity-curvy-graph-responsive';
 import { CurvyGraph, ResponsiveCurvyGraph } from 'curvy-graphs';
+import { BasicPartsGraph } from './basic-parts-example';
 
 function App() {
 
@@ -194,6 +195,11 @@ function App() {
         }}>
           <p>Other layout content could be here</p>
         </div>
+      </Card>
+
+      <p>Basic Parts Example</p>
+      <Card sx={{ ...tempHumidityCardStyle }}>
+        <BasicPartsGraph/>
       </Card>
     </>
   )
