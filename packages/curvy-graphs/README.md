@@ -16,8 +16,6 @@ A modern, highly customizable React component library for rendering beautiful, a
 - **Composable API:** Use low-level parts for total control, or high-level components for speed and simplicity.
 - **Modern UX:** Animated drawing, gradients with transparency, responsive layout, and TypeScript support.
 
-⚠️ Please note, this package is lightly maintained. PRs and issues are welcome but support may be limited.
-
 ---
 
 ## Installation
@@ -651,6 +649,12 @@ This produces the same graph as our first basic example:
 ![Basic Temperatures Graph](https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/basicWeeklyTemperatureExample.png)
 
 </details>
+
+---
+
+## Maintenance & Support
+
+⚠️ Please note, this package is lightly maintained. PRs and issues are welcome but support may be limited.
 
 ---
 
