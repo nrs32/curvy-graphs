@@ -28,6 +28,9 @@ npm install curvy-graphs
 
 ## Quick Start
 
+### Live Demo
+Try it out in [**CodeSandbox**](https://codesandbox.io/p/sandbox/curvy-graphs-demo-ds8pr8)!
+
 ### Basic Usage
 
 Below is a basic example of `<CurvyGraph />` using only the required props.
@@ -84,6 +87,8 @@ import { CurvyGraph } from 'curvy-graphs';
 />
 ```
 
+[**Try this example in CodeSandbox**](https://codesandbox.io/p/sandbox/curvy-graphs-demo-ds8pr8)
+
 The above code will produce this chart:
 ![Basic Temperatures Graph](https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/basicWeeklyTemperatureExample.png)
 
@@ -134,6 +139,8 @@ import { ResponsiveCurvyGraph } from 'curvy-graphs';
 ```
 </details>
 
+[**Try this example in CodeSandbox**](https://codesandbox.io/p/sandbox/curvy-graphs-demo-ds8pr8)
+
 The result is this
 ![Responsive Temperatures Graph](https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/responsiveExample.gif)
 
@@ -154,6 +161,7 @@ import { ResponsiveCurvyGraph } from 'curvy-graphs';
   ]}
 />
 ```
+[**Try this example in CodeSandbox**](https://codesandbox.io/p/sandbox/curvy-graphs-demo-ds8pr8)
 
 The result is this
 ![Animated Responsive Temperatures Graph](https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/responsiveAnimatedExample.gif)
@@ -649,6 +657,8 @@ export const BasicPartsGraph = () => {
   );
 }
 ```
+
+[**Try this example in CodeSandbox**](https://codesandbox.io/p/sandbox/curvy-graphs-demo-ds8pr8)
 
 This produces the same graph as our first basic example:
 ![Basic Temperatures Graph](https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/basicWeeklyTemperatureExample.png)

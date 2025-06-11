@@ -4,11 +4,12 @@
     "module": "ESNext",
     "jsx": "react-jsx",
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "declaration": true,
+    "emitDeclarationOnly": true,
     "declarationDir": "dist",
     "outDir": "dist",
     "types": ["react"]

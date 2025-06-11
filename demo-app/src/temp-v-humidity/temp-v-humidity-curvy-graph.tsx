@@ -1,6 +1,5 @@
 import { themePinkLight, themePinkMain, themePurpleMain, themeTealMain } from './temp-humidity-theme';
-import getLabeledYPoints from '../weekly-temp-trend/weekly-temp-utils';
-import { getTemperatureLabel } from './temp-v-humidity-utils';
+import { getCombinedYRange, getTemperatureLabel, getTempAndHumidityLabel } from './temp-v-humidity-utils';
 import { hourlyHumidity } from './hourly-humidity';
 import { hourlyTemps } from './hourly-temps';
 import { CurvyGraph } from 'curvy-graphs';
@@ -15,8 +14,8 @@ export const TempVHumidityCurvyGraph = () => {
       textColor='#E0E1E2'
       animate={true}
       yAxis={{
-        labeledPoints: getLabeledYPoints(),
-        getExtendedYLabel: (y) => getTemperatureLabel(y),
+        labeledPoints: getCombinedYRange(hourlyTemps.map(point => point.y) as number[]),
+        getExtendedYLabel: (y) => getTempAndHumidityLabel(getTemperatureLabel(y), 'N/A'),
         labelFrequency: 5,
       }}
       dataSets={[

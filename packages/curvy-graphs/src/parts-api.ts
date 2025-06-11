@@ -1,3 +1,6 @@
+export * from './lib/types/graph-types';
+export * from './lib/types/hex-color';
+
 // Parts for advanced use
 export { default as CurvyGraphPart, type CurvyGraphPartProps } from './lib/parts/curvy-graph-part'
 export { default as CurvyGraphAnimator, type CurvyGraphAnimatorProps as CurvyTimeGraphAnimatorProps } from './lib/parts/curvy-graph-animator'

@@ -12,7 +12,7 @@
     "dev": "vite",
     "build": "echo try build-app or build-pkg",
     "build-app": "tsc -b && vite build",
-    "build-pkg": "tsup packages/curvy-graphs/src/public-api.ts packages/curvy-graphs/src/parts-api.ts --dts --format esm,cjs --out-dir packages/curvy-graphs/dist --tsconfig packages/curvy-graphs/tsconfig.pkg.json --clean",
+    "build-pkg": "tsup packages/curvy-graphs/src/public-api.ts packages/curvy-graphs/src/parts-api.ts --dts --dts-resolve --format esm,cjs --out-dir packages/curvy-graphs/dist --tsconfig packages/curvy-graphs/tsconfig.pkg.json --clean",
     "lint": "eslint .",
     "preview": "vite preview"
   },

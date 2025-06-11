@@ -1,7 +1,7 @@
 {
   "name": "curvy-graphs",
   "private": false,
-  "version": "0.1.0",
+  "version": "1.0.0-beta.4",
   "license": "Apache-2.0",
   "type": "module",
   "main": "dist/public-api.cjs",
@@ -22,7 +22,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsup src/public-api.ts src/parts-api.ts --dts --format esm,cjs --out-dir dist --tsconfig tsconfig.pkg.json --clean",
+    "build": "tsup src/public-api.ts src/parts-api.ts --dts --dts-resolve --format esm,cjs --out-dir dist --tsconfig tsconfig.pkg.json --clean",
     "lint": "eslint .",
     "preview": "vite preview"
   },
