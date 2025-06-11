@@ -12,9 +12,6 @@ import { BasicPartsGraph } from './basic-parts-example';
 
 function App() {
 
-  // TODO: remove spaceBelowChart and yAxis method
-  // TODO: explain what example charts showcase and link in props where to find examples of things like spaceBelowGraph
-  // TODO: improve readme as needed
   // TODO: publish npm pkg 😱
   //
   // TODO: refactor to label points on hover (?)

@@ -32,6 +32,7 @@ export interface DataSet {
   gradientTransparencyStops?: [number, number]; 
   gradientDirection: GradientDirection;
   yRange?: [number, number]; 
+  xRange?: [number, number]; 
   animationDelay?: number; 
   data: Point[];
   styles?: {

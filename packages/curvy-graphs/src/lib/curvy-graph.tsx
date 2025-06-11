@@ -89,6 +89,7 @@ export interface CurvyGraphProps {
  *    - gradientTransparencyStops: [startOpacity, endOpacity] for gradient transparency (optional).
  *    - gradientDirection: 'v' or 'h' for vertical/horizontal gradient.
  *    - yRange: [minY, maxY] Custom Y-axis range for this dataset. Default is your data's min and max.
+ *    - xRange: [minX, maxX] Custom X-axis range for this dataset. Default is your data's min and max.
  *    - animationDelay: Delay before animating this dataset (seconds). Can create stagger effects. Default 0.
  *    - data: Array of data points `{ x: number | null, y: number | null }`. Null is accepted for data breaks.
  *    - styles: Optional custom styles for labelLeft and labelTop position in px, and pathStyle to style the svg path element directly.
@@ -158,7 +159,7 @@ const CurvyGraph = ({ width, height, chartTitle, textColor, spaceBelowData = 0, 
             {(!isResizing && canRender) && 
               <CurvyGraphAnimator id={dataSet.id} animate={animate} width={graphWidth} data={dataSet.data} delay={dataSet.animationDelay || 0}>
                 {(refs) => (
-                  <CurvyGraphPart id={dataSet.id} animationRefs={animate ? refs : undefined} style={{ position: "absolute", top: `${dataTop}px`, left: `${dataLeft}px` }} pathStyle={dataSet.styles?.pathStyle} isSharp={isSharp} width={graphWidth} height={graphHeight} spaceBelowData={ spaceBelowData} data={dataSet.data} yRange={dataSet.yRange} gradientColorStops={dataSet.gradientColorStops} gradientTransparencyStops={dataSet.gradientTransparencyStops} gradientDirection={dataSet.gradientDirection} type={dataSet.graphStyle}/>
+                  <CurvyGraphPart id={dataSet.id} animationRefs={animate ? refs : undefined} style={{ position: "absolute", top: `${dataTop}px`, left: `${dataLeft}px` }} pathStyle={dataSet.styles?.pathStyle} isSharp={isSharp} width={graphWidth} height={graphHeight} spaceBelowData={ spaceBelowData} data={dataSet.data} yRange={dataSet.yRange} xRange={dataSet.xRange} gradientColorStops={dataSet.gradientColorStops} gradientTransparencyStops={dataSet.gradientTransparencyStops} gradientDirection={dataSet.gradientDirection} type={dataSet.graphStyle}/>
                 )}
               </CurvyGraphAnimator>}
             <RightDataLabel style={{ position: "absolute", top: `${dataSet.styles?.labelTop === undefined ? dataTop - 18 : dataTop + dataSet.styles.labelTop}px`, left: `${rightDataLabelLeftPos}px`, ...styles?.rightDataLabels?.style }} textStyle={styles?.rightDataLabels?.textStyle} height={graphHeight} spaceBelowData={ spaceBelowData} onWidthMeasured={(labelWidth) => handleRightLabelWidthMeasured(i, labelWidth)} data={dataSet.data} label={dataSet.label} labelColor={dataSet.labelColor} yRange={dataSet.yRange}/>

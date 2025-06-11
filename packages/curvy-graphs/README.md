@@ -300,6 +300,10 @@ Click on any image to view the source code for that chart (including the first c
   
     Defaults to your dataset's min and max.
   
+  - **xRange**: `[number, number]` (optional) —  Custom x-axis range for this dataset. 
+  
+    Defaults to your dataset's min and max.
+
   - **animationDelay**: `number` (optional) — Delay (in seconds) before this dataset animates. Useful for staggered effects. 
     
     Default is `0`.
