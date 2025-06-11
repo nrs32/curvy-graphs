@@ -166,7 +166,7 @@ Below are more example charts created with this library.
 
 Click on any image to view the source code for that chart (including the first chart at the top of this README). 
 
-For simplicity, the example graphs use hard-coded data.
+*For simplicity, the example graphs use hard-coded data.*
 
 <table border="0" style="border-collapse: collapse; border: none;">
   <tr style="border: none;">
@@ -324,6 +324,7 @@ For simplicity, the example graphs use hard-coded data.
 ## `<ResponsiveCurvyGraph />` Props
 
 - **width, height**: `string | number` — Chart dimensions in pixels, %, or other units.
+
 - See [CurvyGraph section](#curvygraph-) for all other props.
 
 ## `generateLabeledYPoints` 
@@ -337,7 +338,7 @@ Utility function that generates an array of evenly spaced `LabeledYPoint` object
 - **`getLabel`**: `(y: number) => string` — Function that returns a label for each y value.
 
 
-Note: If your chart uses `spaceBelowData` for visual padding, you may need to adjust your desired `totalDataPoints`.
+Note: If your chart uses `spaceBelowData` for visual padding, you may want to adjust your desired `totalDataPoints`.
 
 **Returns**
 - `LabeledYPoint[]` — Array of `{ y: number, yLabel: string }` objects.
@@ -345,6 +346,8 @@ Note: If your chart uses `spaceBelowData` for visual padding, you may need to ad
 **Example**
 
 ```ts
+import { generateLabeledYPoints } from 'curvy-graphs/parts'
+
 generateLabeledYPoints([2, 10], 5, (y) => `${y}°F`);
 ```
 
@@ -368,42 +371,64 @@ For even greater customization, use the graph parts that make `CurvyGraph` direc
 
 - `ChartTitle` — Renders a styled, centered chart title.
   - **title**: `string` — The text to display as the chart title.
+  
   - **widthToCenterOn**: `number` — The width (in pixels) used to center the title.
+  
   - **leftOffset**: `number` — The left offset (in pixels) for positioning the title.
+  
   - **style**: `React.CSSProperties` (optional) — Additional CSS styles to apply to the title. This will also override the default styles (including the default width and left values controlled by props).
 
 - `CurvyGraphPart` — renders the data of a curvy graph, supporting line, area, and dashed-line types with gradients and refs for external animation.
+
   - **id**: `string` — Unique identifier for the graph part instance.
+
   - **animationRefs**: `{ clipPathRect: React.Ref<SVGRectElement>; svgRoot: React.Ref<SVGSVGElement>; }` (optional) — Refs for SVG elements, allowing parent components to control animation (e.g., for reveal effects).
+ 
   - **data**: `{ x: number | null, y: number | null }[]` — Array of `Point` objects representing the data to plot.
+ 
   - **width**: `number` — Width of the SVG/chart area in pixels.
+ 
   - **height**: `number` — Height of the SVG/chart area in pixels.
+ 
   - **yRange**: `[number, number]` (optional) — y-axis range to be used instead of normalizing over data min/max.
+ 
   - **xRange**: `[number, number]` (optional) — x-axis range to be used instead of normalizing over data min/max.
+ 
   - **type**: `GraphType` — `'area' | 'dashed-line' | 'line'`.
+ 
   - **spaceBelowData**: `number` — Extra space below the lowest data point for visual padding.
+ 
   - **gradientColorStops**: `[string, string]` — Start and end color for the SVG gradient fill/stroke.
    **gradientTransparencyStops**: `[number, number]` (optional) — Start and end opacity values (0–1) for gradient.
 
     Default is `[1, 1]`.
+ 
   - **gradientDirection**: `'v' | 'h'` — Direction of the gradient (`v` = vertical, `h` = horizontal).
 
     Default `v`.
+
   - **showAreaShadow**: `boolean` (optional) — If true, displays a shadow above/behind the area graph.
+ 
   - **isSharp**: `boolean` (optional) — If true, renders straight lines between data points (sharp/linear). If false, renders smooth, curvy lines using Bézier curves. 
   
     Default is `false`.
   - **style**: `React.CSSProperties` (optional) — CSS styles for the container div.
+ 
   - **pathStyle**: `React.CSSProperties` (optional) — CSS styles for the path element.
 
 - `CurvyGraphAnimator` — Handles animated reveal of graph paths.
   - **id**: `string` — Unique identifier for the animator instance.
+
   - **animate**: `boolean` (optional) — If false, disables the animation.
 
     Default `true`
+ 
   - **data**: `{ x: number | null, y: number | null }[]` — Array of `Point` objects; changes to this array trigger re-animation.
+ 
   - **width**: `number` — The target width (in pixels) to animate the reveal to.
+
   - **delay**: `number` — Delay (in seconds) before starting the animation.
+ 
   - **children**: `(refs: { clipPathRect: React.Ref<SVGRectElement>; svgRoot: React.Ref<SVGSVGElement>; }) => React.ReactNode` — Render prop function that receives refs for the clip path rectangle and SVG root, allowing child graph components to use these refs for animation.
 
     The component uses a wrapper pattern, so the child graph is not defined here.  
@@ -423,48 +448,78 @@ For even greater customization, use the graph parts that make `CurvyGraph` direc
 
 - `XAxis` — Render x-axis with ticks and labels.
   - **data**: `{ xLabel: string, xSubLabel?: string, x: number}[]` — Array of labeled X points, each with a value and label (and optional sublabel).
+
   - **width**: `number` — The width of the chart area in pixels.
+ 
   - **xRange**: `[number, number]` (optional) — x-axis range to use instead of normalized values from your data min and max.
+ 
   - **labelFrequency**: `number` (optional) — Show a label on every nth tick. 
   
     Default is `1`.
+  
   - **primaryTickColor**: `string` — Color for primary (labeled) tick marks.
+  
   - **secondaryTickColor**: `string` — Color for secondary (unlabeled) tick marks.
+  
   - **labelColor**: `string` — Color for the x-axis labels and sublabels.
+  
   - **style**: `React.CSSProperties` (optional) — CSS styles for the x-axis container.
-  - **textStyle**: `React.CSSProperties` (optional) — CSS styles for the labels of the axis.
+ 
+ - **textStyle**: `React.CSSProperties` (optional) — CSS styles for the labels of the axis.
 
 - `YAxis` — Render y-axis with ticks, labels, and guidelines.
+  
   - **height**: `number` — The height of the y-axis in pixels (should match chart height).
+  
   - **graphWidth**: `number` — The width of the chart area, used for drawing guidelines.
+  
   - **labelFrequency**: `number` (optional) — Show a label on every nth tick. 
   
     Default is `1`.
+  
   - **labeledYPoints**: `LabeledYPoint[]` — Array of `{ y, yLabel }` used to place labeled tick marks on the y-axis.
   
     See [`generateLabeledYPoints`](#generatelabeledypoints-helper-method) to generate your labeled points!
+  
   - **spaceBelowData**: `number` (optional) — Extra space below the lowest data point for visual padding.
+  
   - **getLabel**: `(y: number) => string` (optional) Callback used to label additional y-axis ticks added when `spaceBelowData` > 0.
   
      Default returns an empty string for those labels.
+ 
   - **yRange**: `[number, number]` (optional) — y-axis range to use instead of normalized values from your data min and max.
+
   - **onConfigMeasured**: `(config: YAxisLabelConfig) => void` (optional) — Callback to access the rendered y-axis config values (in pixels).
+
   - **primaryTickColor**: `string` — Color for primary (labeled) tick marks.
+ 
   - **secondaryTickColor**: `string` — Color for secondary (unlabeled) tick marks and guidelines.
+ 
   - **labelColor**: `string` — Color for the y-axis labels.
+ 
   - **showGuideLines**: `boolean` (optional) — If true, horizontal guidelines will display behind the chart for each primary (labeled) tick. Default is true.
+ 
   - **style**: `React.CSSProperties` (optional) — CSS styles for the y-axis container.
+ 
   - **textStyle**: `React.CSSProperties` (optional) — CSS styles for the labels of the axis.
 
 - `RightDataLabel` — Renders a label next to the last data point. The component normalizes data points, positions the label at the last data point, and dynamically measures its width for layout purposes.
   - **data**: `{ x: number | null, y: number | null }[]` — Array of `Point` objects representing the data to plot. Used to calculate the normalized y values the same way the chart data does. This way we get an accurate final y value to position the text relative to.
+  
   - **height**: `number` — Height of the SVG/chart area in pixels.
+  
   - **yRange**: `[number, number]` (optional) — y-axis range to specify instead of the data min/max.
+ 
   - **labelColor**: `string` — Color for the label text.
+ 
   - **label**: `string` — The text to display as the label.
+ 
   - **spaceBelowData**: `number` (optional) — Extra space below the lowest data point for visual padding. Used for position calculations to match where the data is actually rendered in the chart.
+ 
   - **onWidthMeasured**: `(width: number) => void` (optional) — Callback to access the rendered label width (in pixels).
+ 
   - **style**: `React.CSSProperties` (optional) — CSS styles for the container div.
+ 
   - **textStyle**: `React.CSSProperties` (optional) — CSS styles for the SVG text element directly. Can also override default values.
 
 Here is an example of using parts. To reduce complexities in this example, the graph is not responsive or dynamic in its dimensions.
