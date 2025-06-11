@@ -201,15 +201,19 @@ For simplicity, the example graphs use hard-coded data.
 
 ## `<CurvyGraph />` Props
 
-- **chartTitle**: `string` — Title text for the chart.
-- **textColor**: `string` — Hex color for title and axis labels.
-- **width, height**: `number` — Dimensions of the chart in pixels. Use `ResponsiveCurvyGraph` for more options.
-- **spaceBelowData**: `number` (optional) — Adds extra visual padding (in pixels) beneath the lowest data point. 
+- **chartTitle**: `string` — Main heading text.
 
-  > Note: If you use this, you **must** also provide `getExtendedYLabel` in `yAxis`. This will affect Y-axis tick mark logic and label frequency. 
+- **textColor**: `string` — Hex color used for the chart title and axis labels.
+
+- **width, height**: `number` — Chart dimensions in pixels.
+
+  Use `ResponsiveCurvyGraph` for more options.
+- **spaceBelowData**: `number` (optional) — Extra visual padding (in pixels) below the lowest data point.
+
+  > Note: If you use this, you **must** also provide `getExtendedYLabel` in `yAxis`. This will affect y-axis tick mark logic and label frequency. 
   
   <details>
-  <summary>More context and use cases</summary>
+  <summary>More details and use cases</summary>
 
   This is useful for dynamic y-axis ranges when you want to avoid data touching the x-axis and are working with multiple datasets of different units. e.g. if you are visualizing temperature and humidity on the same chart and want both datasets to have a consistent visual gap below their lowest points, `spaceBelowData` ensures that. 
   
@@ -224,67 +228,127 @@ For simplicity, the example graphs use hard-coded data.
 
   Default is `0` (no padding).
 
-- **animate**: `boolean` (optional) — Animate the chart on data or layout changes. Default is `false`.
-- **isSharp**: `boolean` (optional) — If true, renders sharp/linear lines between points. Default is false (curvy).
+- **animate**: `boolean` (optional) — Enables animation on data or layout changes.
 
-- **yAxis**: `{ ... }` — Y-axis configuration:
-  - **labeledPoints**: `LabeledYPoint[]` — Array of `{ y, yLabel }` for axis labels and ticks. See [`generateLabeledYPoints`](#generatelabeledypoints-helper-method) for a helper method that can generate your LabeledYPoints!
-  - **getExtendedYLabel**: `(y: number) => string` (optional) callback to label extended Y-axis space (used when `spaceBelowData` > 0). Defaults to empty labels.
-  - **labelFrequency**: `number` (optional) — Show a label on every nth tick mark. Default is 1.
-  - **showGuidelines**: `boolean` (optional) - If true, horizontal guidelines will display behind the chart for each primary (labeled) tick. Default is true.
+  Default is `false`.
+- **isSharp**: `boolean` (optional) — If true, renders sharp/linear lines between points instead of smooth curves.
 
-- **dataSets**: `DataSet[]` — Array of datasets to plot. Each dataset:
+  Default is `false`.
+
+- **yAxis**: `{ ... }` — y-axis configuration:
+  - **labeledPoints**: `LabeledYPoint[]` — Array of `{ y, yLabel }` used to place labeled tick marks on the y-axis.
+  
+    See [`generateLabeledYPoints`](#generatelabeledypoints-helper-method) to generate your labeled points!
+  - **getExtendedYLabel**: `(y: number) => string` (optional) Callback used to label additional y-axis ticks added when `spaceBelowData` > 0.
+  
+     Default returns an empty string for those labels.
+  - **labelFrequency**: `number` (optional) — Show a label on every nth tick. 
+  
+    Default is `1`.
+  - **showGuidelines**: `boolean` (optional) — If true, horizontal guidelines will display behind the chart for each primary (labeled) tick. 
+  
+    Default is `true`.
+
+- **xAxis**: `{ ... }` — x-axis configuration:
+  - **labeledPoints**: `LabeledXPoint[]` — Array of `{ x, xLabel }` used to place labeled tick marks on the x-axis.
+
+  - **labelFrequency**: `number` (optional) — Show a label on every nth tick. 
+  
+    Default is `1`.
+
+- **dataSets**: `DataSet[]` —  Datasets to plot. Each dataset includes:
+
   - **id**: `string` — Unique key accross all charts (no spaces).
-  - **graphStyle**: `'line' | 'dashed-line' | 'area'`
-  - **label**: `string` — Label that appears to the right of the dataset.
-  - **labelColor**: `string` — Color for the right data label.
-  - **gradientColorStops**: `[string, string]` — Start and end color for the gradient. Use the same hex for both if no gradient is needed.
-  - **gradientTransparencyStops**: `[number, number]` (optional) — Start and end opacity for the gradient (0–1).
-  - **gradientDirection**: `'v' | 'h'` — Vertical or horizontal gradient.
-  - **yRange**: `[number, number]` (optional) — Custom Y-axis range for this dataset. Default is your data's min and max.
-  - **animationDelay**: `number` (optional) — Delay (in seconds) before animating this dataset. Can create staggered effects. Default is 0.
-  - **data**: `Point[]` — Array of data points `{ x: number | null, y: number | null }`.
-  Supports null values for incomplete data. Null points are skipped; lines are not drawn between points separated by null.
-  - **styles**: `object` (optional) — Optional custom styles:
-    - **labelTop**: `number` — Top offset for the right-side label relative to its original position (in px).
-    - **labelLeft**: `number` — Left offset for the right-side label relative to its original position (in px).
-    - **pathStyle**: `React.CSSProperties` — Styles applied directly to the SVG path element.
 
-- **styles**: `{ ... }` — Custom styling options:
-  - **chartTitle**: `{ ... }` — Title styling options:
-    - **minHeight**: `number` (optional) — Minimum height for the title; determines where dataset renders.
-    - **style**: `React.CSSProperties` (optional) — Styles for the chart title element.
+  - **graphStyle**: `'line' | 'dashed-line' | 'area'`
+
+  - **label**: `string` — Label displayed to the right of the chart.
+  
+  - **labelColor**: `string` — Color of the right-side label.
+  
+  - **gradientColorStops**: `[string, string]` — Start and end colors for the gradient. 
+  
+    Use the same color for both stops if no gradient is needed.
+  
+  - **gradientTransparencyStops**: `[number, number]` (optional) — Start and end opacity values (0–1) for gradient.
+
+    Default is `[1, 1]`.
+  
+  - **gradientDirection**: `'v' | 'h'` — Direction of the gradient (`v` = vertical, `h` = horizontal).
+
+    Default `v`.
+  
+  - **yRange**: `[number, number]` (optional) —  Custom y-axis range for this dataset. 
+  
+    Defaults to your dataset's min and max.
+  
+  - **animationDelay**: `number` (optional) — Delay (in seconds) before this dataset animates. Useful for staggered effects. 
+    
+    Default is `0`.
+  
+  - **data**: `Point[]` — Array of data points `{ x: number | null, y: number | null }`.
+  
+    Supports null values for incomplete data. Lines are not drawn between points separated by null.
+  
+  - **styles**: `object` (optional) — Custom styles per dataset:
+    - **labelTop**: `number` — Top offset for the right-side label relative to its original position (in px).
+    
+    - **labelLeft**: `number` — Left offset for the right-side label relative to its original position (in px).
+    
+    - **pathStyle**: `React.CSSProperties` — Custom styles applied directly to the SVG path element.
+
+- **styles**: `{ ... }` — Custom styling:
+  
+  - **chartTitle**: `{ ... }`
+    - **minHeight**: `number` (optional) — Minimum height of the title container in pixels.
+    
+    - **style**: `React.CSSProperties` (optional) — Custom styles for the chart title.
+
   - **axes**: `{ ... }` — Axis tick and label styles:
-    - **primaryTickColor**: `string` (optional) — Color for primary ticks. Defaults to `textColor`.
-    - **secondaryTickColor**: `string` (optional) — Color for secondary ticks. Defaults to \~25% opacity of `textColor`.
-    - **textStyle**: `React.CSSProperties` (optional) — style the SVG text element for the axis directly
-  - **rightDataLabels**: `{ ... }` — Right-aligned data label styles:
-    - **style**: `React.CSSProperties` (optional) — style label container
-    - **textStyle**: `React.CSSProperties` (optional) — style svg text element directly
+    - **primaryTickColor**: `string` (optional) — Color of labeled ticks. 
+    
+      Default is `textColor`.
+    
+    - **secondaryTickColor**: `string` (optional) — Color of unlabeled ticks. 
+    
+      Defaults to \~25% opacity of `textColor`.
+    
+    - **textStyle**: `React.CSSProperties` (optional) — Styles applied to the SVG text elements of the axes directly.
+
+  - **rightDataLabels**: `{ ... }` — Styling for the dataset labels aligned to the chart’s right:
+    
+    - **style**: `React.CSSProperties` (optional) —  Styles for the label container.
+    
+    - **textStyle**: `React.CSSProperties` (optional) — Styles applied to the SVG text elements directly.
 
 ## `<ResponsiveCurvyGraph />` Props
 
-- **width, height**: `string | number` — Dimensions of the chart in pixels, %, or other units.
+- **width, height**: `string | number` — Chart dimensions in pixels, %, or other units.
 - See [CurvyGraph section](#curvygraph-) for all other props.
 
-## `generateLabeledYPoints` Helper Method
-Utils function that produces an array of evenly distributed `LabeledYPoint` - `{ yLabel: string, y: number }[]` objects across a given Y-axis range.
-  
-If your chart uses `spaceBelowData` (e.g., for visual padding), you will need to add additional ticks to account for that space.
+## `generateLabeledYPoints` 
+Utility function that generates an array of evenly spaced `LabeledYPoint` objects, each with a `y` value and a corresponding `yLabel` — across a given y-axis range.
 
-Parameters
+**Parameters**
+- **`yRange`**: `[min, max]` range for the y-axis.
 
-- **`yRange`**: `[min, max]` range for the Y-axis (inclusive).
-- **`totalDataPoints`**: The number of points to divide the range into
-- **`getLabel`**: Function to generate a label for each Y value.
+- **`totalDataPoints`**: Total number of labeled points to generate across the range.
 
-Returns
+- **`getLabel`**: `(y: number) => string` — Function that returns a label for each y value.
 
-- An array of `LabeledYPoint` objects.
 
-**For Example:**
+Note: If your chart uses `spaceBelowData` for visual padding, you may need to adjust your desired `totalDataPoints`.
 
-Given `yRange = [2, 10]`, `totalDataPoints = 5`, and `` (y: number) => `${y}°F` `` the result will be:
+**Returns**
+- `LabeledYPoint[]` — Array of `{ y: number, yLabel: string }` objects.
+
+**Example**
+
+```ts
+generateLabeledYPoints([2, 10], 5, (y) => `${y}°F`);
+```
+
+Returns:
 
 ```ts
 [
@@ -314,21 +378,29 @@ For even greater customization, use the graph parts that make `CurvyGraph` direc
   - **data**: `{ x: number | null, y: number | null }[]` — Array of `Point` objects representing the data to plot.
   - **width**: `number` — Width of the SVG/chart area in pixels.
   - **height**: `number` — Height of the SVG/chart area in pixels.
-  - **yRange**: `[number, number]` (optional) — Y-axis range to be used instead of normalizing over data min/max.
-  - **xRange**: `[number, number]` (optional) — X-axis range to be used instead of normalizing over data min/max.
+  - **yRange**: `[number, number]` (optional) — y-axis range to be used instead of normalizing over data min/max.
+  - **xRange**: `[number, number]` (optional) — x-axis range to be used instead of normalizing over data min/max.
   - **type**: `GraphType` — `'area' | 'dashed-line' | 'line'`.
   - **spaceBelowData**: `number` — Extra space below the lowest data point for visual padding.
   - **gradientColorStops**: `[string, string]` — Start and end color for the SVG gradient fill/stroke.
-  - **gradientTransparencyStops**: `[number, number]` (optional) — Start and end opacity for the SVG gradient fill/stroke. Should be a decimal from 0 - 1.
-  - **gradientDirection**: `GradientDirection` — `'v' | 'h'` (default: `'v'`).
+   **gradientTransparencyStops**: `[number, number]` (optional) — Start and end opacity values (0–1) for gradient.
+
+    Default is `[1, 1]`.
+  - **gradientDirection**: `'v' | 'h'` — Direction of the gradient (`v` = vertical, `h` = horizontal).
+
+    Default `v`.
   - **showAreaShadow**: `boolean` (optional) — If true, displays a shadow above/behind the area graph.
-  - **isSharp**: `boolean` (optional) — If true, renders straight lines between data points (sharp/linear). If false, renders smooth, curvy lines using Bézier curves. Default is false (curvy).
+  - **isSharp**: `boolean` (optional) — If true, renders straight lines between data points (sharp/linear). If false, renders smooth, curvy lines using Bézier curves. 
+  
+    Default is `false`.
   - **style**: `React.CSSProperties` (optional) — CSS styles for the container div.
   - **pathStyle**: `React.CSSProperties` (optional) — CSS styles for the path element.
 
 - `CurvyGraphAnimator` — Handles animated reveal of graph paths.
   - **id**: `string` — Unique identifier for the animator instance.
-  - **animate**: `boolean` (optional) — If false, disables the animation (default: true).
+  - **animate**: `boolean` (optional) — If false, disables the animation.
+
+    Default `true`
   - **data**: `{ x: number | null, y: number | null }[]` — Array of `Point` objects; changes to this array trigger re-animation.
   - **width**: `number` — The target width (in pixels) to animate the reveal to.
   - **delay**: `number` — Delay (in seconds) before starting the animation.
@@ -352,34 +424,42 @@ For even greater customization, use the graph parts that make `CurvyGraph` direc
 - `XAxis` — Render x-axis with ticks and labels.
   - **data**: `{ xLabel: string, xSubLabel?: string, x: number}[]` — Array of labeled X points, each with a value and label (and optional sublabel).
   - **width**: `number` — The width of the chart area in pixels.
-  - **xRange**: `[number, number]` (optional) — X-axis range to use instead of normalized values from your data min and max.
-  - **labelFrequency**: `number` (optional) — How often tick labels should show (every nth tick is labeled; 5 means every 5th tick will be labeled). Default is 1.
+  - **xRange**: `[number, number]` (optional) — x-axis range to use instead of normalized values from your data min and max.
+  - **labelFrequency**: `number` (optional) — Show a label on every nth tick. 
+  
+    Default is `1`.
   - **primaryTickColor**: `string` — Color for primary (labeled) tick marks.
   - **secondaryTickColor**: `string` — Color for secondary (unlabeled) tick marks.
-  - **labelColor**: `string` — Color for the X-axis labels and sublabels.
-  - **style**: `React.CSSProperties` (optional) — CSS styles for the X-axis container.
+  - **labelColor**: `string` — Color for the x-axis labels and sublabels.
+  - **style**: `React.CSSProperties` (optional) — CSS styles for the x-axis container.
   - **textStyle**: `React.CSSProperties` (optional) — CSS styles for the labels of the axis.
 
 - `YAxis` — Render y-axis with ticks, labels, and guidelines.
   - **height**: `number` — The height of the y-axis in pixels (should match chart height).
   - **graphWidth**: `number` — The width of the chart area, used for drawing guidelines.
-  - **labelFrequency**: `number` (optional) — How often tick labels should show (every nth tick is labeled; 5 means every 5th tick will be labeled). Default is 1.
-  - **labeledYPoints**: `{ yLabel: string, y: number }[]` — Array of labeled Y points, each with a value and label. The [`generateLabeledYPoints`](#generatelabeledypoints-helper-method) utils function is exported as part of the library. You can use this to help create your labeledYPoints!
+  - **labelFrequency**: `number` (optional) — Show a label on every nth tick. 
+  
+    Default is `1`.
+  - **labeledYPoints**: `LabeledYPoint[]` — Array of `{ y, yLabel }` used to place labeled tick marks on the y-axis.
+  
+    See [`generateLabeledYPoints`](#generatelabeledypoints-helper-method) to generate your labeled points!
   - **spaceBelowData**: `number` (optional) — Extra space below the lowest data point for visual padding.
-  - **getLabel**: `(y: number) => string` (optional) — Function that provides a y coordinate and expects a label for that coordinate. Used to fill the y-axis labels for the spaceBelowData if a value > 0 was provided. If no callback is defined, the extra labels will be empty strings.
-  - **yRange**: `[number, number]` (optional) — Y-axis range to use instead of normalized values from your data min and max.
+  - **getLabel**: `(y: number) => string` (optional) Callback used to label additional y-axis ticks added when `spaceBelowData` > 0.
+  
+     Default returns an empty string for those labels.
+  - **yRange**: `[number, number]` (optional) — y-axis range to use instead of normalized values from your data min and max.
   - **onConfigMeasured**: `(config: YAxisLabelConfig) => void` (optional) — Callback to access the rendered y-axis config values (in pixels).
   - **primaryTickColor**: `string` — Color for primary (labeled) tick marks.
   - **secondaryTickColor**: `string` — Color for secondary (unlabeled) tick marks and guidelines.
-  - **labelColor**: `string` — Color for the Y-axis labels.
+  - **labelColor**: `string` — Color for the y-axis labels.
   - **showGuideLines**: `boolean` (optional) — If true, horizontal guidelines will display behind the chart for each primary (labeled) tick. Default is true.
-  - **style**: `React.CSSProperties` (optional) — CSS styles for the Y-axis container.
+  - **style**: `React.CSSProperties` (optional) — CSS styles for the y-axis container.
   - **textStyle**: `React.CSSProperties` (optional) — CSS styles for the labels of the axis.
 
 - `RightDataLabel` — Renders a label next to the last data point. The component normalizes data points, positions the label at the last data point, and dynamically measures its width for layout purposes.
   - **data**: `{ x: number | null, y: number | null }[]` — Array of `Point` objects representing the data to plot. Used to calculate the normalized y values the same way the chart data does. This way we get an accurate final y value to position the text relative to.
   - **height**: `number` — Height of the SVG/chart area in pixels.
-  - **yRange**: `[number, number]` (optional) — Y-axis range to specify instead of the data min/max.
+  - **yRange**: `[number, number]` (optional) — y-axis range to specify instead of the data min/max.
   - **labelColor**: `string` — Color for the label text.
   - **label**: `string` — The text to display as the label.
   - **spaceBelowData**: `number` (optional) — Extra space below the lowest data point for visual padding. Used for position calculations to match where the data is actually rendered in the chart.
