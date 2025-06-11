@@ -28,7 +28,7 @@ const TempVHumidityGraphFromParts = () => {
 		>
 			<ChartTitle title={'Humidity and Temperature (Sun 6/1)'} color={themeColor} leftOffset={dataLeft} widthToCenterOn={graphWidth}/>
 
-			<YAxis style={{ position: 'absolute', top: `${dataTop - 1}px`, left: `${dataLeft - 86}px` }} labelFrequency={5} labeledYPoints={combinedYPoints} getLabel={(y) => getTempAndHumidityLabel(getTemperatureLabel(y), 'N/A')} graphWidth={graphWidth} height={graphHeight} primaryTickColor={themeColor} secondaryTickColor={'#3A3D4B'} labelColor={themeColor} spaceBelowData={SPACE_BELOW_DATA} showGuideLines={true}/>
+			<YAxis style={{ position: 'absolute', top: `${dataTop - 1}px`, left: `${dataLeft - 96}px` }} labelFrequency={5} labeledYPoints={combinedYPoints} getLabel={(y) => getTempAndHumidityLabel(getTemperatureLabel(y), 'N/A')} graphWidth={graphWidth} height={graphHeight} primaryTickColor={themeColor} secondaryTickColor={'#3A3D4B'} labelColor={themeColor} spaceBelowData={SPACE_BELOW_DATA} showGuideLines={true}/>
 
 			<CurvyGraphAnimator id='humidity-parts' width={graphWidth} data={hourlyHumidity} delay={0}>
 				{(refs) => (

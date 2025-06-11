@@ -20,7 +20,7 @@ const generateLabeledYPoints = (
 ): LabeledYPoint[] => {
   const [min, max] = yRange;
 
-  const step = (max - min) / totalDataPoints;
+  const step = (max - min) / (totalDataPoints - 1);
   const labeledYPoints: LabeledYPoint[] = [];
 
   for (let i = min; labeledYPoints.length < totalDataPoints; i += step) {

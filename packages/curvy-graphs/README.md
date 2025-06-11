@@ -70,14 +70,15 @@ import { CurvyGraph } from 'curvy-graphs';
       gradientColorStops: ['#2FF3E0', '#5D6CE9'],
       gradientDirection: 'v',
       data: [
-        { x: 0, y: 12 },
-        { x: 1, y: 15 },
-        { x: 2, y: 18 },
-        { x: 3, y: 20 },
-        { x: 4, y: 17 },
-        { x: 5, y: 14 },
-        { x: 6, y: 13 },
-      ]
+        { x: 0, y: 0 },
+        { x: 1, y: 10 },
+        { x: 2, y: 21 },
+        { x: 3, y: 28 },
+        { x: 4, y: 18 },
+        { x: 5, y: 7 },
+        { x: 6, y: 4 },
+      ],
+      yRange={[0, 30]} // Necessary because our y-axis is 0 - 30
     }
   ]}
 />
@@ -439,7 +440,7 @@ For even greater customization, use the graph parts that make `CurvyGraph` direc
   - **animate**: `boolean` (optional) — If false, disables the animation.
 
     Default `true`
- 
+
   - **data**: `{ x: number | null, y: number | null }[]` — Array of `Point` objects; changes to this array trigger re-animation.
  
   - **width**: `number` — The target width (in pixels) to animate the reveal to.
@@ -549,13 +550,13 @@ export const BasicPartsGraph = () => {
   const height = 250;
   const yAxisWidth = 55;
   const data = [
-    { x: 0, y: 12 },
-    { x: 1, y: 15 },
-    { x: 2, y: 18 },
-    { x: 3, y: 20 },
-    { x: 4, y: 17 },
-    { x: 5, y: 14 },
-    { x: 6, y: 13 },
+    { x: 0, y: 0 },
+    { x: 1, y: 10 },
+    { x: 2, y: 21 },
+    { x: 3, y: 28 },
+    { x: 4, y: 18 },
+    { x: 5, y: 7 },
+    { x: 6, y: 4 },
   ];
 
   return (
@@ -604,7 +605,7 @@ export const BasicPartsGraph = () => {
               height={height - 50}
               spaceBelowData={0}
               data={data}
-              yRange={undefined}
+              yRange={[0, 30]} // Necessary because our y-axis is 0 - 30
               xRange={undefined}
               gradientColorStops={['#2FF3E0', '#5D6CE9']}
               gradientDirection='v'
@@ -618,7 +619,7 @@ export const BasicPartsGraph = () => {
               data={data}
               label={'Temperature'}
               labelColor={'#5D6CE9'}
-              yRange={undefined}
+              yRange={[0, 30]} // Necessary because our y-axis is 0 - 30
             />
           </>
         )}

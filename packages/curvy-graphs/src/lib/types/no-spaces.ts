@@ -1,1 +1,0 @@
-export type NoSpacesString<T extends string> = T extends `${string} ${string}` ? never : T;

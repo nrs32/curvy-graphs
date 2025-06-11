@@ -61,7 +61,7 @@ const CurvyGraphPart: React.FC<CurvyGraphPartProps> = ({ id, animationRefs, data
 
   const normalizedPoints = normalizeDataPoints(data, width, svgHeight, yRange, xRange);
   const pathData = isSharp ? generateSharpPath(normalizedPoints) : generateSmoothPath(normalizedPoints);
-  const areaPathData = generateAreaPath(pathData, normalizedPoints, svgHeight);
+  const areaPathData = generateAreaPath(pathData, normalizedPoints, height);
 
   // SVG Gradient Definition
   const renderGradient = () => {
@@ -129,6 +129,8 @@ const CurvyGraphPart: React.FC<CurvyGraphPartProps> = ({ id, animationRefs, data
   );
 };
 
+const isValidPoint = (point?: { x: any; y: any }) => point?.x != null && point?.y != null;
+
 const generateSmoothPath = (points: Point[]) => {
   let lastValidPoint: Point | null = null;
 
@@ -165,7 +167,9 @@ const generateSmoothPath = (points: Point[]) => {
   // So here we add to the curve the final segment for the final x, y
   const secondLast = points[points.length - 2];
   const last = points[points.length - 1];
-  d.push(`Q ${secondLast.x},${secondLast.y} ${last.x},${last.y}`);
+  if (isValidPoint(secondLast) && isValidPoint(last)) {
+    d.push(`Q ${secondLast.x},${secondLast.y} ${last.x},${last.y}`);
+  }
 
   return d.join(' ');
 };
@@ -197,16 +201,23 @@ const generateSharpPath = (points: Point[]) => {
 };
 
 // Generate Path for Area Graph (Closed Path to Fill Below the Line)
-const generateAreaPath = (d: string, points: Point[], svgHeight: number) => {
+const generateAreaPath = (d: string, points: Point[], height: number) => {
   // Add a bottom line to close the path and fill only below the line
-  const lastPoint = points[points.length - 1];
-  const lowestY = svgHeight + 20;
+  const lastValidIndex = points.length - 1 - [...points].reverse().findIndex(point => point.x !== null && point.y !== null);
+  const lastPoint = points[lastValidIndex];
+  const lowestY = height;
+  const firstX = points[0]?.x;
 
   // The first L draws straight line from last point to bottom of graph
   // The second L draws a horizontal line back to starting x
   // Z close the path
-  const bottomLine = `L ${lastPoint.x},${lowestY} L ${points[0].x},${lowestY} Z`;
-  return d + ' ' + bottomLine;
+  if (isValidPoint({ x: lastPoint?.x, y: 0}) && isValidPoint({ x: firstX, y: 0}))  {
+    const bottomLine = `L ${lastPoint.x},${lowestY} L ${firstX},${lowestY} Z`;
+    return d + ' ' + bottomLine;
+
+  } else {
+    return d;
+  }
 };
 
 export default CurvyGraphPart;
