@@ -171,7 +171,7 @@ Click on any image to view the source code for that chart (including the first c
 <table border="0" style="border-collapse: collapse; border: none;">
   <tr style="border: none;">
     <td style="border: none; padding: 0;">
-      <a href="https://github.com/nrs32/curvy-graphs/blob/main/demo-app/src/weekly-temps/weekly-temps-graph.tsx" target="_blank">
+      <a href="https://github.com/nrs32/curvy-graphs/blob/main/demo-app/src/weekly-temp-trend/weekly-temps-graph.tsx" target="_blank">
         <img src="https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/tempTrend.gif" width="100%" alt="Temperature Trend" />
       </a>
     </td>
@@ -181,6 +181,16 @@ Click on any image to view the source code for that chart (including the first c
       </a>
     </td>
   </tr>
+
+  <tr style="border: none;">
+    <td style="border: none; padding: 4px 8px; font-size: 0.9em;">
+      This chart uses <code>spaceBelowData</code>, <code>getExtendedYLabel</code>, <code>labelFrequency</code> of 5, 3 datasets with staggered <code>animationDelays</code>, and <code>styles.rightDataLabels.textStyle</code> overrides.
+    </td>
+    <td style="border: none; padding: 4px 8px; font-size: 0.9em;">
+      This chart uses <code>labelFrequency</code> of 2 and 3, <code>dataSets.styles.pathStyle</code> for <code>strokeWidth</code> overrides, and <code>styles.axes.secondaryTickColor</code> override.
+    </td>
+  </tr>
+
   <tr style="background: none; border: none;">
     <td style="border: none; padding: 0; background: none;">
       <a href="https://github.com/nrs32/curvy-graphs/blob/main/demo-app/src/precipitation/precipitation-graph.tsx" target="_blank">
@@ -191,6 +201,15 @@ Click on any image to view the source code for that chart (including the first c
       <a href="https://github.com/nrs32/curvy-graphs/blob/main/demo-app/src/water-level-ludington/water-level-graph.tsx" target="_blank">
         <img src="https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/waterLevels.png" width="100%" alt="Water Levels" />
       </a>
+    </td>
+  </tr>
+
+  <tr style="border: none;">
+    <td style="border: none; padding: 4px 8px; font-size: 0.9em;">
+      This chart uses <code>isSharp</code> true.
+    </td>
+    <td style="border: none; padding: 4px 8px; font-size: 0.9em;">
+      This chart uses <code>labelFrequency</code> of 2 and 3, and <code>dataSets.styles.labelTop</code> override.
     </td>
   </tr>
 </table>
