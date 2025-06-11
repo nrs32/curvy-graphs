@@ -187,7 +187,7 @@ Click on any image to view the source code for that chart (including the first c
       This chart uses <code>spaceBelowData</code>, <code>getExtendedYLabel</code>, <code>labelFrequency</code> of 5, 3 datasets with staggered <code>animationDelays</code>, and <code>styles.rightDataLabels.textStyle</code> overrides.
     </td>
     <td style="border: none; padding: 4px 8px; font-size: 0.9em;">
-      This chart uses <code>labelFrequency</code> of 2 and 3, <code>dataSets.styles.pathStyle</code> for <code>strokeWidth</code> overrides, and <code>styles.axes.secondaryTickColor</code> override.
+      This chart uses <code>labelFrequency</code> of 2 and 3, a padded <code>yRange</code>, <code>dataSets.styles.pathStyle</code> for <code>strokeWidth</code> overrides, and <code>styles.axes.secondaryTickColor</code> override.
     </td>
   </tr>
 
