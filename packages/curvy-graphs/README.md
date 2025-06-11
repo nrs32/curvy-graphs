@@ -226,7 +226,7 @@ Click on any image to view the source code for that chart (including the first c
 
 - **width, height**: `number` — Chart dimensions in pixels.
 
-  Use `ResponsiveCurvyGraph` for more options.
+  Use [`ResponsiveCurvyGraph`](#responsivecurvygraph-props) for more options.
 - **spaceBelowData**: `number` (optional) — Extra visual padding (in pixels) below the lowest data point.
 
   > Note: If you use this, you **must** also provide `getExtendedYLabel` in `yAxis`. This will affect y-axis tick mark logic and label frequency. 
@@ -257,7 +257,7 @@ Click on any image to view the source code for that chart (including the first c
 - **yAxis**: `{ ... }` — y-axis configuration:
   - **labeledPoints**: `LabeledYPoint[]` — Array of `{ y, yLabel }` used to place labeled tick marks on the y-axis.
   
-    See [`generateLabeledYPoints`](#generatelabeledypoints-helper-method) to generate your labeled points!
+    See [`generateLabeledYPoints`](#generatelabeledypoints) to generate your labeled points!
   - **getExtendedYLabel**: `(y: number) => string` (optional) Callback used to label additional y-axis ticks added when `spaceBelowData` > 0.
   
      Default returns an empty string for those labels.
@@ -344,7 +344,7 @@ Click on any image to view the source code for that chart (including the first c
 
 - **width, height**: `string | number` — Chart dimensions in pixels, %, or other units.
 
-- See [CurvyGraph section](#curvygraph-) for all other props.
+- See [CurvyGraph section](#curvygraph-props) for all other props.
 
 ## `generateLabeledYPoints` 
 Utility function that generates an array of evenly spaced `LabeledYPoint` objects, each with a `y` value and a corresponding `yLabel` — across a given y-axis range.
@@ -498,7 +498,7 @@ For even greater customization, use the graph parts that make `CurvyGraph` direc
   
   - **labeledYPoints**: `LabeledYPoint[]` — Array of `{ y, yLabel }` used to place labeled tick marks on the y-axis.
   
-    See [`generateLabeledYPoints`](#generatelabeledypoints-helper-method) to generate your labeled points!
+    See [`generateLabeledYPoints`](#generatelabeledypoints) to generate your labeled points!
   
   - **spaceBelowData**: `number` (optional) — Extra space below the lowest data point for visual padding.
   
