@@ -14,6 +14,7 @@ export interface CurvyGraphProps {
   textColor: HexColor; 
   spaceBelowData?: number; 
   animate?: boolean;
+  hideTooltips?: boolean;
   width: number;
   height: number;
   yAxis: {
@@ -69,7 +70,8 @@ export interface CurvyGraphProps {
  *                   Default is 0.
  * 
  * - animate: If true, the chart will animate on data and layout changes. Default false.
- *
+ * - hideTooltips: boolean. Hide tooltips over data points. Default false.
+ * 
  * - yAxis: Y-axis configuration object:
  *     - labeledPoints: Array of points with y-values and labels to display on the Y-axis.
  *     - getExtendedYLabel: Optional callback to label extended Y-axis space (used when spaceBelowData > 0). Defaults to empty labels.
@@ -93,7 +95,13 @@ export interface CurvyGraphProps {
  *    - animationDelay: Delay before animating this dataset (seconds). Can create stagger effects. Default 0.
  *    - data: Array of data points `{ x: number | null, y: number | null }`. Null is accepted for data breaks.
  *    - styles: Optional custom styles for labelLeft and labelTop position in px, and pathStyle to style the svg path element directly.
- * 
+ *    - tooltipConfig: (optional)
+ *        - getCustomLabel: `(x: number, y: number) => string` — (optional) Returns a fully custom label string.
+ *        - getXLabel: `(x: number) => string` (optional) — Custom formatter for the x-value in the tooltip.
+ *        - getYLabel: `(y: number) => string` (optional) — Custom formatter for the y-value in the tooltip.
+ *        - xAlias: `string` (optional) — Alias to replace the `"x"` label in the tooltip.
+ *        - yAlias: `string` (optional) — Alias to replace the `"y"` label in the tooltip.
+ *
  * - styles: Custom styles configuration object:
  *     - chartTitle:
  *         - minHeight: minimum height for text of chart title, determines where dataset renders

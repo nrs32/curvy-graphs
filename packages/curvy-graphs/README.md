@@ -257,6 +257,11 @@ Click on any image to view the source code for that chart (including the first c
 - **animate**: `boolean` (optional) — Enables animation on data or layout changes.
 
   Default is `false`.
+
+- **hideTooltips**: `boolean` (optional) — Hides hover/touch tooltips over data points.
+
+  Default is `false`.
+
 - **isSharp**: `boolean` (optional) — If true, renders sharp/linear lines between points instead of smooth curves.
 
   Default is `false`.
@@ -320,6 +325,18 @@ Click on any image to view the source code for that chart (including the first c
   
     Supports null values for incomplete data. Lines are not drawn between points separated by null.
   
+  - **tooltipConfig**: (optional)
+
+    - **getCustomLabel**: `(x: number, y: number) => string` — (optional) Returns a fully custom label string. When this option is used, the next 4 `tooltipConfig` options are ignored.
+
+    - **getXLabel**: `(x: number) => string` (optional) — Custom formatter for the x-value in the tooltip.
+
+    - **getYLabel**: `(y: number) => string` (optional) — Custom formatter for the y-value in the tooltip.
+
+    - **xAlias**: `string` (optional) — Alias to replace the `"x"` label in the tooltip.
+
+    - **yAlias**: `string` (optional) — Alias to replace the `"y"` label in the tooltip.
+
   - **styles**: `object` (optional) — Custom styles per dataset:
     - **labelTop**: `number` — Top offset for the right-side label relative to its original position (in px).
     

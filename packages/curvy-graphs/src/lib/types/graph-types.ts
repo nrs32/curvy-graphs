@@ -48,6 +48,7 @@ export interface DataSet {
   gradientDirection: GradientDirection;
   yRange?: [number, number]; 
   xRange?: [number, number]; 
+  tooltipConfig?: TooltipConfig,
   animationDelay?: number; 
   data: Point[];
   styles?: {
