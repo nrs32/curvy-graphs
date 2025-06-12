@@ -1,3 +1,5 @@
+export type NonNullPoint = { x: number; y: number; };
+
 export type Point = { x: number | null; y: number | null };
 
 export type LabeledYPoint = { yLabel: string, y: number };
@@ -22,6 +24,19 @@ export interface YAxisLabelConfig {
   endOfTickMark: number;
   yAxisOutsideGraph: number;
 }
+
+export interface CustomTooltip {
+  getCustomLabel: (x: number, y: number) => string;
+}
+
+export interface XYTooltip {
+  getXLabel?: (x: number) => string;
+  getYLabel?: (x: number) => string;
+  xAlias?: string;
+  yAlias?: string;
+}
+
+export type TooltipConfig = CustomTooltip | XYTooltip;
 
 export interface DataSet {
   id: string; 

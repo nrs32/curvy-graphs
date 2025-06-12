@@ -394,7 +394,7 @@ Returns:
 ```
 
 ## Parts - Advanced Use
-For even greater customization, use the graph parts that make `CurvyGraph` directly: `ChartTitle`, `CurvyGraphPart`, `CurvyGraphAnimator`, `InteractionPoints`, `XAxis`, `YAxis`, and `RightDataLabel`.
+For even greater customization, use the graph parts that make `CurvyGraph` directly: `ChartTitle`, `CurvyGraphPart`, `CurvyGraphAnimator`, `InteractionPoints`, `Tooltip`, `XAxis`, `YAxis`, and `RightDataLabel`.
 
 <details>
 <summary>Expand for prop details & example</summary>
@@ -514,6 +514,39 @@ For even greater customization, use the graph parts that make `CurvyGraph` direc
   - **spaceBelowData**: `number` — Extra vertical padding below the lowest data point (affects normalization).
 
   - **onHover**: `(point: InteractionPoint | null) => void` — Callback triggered on hover or touch. Receives an `InteractionPoint` or `null` when leaving a point.
+
+- `Tooltip` — Displays a styled tooltip and a point indicator for a hovered data point on a graph.
+
+  - **interactionPoint**:
+    Object describing the current point being hovered or touched.
+
+    - **svgPoint**: `{ x: number, y: number }` — SVG coordinates of the hovered point.
+    - **dataSetLabel**: `string` — Label for the dataset the point belongs to.
+    - **pointLabel**: Either of the following:
+
+      - **CustomInteractionLabel**:
+        `{ custom: string }` — A fully customized tooltip string, rendered as-is.
+
+      - **XYInteractionLabel**:
+
+        ```
+        {
+          xLabel: string; // The value to display for x
+          yLabel: string; // The value to display for y
+          xAlias: string; // The label to display before x
+          yAlias: string; // The label to display before y
+        }
+        ```
+
+  - **dataLeft**: `number` — The left offset (in pixels) for positioning the tooltip relative to the graph.
+
+  - **dataTop**: `number` — The top offset (in pixels) for positioning the tooltip relative to the graph.
+
+  - **textColor**: `string` — Color used for the tooltip border and the point indicator.
+
+  - **pointIndicatorStyle**: `React.CSSProperties` (optional) — Custom styles for the circular point indicator.
+
+  - **tooltipStyle**: `React.CSSProperties` (optional) — Custom styles for the tooltip.
 
 - `XAxis` — Render x-axis with ticks and labels.
   - **data**: `{ xLabel: string, xSubLabel?: string, x: number}[]` — Array of labeled X points, each with a value and label (and optional sublabel).

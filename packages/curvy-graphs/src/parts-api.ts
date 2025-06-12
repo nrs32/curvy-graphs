@@ -7,5 +7,6 @@ export { default as RightDataLabel, type RightDataLabelProps } from './lib/parts
 export { default as XAxis, type XAxisProps } from './lib/parts/x-axis'
 export { default as YAxis, type YAxisProps } from './lib/parts/y-axis'
 export { default as InteractionPoint, type InteractionPointProps } from './lib/parts/interaction-points'
+export { default as Tooltip, type TooltipProps } from './lib/parts/tooltip'
 export { default as ChartTitle, type ChartTitleProps } from './lib/parts/chart-title'
 export { default as generateLabeledYPoints } from './lib/utils/generate-labeled-y-points'
