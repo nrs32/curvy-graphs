@@ -12,11 +12,11 @@ import { BasicPartsGraph } from './basic-parts-example';
 
 function App() {
 
-  // TODO: refactor to label points on hover (?)
-  // TODO: add interaction points example to Parts
-  // TODO: update examples with tooltips in CodeSandbox
-  // TODO: add section in README for tooltips
-
+  // TODO: add interaction points & tooltip to Basic Parts example in App, CodeSandbox, and README
+  // TODO: Update Advanced examples with tooltips in CodeSandbox and README
+  // TODO: add tooltips to features and other places in README
+  // TODO: add section in README for tooltips include examples, default color/styling, and further details on tooltipConfig
+  //       possibly link to that under tooltipConfig instead of having that in CurvyGraph api
 
   // TODO: furture could potentially support: 
   //       - sharp lines with optional dots at data points

@@ -368,6 +368,12 @@ Click on any image to view the source code for that chart (including the first c
     
     - **textStyle**: `React.CSSProperties` (optional) — Styles applied to the SVG text elements directly.
 
+  - **tooltips**: `{ ... }` — Styling for the data point tooltips:
+    
+    - **pointIndicatorStyle**: `React.CSSProperties` (optional) —  Styles for the point indicator.
+    
+    - **tooltipStyle**: `React.CSSProperties` (optional) — Styles for the tooltip.
+
 ## `<ResponsiveCurvyGraph />` Props
 
 - **width, height**: `string | number` — Chart dimensions in pixels, %, or other units.

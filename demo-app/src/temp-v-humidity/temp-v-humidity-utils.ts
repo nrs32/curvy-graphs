@@ -1,5 +1,6 @@
 import type { LabeledYPoint } from 'curvy-graphs';
 import { generateLabeledYPoints } from 'curvy-graphs/parts';
+import { hourlyTemps } from './hourly-temps';
 
 export const getTempAndHumidityLabel = (tempLabel: string, humidityLabel: string): string => {
 	return `${tempLabel} • ${humidityLabel}`
@@ -32,3 +33,5 @@ export const getHumidityLabel = (humidity: number): string => {
 export const getTemperatureLabel = (degreesF: number): string => {
 	return `${Math.round(degreesF)}°F`
 }
+
+export const getXLabel = (x: number) => hourlyTemps.find(temp => temp.x === x)?.xLabel as string;

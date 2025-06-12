@@ -8,6 +8,9 @@ import ChartTitle from "./parts/chart-title";
 import XAxis from "./parts/x-axis";
 import YAxis from "./parts/y-axis";
 import type { HexColor } from "./types/hex-color";
+import InteractionPoints from "./parts/interaction-points";
+import type { InteractionPoint } from "./types/interaction-point-types";
+import Tooltip from "./parts/tooltip";
 
 export interface CurvyGraphProps {
   chartTitle: string;
@@ -43,6 +46,10 @@ export interface CurvyGraphProps {
     rightDataLabels?: {
       style?: React.CSSProperties; 
       textStyle?: React.CSSProperties; 
+    },
+    tooltips?: {
+      pointIndicatorStyle?: React.CSSProperties; 
+      tooltipStyle?: React.CSSProperties; 
     }
   }
 }
@@ -113,11 +120,13 @@ export interface CurvyGraphProps {
  *     - rightDataLabels: Custom styles for the right-aligned data labels container and svg text element
  *         - style: style label container
  *         - textStyle: style svg text element directly
- *
+ *     - tooltips: Custom styles for the data point tooltips
+ *         - pointIndicatorStyle: styles for the point indicator
+ *         - tooltipStyle: styles for the tooltip
  * - isResizing: If true, disables animation until resizing completes. Use for responsive charts.
  * - isSharp: If true, renders sharp/linear lines between points. Default is false (curvy).
  */
-const CurvyGraph = ({ width, height, chartTitle, textColor, spaceBelowData = 0, animate = false, yAxis, dataSets, xAxis, isResizing = false, isSharp = false, styles }: CurvyGraphProps) => {
+const CurvyGraph = ({ width, height, chartTitle, textColor, spaceBelowData = 0, animate = false, hideTooltips = false, yAxis, dataSets, xAxis, isResizing = false, isSharp = false, styles }: CurvyGraphProps) => {
   if (spaceBelowData > 0 && yAxis.getExtendedYLabel === undefined) {
     console.warn("CurvyGraph: `getExtendedYLabel` should be provided when `spaceBelowData` is used.");
   }
@@ -130,6 +139,7 @@ const CurvyGraph = ({ width, height, chartTitle, textColor, spaceBelowData = 0, 
   const rightLabelWidths = useRef<number[]>([]);
   const [rightLabelMaxWidth, setRightLabelMaxWidth] = useState(0);
   const [yAxisConfig, setYAxisConfig] = useState<YAxisLabelConfig | null>(null);
+  const [hoveredPoint, setHoveredPoint] = useState<InteractionPoint | null>(null);
 
   const handleRightLabelWidthMeasured = (index: number, width: number) => {
     rightLabelWidths.current[index] = width;
@@ -173,6 +183,29 @@ const CurvyGraph = ({ width, height, chartTitle, textColor, spaceBelowData = 0, 
             <RightDataLabel style={{ position: "absolute", top: `${dataSet.styles?.labelTop === undefined ? dataTop - 18 : dataTop + dataSet.styles.labelTop}px`, left: `${rightDataLabelLeftPos}px`, ...styles?.rightDataLabels?.style }} textStyle={styles?.rightDataLabels?.textStyle} height={graphHeight} spaceBelowData={ spaceBelowData} onWidthMeasured={(labelWidth) => handleRightLabelWidthMeasured(i, labelWidth)} data={dataSet.data} label={dataSet.label} labelColor={dataSet.labelColor} yRange={dataSet.yRange}/>
           </React.Fragment>
         ))}
+
+        {!hideTooltips && 
+          <InteractionPoints
+            width={graphWidth}
+            height={graphHeight}
+            dataTop={dataTop}
+            dataLeft={dataLeft}
+            spaceBelowData={spaceBelowData}
+            dataSets={dataSets}
+            onHover={setHoveredPoint}
+          />
+        }
+
+        {hoveredPoint && (
+          <Tooltip 
+            interactionPoint={hoveredPoint} 
+            dataLeft={dataLeft} 
+            dataTop={dataTop}
+            textColor={textColor}
+            pointIndicatorStyle={styles?.tooltips?.pointIndicatorStyle}
+            tooltipStyle={styles?.tooltips?.tooltipStyle}
+          />
+        )}
 
         <XAxis style={{ position: "absolute", top: `${graphHeight + dataTop + 7}px`, left: `${dataLeft}px` }} textStyle={styles?.axes ?.textStyle} width={graphWidth} data={xAxis.labeledPoints} labelFrequency={xAxis.labelFrequency} primaryTickColor={styles?.axes ?.primaryTickColor || textColor} secondaryTickColor={styles?.axes ?.secondaryTickColor || secondaryAxisTickColor} labelColor={textColor}/>
       </div>
