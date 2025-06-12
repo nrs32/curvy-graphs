@@ -12,9 +12,12 @@ import { BasicPartsGraph } from './basic-parts-example';
 
 function App() {
 
-  // TODO: publish npm pkg 😱
-  //
   // TODO: refactor to label points on hover (?)
+  // TODO: add interaction points example to Parts
+  // TODO: update examples with tooltips in CodeSandbox
+  // TODO: add section in README for tooltips
+
+
   // TODO: furture could potentially support: 
   //       - sharp lines with optional dots at data points
   //       - other charts like bar and pie

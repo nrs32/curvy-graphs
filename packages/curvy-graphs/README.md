@@ -394,7 +394,7 @@ Returns:
 ```
 
 ## Parts - Advanced Use
-For even greater customization, use the graph parts that make `CurvyGraph` directly: `ChartTitle`, `CurvyGraphPart`, `CurvyGraphAnimator`, `XAxis`, `YAxis`, and `RightDataLabel`.
+For even greater customization, use the graph parts that make `CurvyGraph` directly: `ChartTitle`, `CurvyGraphPart`, `CurvyGraphAnimator`, `InteractionPoints`, `XAxis`, `YAxis`, and `RightDataLabel`.
 
 <details>
 <summary>Expand for prop details & example</summary>
@@ -475,6 +475,45 @@ For even greater customization, use the graph parts that make `CurvyGraph` direc
         )}
       </CurvyTimeGraphAnimator>
     ```
+
+- `InteractionPoints` — Render invisible SVG circles over each data point to enable tooltip interactions on hover or touch.
+
+  - **width**: `number` — Width of the SVG/chart area in pixels.
+
+  - **height**: `number` — Height of the SVG/chart area in pixels.
+
+  - **dataTop**: `number` — Top offset in pixels to position the SVG overlay.
+
+  - **dataLeft**: `number` — Left offset in pixels to position the SVG overlay.
+
+  - **dataSets**:
+    Array of datasets to visualize:
+
+    - **id**: `string` — Unique identifier for the dataset.
+
+    - **label**: `string` — Label used for identifying the dataset.
+
+    - **data**: `Point[]` — Array of data points to render.
+
+    - **xRange**: `[number, number]` (optional) — Min and max range to normalize x-values.
+
+    - **yRange**: `[number, number]` (optional) — Min and max range to normalize y-values.
+
+    - **tooltipConfig**: (optional)
+
+      - **getCustomLabel**: `(x: number, y: number) => string` — (optional) Returns a fully custom label string.
+
+      - **getXLabel**: `(x: number) => string` (optional) — Custom formatter for the x-value in the tooltip.
+
+      - **getYLabel**: `(y: number) => string` (optional) — Custom formatter for the y-value in the tooltip.
+
+      - **xAlias**: `string` (optional) — Alias to replace the `"x"` label in the tooltip.
+
+      - **yAlias**: `string` (optional) — Alias to replace the `"y"` label in the tooltip.
+
+  - **spaceBelowData**: `number` — Extra vertical padding below the lowest data point (affects normalization).
+
+  - **onHover**: `(point: InteractionPoint | null) => void` — Callback triggered on hover or touch. Receives an `InteractionPoint` or `null` when leaving a point.
 
 - `XAxis` — Render x-axis with ticks and labels.
   - **data**: `{ xLabel: string, xSubLabel?: string, x: number}[]` — Array of labeled X points, each with a value and label (and optional sublabel).
