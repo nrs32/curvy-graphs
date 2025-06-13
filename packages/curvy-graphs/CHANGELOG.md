@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.0.0] - 2025-06-13
+### First full release!
+ 
 ## [1.0.0-beta.5 - 1.0.0-beta.6] - 2025-06-13
 ### Added
 - Data tooltips
