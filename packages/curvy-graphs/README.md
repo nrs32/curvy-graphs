@@ -169,7 +169,11 @@ The result is this
 ---
 
 ## Tooltips
-Charts will show tooltips by default when users hover over data points, or touch them on mobile devices. On touch, tooltips will display for 3 seconds before disappearing. The `hideTooltips` prop will disable the tooltips.
+Charts will show tooltips by default when users hover over data points, or touch them on mobile devices. On touch, tooltips will display for 3 seconds before disappearing. 
+
+The data point indicator will be colored according to the chart's `textColor`. 
+
+The `hideTooltips` prop will disable the tooltips.
 
 <a href="https://github.com/nrs32/curvy-graphs/blob/main/demo-app/src/temp-v-humidity/temp-v-humidity-curvy-graph-responsive.tsx" target="_blank">
   <img src="https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/tooltips/firstExample.gif" alt="Humidity And Temperature" />
@@ -178,6 +182,8 @@ Charts will show tooltips by default when users hover over data points, or touch
 #### Default
 
 <img src="https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/tooltips/default.png" alt="Default Tooltip">
+
+<img src="https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/tooltips/defaultAlt.png" alt="Default Tooltip Alt">
 
 The tooltip header shows the dataset label.  
 
@@ -297,7 +303,7 @@ Click on any image to view the source code for that chart (including the first c
 
 - **chartTitle**: `string` — Main heading text.
 
-- **textColor**: `string` — Hex color used for the chart title and axis labels.
+- **textColor**: `string` — Hex color used for the chart title, axis labels, and data point indicators for tooltips.
 
 - **width, height**: `number` — Chart dimensions in pixels.
 
