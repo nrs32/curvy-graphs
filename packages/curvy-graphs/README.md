@@ -183,8 +183,6 @@ The `hideTooltips` prop will disable the tooltips.
 
 <img src="https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/tooltips/default.png" alt="Default Tooltip">
 
-<img src="https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/tooltips/defaultAlt.png" alt="Default Tooltip Alt">
-
 The tooltip header shows the dataset label.  
 
 The x and y coordinates of the data point appear below the header.
