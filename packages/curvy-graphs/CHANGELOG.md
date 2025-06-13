@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.0.1] - 2025-06-13
+Just a little README update.
+
 ## [1.0.0] - 2025-06-13
 ### First full release!
  
