@@ -67,6 +67,11 @@ e.g. `"curvy-graphs": "file:C:/...path to .../curvy-graphs-0.1.0/package",` and 
 
 *Be sure to export all types that parts rely on in the parts-api, and all types that the public-api relies on in public-api. It is okay to export the same types in both api files. 
 
+### Release / Change log
+Update CHANGELOG.md in package.
+
+Create new Github release with the version tag, copy CHANGELOG notes for the version/release. Publish.
+
 ### Beta tags
 You can just add -beta.x where x is a number, after your version in package.json to create a beta version. 
 E.g. `1.0.0-beta.0`
@@ -83,3 +88,4 @@ Then you can use `npm publish --tag beta` to publish a beta version that can be 
 `npm publish` or `npm publish --tag beta`.
 
 To update latest, replace version and run `npm dist-tag add curvy-graphs@<version> latest` 
+
