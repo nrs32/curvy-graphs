@@ -78,6 +78,7 @@ const Tooltip = ({ interactionPoint, dataLeft, dataTop, textColor, pointIndicato
         pointerEvents: 'none',
         boxShadow: '0px 2px 6px rgba(0,0,0,0.1)',
         zIndex: 20,
+        textAlign: 'left',
         ...tooltipStyle,
       }}
     >

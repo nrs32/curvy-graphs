@@ -12,9 +12,9 @@ A modern, highly customizable React component library for rendering beautiful, a
 
 ## Features
 - **Multiple Graph Types:** line, dashed-line, area, or hybrid graphs with smooth Bézier curves or linear lines between points.
-- **Custom Styling:** Easily customize and override styles for title, axes, labels, and svg paths.
+- **Custom Styling:** Easily customize and override styles for title, axes, labels, data tooltips, and svg paths.
 - **Composable API:** Use low-level parts for total control, or high-level components for speed and simplicity.
-- **Modern UX:** Animated drawing, gradients with transparency, responsive layout, and TypeScript support.
+- **Modern UX:** Animated drawing, gradients with transparency, responsive layout, data tooltips, and TypeScript support.
 
 ---
 
@@ -165,6 +165,74 @@ import { ResponsiveCurvyGraph } from 'curvy-graphs';
 
 The result is this
 ![Animated Responsive Temperatures Graph](https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/responsiveAnimatedExample.gif)
+
+---
+
+## Tooltips
+Charts will show tooltips by default when users hover over data points, or touch them on mobile devices. On touch, tooltips will display for 3 seconds before disappearing. The `hideTooltips` prop will disable the tooltips.
+
+<a href="https://github.com/nrs32/curvy-graphs/blob/main/demo-app/src/temp-v-humidity/temp-v-humidity-curvy-graph-responsive.tsx" target="_blank">
+  <img src="https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/tooltips/firstExample.gif" alt="Humidity And Temperature" />
+</a>
+
+#### Default
+
+<img src="https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/tooltips/default.png" alt="Default Tooltip">
+
+The tooltip header shows the dataset label.  
+
+The x and y coordinates of the data point appear below the header.
+
+#### Customize
+Tooltips can be customized using the `tooltipConfig` prop inside each entry of the `dataSets` array in `CurvyGraph` or `ResponsiveCurvyGraph`.
+
+Replace the `"x"` and `"y"` labels using `xAlias` and `yAlias`:
+```tsx
+tooltipConfig: {
+  xAlias: "Day",
+  yAlias: "Temperature"
+}
+```
+
+Result:
+
+<img src="https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/tooltips/aliases.png" alt="X and Y Alias Tooltip Example">
+
+Format x/y values using `getXLabel` and `getYLabel`:
+
+```tsx
+tooltipConfig: {
+  xAlias: "Day",
+  yAlias: "Temperature",
+  getXLabel: getDayFromX,
+  getYLabel: (y) => `${y}°F`
+}
+```
+
+Result:
+
+<img src="https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/tooltips/aliasAndValue.png" alt="X and Y Value Tooltip Example">
+
+Alternatively, use `getCustomLabel` for fully customized text:
+
+```tsx
+tooltipConfig: {
+  getCustomLabel: (x: number, y: number) => `${y}°F on ${getDayFromX(x)}`
+}
+```
+
+Result:
+
+<img src="https://raw.githubusercontent.com/nrs32/curvy-graphs/refs/heads/main/packages/curvy-graphs/src/assets/tooltips/customLabel.png" alt="Custom Tooltip Example">
+
+#### Styles
+Customize tooltip styles with:
+
+- `styles.tooltips.pointIndicatorStyle` — styles the indicator circle at the data point
+
+- `styles.tooltips.tooltipStyle` — styles the tooltip label box
+
+See [API Reference](#api-reference) for full details or [**try it in CodeSandbox**](https://codesandbox.io/p/sandbox/curvy-graphs-demo-ds8pr8)
 
 ---
 
@@ -687,7 +755,7 @@ export const BasicPartsGraph = () => {
 
   const getXLabel = (xCoor) => xLabels.find(({ x }) => x === xCoor)!.xLabel;
   const getYLabel = (yCoor) => `${yCoor}°F`;
-  
+
   return (
     <div style={{ position: 'relative', width: width, height: height}}>
       <ChartTitle

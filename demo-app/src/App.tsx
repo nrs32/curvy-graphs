@@ -12,12 +12,6 @@ import { BasicPartsGraph } from './basic-parts-example';
 
 function App() {
 
-  // TODO: add interaction points & tooltip to Basic Parts example in App, CodeSandbox, and README
-  // TODO: Update Advanced examples with tooltips in CodeSandbox and README
-  // TODO: add tooltips to features and other places in README
-  // TODO: add section in README for tooltips include examples, default color/styling, works for hover & touch, touch has timeout, and further details on tooltipConfig
-  //       possibly link to that under tooltipConfig instead of having that in CurvyGraph api
-
   // TODO: furture could potentially support: 
   //       - sharp lines with optional dots at data points
   //       - other charts like bar and pie
@@ -130,7 +124,7 @@ function App() {
                 { x: 5, y: 7 },
                 { x: 6, y: 4 },
               ],
-              yRange: [0, 30]
+              yRange: [0, 30],
             }
           ]}
         />
