@@ -1,5 +1,5 @@
 import { themePinkLight, themePinkMain, themePurpleMain, themeTealMain } from './temp-humidity-theme';
-import { getCombinedYRange, getTemperatureLabel, getTempAndHumidityLabel } from './temp-v-humidity-utils';
+import { getCombinedYRange, getTemperatureLabel, getTempAndHumidityLabel, getHumidityLabel, getXLabel } from './temp-v-humidity-utils';
 import { hourlyHumidity } from './hourly-humidity';
 import { hourlyTemps } from './hourly-temps';
 import { CurvyGraph } from 'curvy-graphs';
@@ -29,16 +29,11 @@ export const TempVHumidityCurvyGraph = () => {
           yRange: [0, 100],
           animationDelay: 0,
           data: hourlyHumidity,
-        },
-        {
-          id: 'temperature-line',
-          graphStyle: 'line',
-          label: 'TEMPERATURE',
-          labelColor: themePurpleMain,
-          gradientColorStops: [themeTealMain, themePurpleMain],
-          gradientDirection: 'v',
-          animationDelay: 0.5,
-          data: hourlyTemps,
+          tooltipConfig: {
+            getCustomLabel: (x, y) => {
+              return `${getHumidityLabel(y)} humidity at ${getXLabel(x)}`
+            },
+          },
         },
         {
           id: 'temperature-area',
@@ -50,6 +45,22 @@ export const TempVHumidityCurvyGraph = () => {
           gradientDirection: 'v',
           animationDelay: 0.5,
           data: hourlyTemps,
+        },
+        {
+          id: 'temperature-line',
+          graphStyle: 'line',
+          label: 'TEMPERATURE',
+          labelColor: themePurpleMain,
+          gradientColorStops: [themeTealMain, themePurpleMain],
+          gradientDirection: 'v',
+          animationDelay: 0.5,
+          data: hourlyTemps,
+          tooltipConfig: {
+            getXLabel: getXLabel,
+            getYLabel: (y) => getTemperatureLabel(y),
+            xAlias: 'Time',
+            yAlias: 'Temperature'
+          },
         },
       ]}
       xAxis={{

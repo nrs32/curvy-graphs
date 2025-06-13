@@ -1,5 +1,5 @@
 import { ResponsiveCurvyGraph } from 'curvy-graphs';
-import { getCombinedYRange, getTempAndHumidityLabel, getTemperatureLabel } from './temp-v-humidity-utils';
+import { getCombinedYRange, getHumidityLabel, getTempAndHumidityLabel, getTemperatureLabel, getXLabel } from './temp-v-humidity-utils';
 import { hourlyHumidity } from './hourly-humidity';
 import { hourlyTemps } from './hourly-temps';
 import { themePinkLight, themePinkMain, themePurpleMain, themeTealMain } from './temp-humidity-theme';
@@ -31,6 +31,11 @@ export const TempVHumidityCurvyGraphResponsive = () => {
               yRange: [0, 100],
               animationDelay: 0,
               data: hourlyHumidity,
+              tooltipConfig: {
+                getCustomLabel: (x, y) => {
+                  return `${getHumidityLabel(y)} humidity at ${getXLabel(x)}`
+                },
+              },
             },
             {
               id: 'temperature-line-responsive',
@@ -52,6 +57,12 @@ export const TempVHumidityCurvyGraphResponsive = () => {
               gradientDirection: 'v',
               animationDelay: 0.5,
               data: hourlyTemps,
+              tooltipConfig: {
+                getXLabel: getXLabel,
+                getYLabel: (y) => getTemperatureLabel(y),
+                xAlias: 'Time',
+                yAlias: 'Temperature'
+              },
             },
           ]}
           xAxis={{
