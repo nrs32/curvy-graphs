@@ -4,13 +4,11 @@ import CurvyGraphAnimator from "./parts/curvy-graph-animator";
 import React, { useRef, useState } from "react";
 import CurvyGraphPart from "./parts/curvy-graph-part";
 import RightDataLabel from "./parts/right-data-label";
+import TooltipsLayer from "./parts/tooltips-layer";
+import type { HexColor } from "./types/hex-color";
 import ChartTitle from "./parts/chart-title";
 import XAxis from "./parts/x-axis";
 import YAxis from "./parts/y-axis";
-import type { HexColor } from "./types/hex-color";
-import InteractionPoints from "./parts/interaction-points";
-import type { InteractionPoint } from "./types/interaction-point-types";
-import Tooltip from "./parts/tooltip";
 
 export interface CurvyGraphProps {
   chartTitle: string;
@@ -139,7 +137,6 @@ const CurvyGraph = ({ width, height, chartTitle, textColor, spaceBelowData = 0, 
   const rightLabelWidths = useRef<number[]>([]);
   const [rightLabelMaxWidth, setRightLabelMaxWidth] = useState(0);
   const [yAxisConfig, setYAxisConfig] = useState<YAxisLabelConfig | null>(null);
-  const [hoveredPoint, setHoveredPoint] = useState<InteractionPoint | null>(null);
 
   const handleRightLabelWidthMeasured = (index: number, width: number) => {
     rightLabelWidths.current[index] = width;
@@ -185,27 +182,18 @@ const CurvyGraph = ({ width, height, chartTitle, textColor, spaceBelowData = 0, 
         ))}
 
         {!hideTooltips && 
-          <InteractionPoints
+          <TooltipsLayer
             width={graphWidth}
             height={graphHeight}
             dataTop={dataTop}
             dataLeft={dataLeft}
             spaceBelowData={spaceBelowData}
             dataSets={dataSets}
-            onHover={setHoveredPoint}
-          />
-        }
-
-        {hoveredPoint && (
-          <Tooltip 
-            interactionPoint={hoveredPoint} 
-            dataLeft={dataLeft} 
-            dataTop={dataTop}
             textColor={textColor}
             pointIndicatorStyle={styles?.tooltips?.pointIndicatorStyle}
             tooltipStyle={styles?.tooltips?.tooltipStyle}
           />
-        )}
+        }
 
         <XAxis style={{ position: "absolute", top: `${graphHeight + dataTop + 7}px`, left: `${dataLeft}px` }} textStyle={styles?.axes ?.textStyle} width={graphWidth} data={xAxis.labeledPoints} labelFrequency={xAxis.labelFrequency} primaryTickColor={styles?.axes ?.primaryTickColor || textColor} secondaryTickColor={styles?.axes ?.secondaryTickColor || secondaryAxisTickColor} labelColor={textColor}/>
       </div>

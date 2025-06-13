@@ -417,7 +417,7 @@ Returns:
 ```
 
 ## Parts - Advanced Use
-For even greater customization, use the graph parts that make `CurvyGraph` directly: `ChartTitle`, `CurvyGraphPart`, `CurvyGraphAnimator`, `InteractionPoints`, `Tooltip`, `XAxis`, `YAxis`, and `RightDataLabel`.
+For even greater customization, use the graph parts that make `CurvyGraph` directly: `ChartTitle`, `CurvyGraphPart`, `CurvyGraphAnimator`, `TooltipsLayer`, `InteractionPoints`, `Tooltip`, `XAxis`, `YAxis`, and `RightDataLabel`.
 
 <details>
 <summary>Expand for prop details & example</summary>
@@ -499,7 +499,13 @@ For even greater customization, use the graph parts that make `CurvyGraph` direc
       </CurvyTimeGraphAnimator>
     ```
 
-- `InteractionPoints` — Render invisible SVG circles over each data point to enable tooltip interactions on hover or touch.
+- `TooltipsLayer` — Overlay invisible interaction points on the graph (via `InteractionPoints`) and show a styled tooltip (via `Tooltip`) when a user hovers over a data point.
+
+  - All `InteractionPoint` Props — except `onHover` (handled internally)
+
+  - All `Tooltip` Props — except `interactionPoint` (provided internally)
+
+- `InteractionPoints` — Render invisible SVG circles over each data point to enable tooltip interactions on hover or touch. 
 
   - **width**: `number` — Width of the SVG/chart area in pixels.
 
