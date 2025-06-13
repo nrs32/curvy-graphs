@@ -872,6 +872,12 @@ This produces the same graph as our first basic example:
 
 ---
 
+## Changelog
+
+See [CHANGELOG.md](https://github.com/nrs32/curvy-graphs/blob/main/packages/curvy-graphs/CHANGELOG.md) or [GitHub Releases](https://github.com/nrs32/curvy-graphs/releases) for details on updates.
+
+---
+
 ## License
 
 Apache License
