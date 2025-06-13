@@ -89,3 +89,5 @@ Then you can use `npm publish --tag beta` to publish a beta version that can be 
 
 To update latest, replace version and run `npm dist-tag add curvy-graphs@<version> latest` 
 
+To force an update to an existing version for docs change: `npm publish --force`
+
