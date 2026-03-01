@@ -2,6 +2,8 @@
 # curvy-graphs
 Package and demo app to generate pretty curvy graphs.
 
+[npm pkg site](https://www.npmjs.com/package/curvy-graphs)
+
 ### Scaffolding:
 `npm create vite@latest react-weather-app -- --template react-ts`
 
