@@ -380,7 +380,11 @@ Click on any image to view the source code for that chart (including the first c
   - **gradientDirection**: `'v' | 'h'` — Direction of the gradient (`v` = vertical, `h` = horizontal).
 
     Default `v`.
+
+  - **gradientRelativeToPath**: boolean — If true, the gradient will be applied relative to the path shape (starts and ends with data min/max). If false, the gradient will be applied to the entire svg height (starts and ends on entire y-axis range). 
   
+    Default is `true`.
+
   - **yRange**: `[number, number]` (optional) —  Custom y-axis range for this dataset. 
   
     Defaults to your dataset's min and max.
@@ -531,6 +535,10 @@ For even greater customization, use the graph parts that make `CurvyGraph` direc
   - **gradientDirection**: `'v' | 'h'` — Direction of the gradient (`v` = vertical, `h` = horizontal).
 
     Default `v`.
+
+  - **gradientRelativeToPath**: boolean — If true, the gradient will be applied relative to the path shape (starts and ends with data min/max). If false, the gradient will be applied to the entire svg height (starts and ends on entire y-axis range). 
+  
+    Default is `true`.
 
   - **showAreaShadow**: `boolean` (optional) — If true, displays a shadow above/behind the area graph.
  

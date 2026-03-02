@@ -46,6 +46,7 @@ export interface DataSet {
   gradientColorStops: [string, string];
   gradientTransparencyStops?: [number, number]; 
   gradientDirection: GradientDirection;
+  gradientRelativeToPath?: boolean;
   yRange?: [number, number]; 
   xRange?: [number, number]; 
   tooltipConfig?: TooltipConfig,

@@ -1,4 +1,6 @@
 # Changelog
+## [1.0.3] - 2026-03-01
+Add `gradientRelativeToPath` to DataSets.
 
 ## [1.0.1] - 2025-06-13
 Just a little README update.

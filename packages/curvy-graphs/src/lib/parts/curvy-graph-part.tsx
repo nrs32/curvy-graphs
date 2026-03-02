@@ -17,6 +17,7 @@ export interface CurvyGraphPartProps {
   gradientColorStops: [string, string]; 
   gradientTransparencyStops?: [number, number]; 
   gradientDirection?: GradientDirection;
+  gradientRelativeToPath?: boolean;
   isSharp?: boolean;
   showAreaShadow?: boolean; 
   style?: React.CSSProperties;
@@ -39,6 +40,7 @@ export interface CurvyGraphPartProps {
  * - gradientColorStops: [startColor, endColor] for the SVG gradient fill/stroke.
  * - gradientTransparencyStops: Optional [startOpacity, endOpacity] for the SVG gradient fill/stroke. Should be a decimal from 0 - 1.
  * - gradientDirection: 'v' for vertical or 'h' for horizontal gradient direction (default: 'v').
+ * - gradientRelativeToPath: If true, the gradient will be applied relative to the path shape (starts and ends with data min/max). If false, the gradient will be applied to the entire svg height (starts and ends on entire y-axis range). Default is true.
  * - showAreaShadow: If true, displays a shadow above/behind the area graph.
  * - isSharp: If true, renders straight lines between data points (sharp/linear). If false, renders smooth, curvy lines using Bézier curves. Default is false (curvy).
  * - style: Optional CSS styles for the container div.
@@ -46,7 +48,7 @@ export interface CurvyGraphPartProps {
  * 
  * The component normalizes data points, generates smooth SVG paths, and supports gradient fills and area shadows for enhanced visuals.
  */
-const CurvyGraphPart: React.FC<CurvyGraphPartProps> = ({ id, animationRefs, data, gradientColorStops, gradientTransparencyStops, gradientDirection = 'v', type, width, height, yRange, xRange, showAreaShadow, spaceBelowData, isSharp = false, style, pathStyle }) => {  
+const CurvyGraphPart: React.FC<CurvyGraphPartProps> = ({ id, animationRefs, data, gradientColorStops, gradientTransparencyStops, gradientDirection = 'v', gradientRelativeToPath = true, type, width, height, yRange, xRange, showAreaShadow, spaceBelowData, isSharp = false, style, pathStyle }) => {  
   const graphId = `curvy-time-graph-${id}`;
   const [startColor, endColor] = gradientColorStops;
   const svgHeight = height - spaceBelowData;
@@ -71,6 +73,7 @@ const CurvyGraphPart: React.FC<CurvyGraphPartProps> = ({ id, animationRefs, data
       y1="0%"
       x2={gradientDirection === 'h' ? '100%' : '0%'}
       y2={gradientDirection === 'h' ? '0%' : '100%'}
+      gradientUnits={gradientRelativeToPath ? 'objectBoundingBox' : 'userSpaceOnUse'}
     >
       <stop offset="0%" stopColor={startColor} stopOpacity={gradientTransparencyStops?.[0] ?? 1}/>
       <stop offset="100%" stopColor={endColor} stopOpacity={gradientTransparencyStops?.[1] ?? 1}/>
