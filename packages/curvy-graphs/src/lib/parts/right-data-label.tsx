@@ -47,12 +47,14 @@ const RightDataLabel: React.FC<RightDataLabelProps> = ({
   const textRef = useRef<SVGTextElement>(null);
   const [svgWidth, setSvgWidth] = useState(0);
 
+  const letterHeight = 14;
+  const heightWithLetterRoom = height + letterHeight;
   const svgHeight = height - spaceBelowData;
 
   const normalizedPoints = normalizeDataPoints(data, 0, svgHeight, yRange);
   const nonNullPoints: {y: number}[] = normalizedPoints.filter(point => point.y !== null) as {y: number}[];
   const lastNormalizedPoint: number = nonNullPoints.length === 0 ? height : nonNullPoints[nonNullPoints.length - 1].y;
-  const letterHeight = 14;
+  const yClampedToActualHeight = Math.min(lastNormalizedPoint + letterHeight, heightWithLetterRoom);
 
   useEffect(() => {
     if (textRef.current) {
@@ -65,15 +67,15 @@ const RightDataLabel: React.FC<RightDataLabelProps> = ({
 
   return (
     <div style={{ ...style }}>
-      <svg width={svgWidth} height={height}>
+      <svg width={svgWidth} height={heightWithLetterRoom}>
         <g>
           <text
             ref={textRef}
             x={0}
-            y={lastNormalizedPoint + letterHeight}
+            y={yClampedToActualHeight} 
             textAnchor="start"
             fill={labelColor}
-            style={{ fontSize: letterHeight, fontWeight: 700, ...textStyle}}
+            style={{ fontSize: letterHeight, fontWeight: 700, ...textStyle }}
           >
             {label}
           </text>

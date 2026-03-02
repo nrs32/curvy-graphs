@@ -1,4 +1,7 @@
 # Changelog
+## [1.0.4] - 2026-03-01
+Fix: `RightDataLabel` does not appear when last y value is the minimum y-range value (often 0)
+
 ## [1.0.3] - 2026-03-01
 Add `gradientRelativeToPath` to DataSets.
 

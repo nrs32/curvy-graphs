@@ -42,10 +42,19 @@ Setup:
 
   This allows demo-app to import curvy-graphs with local linking automatically. This also means `npm install` will run for all workspaces when run at the root.
 
-Use `npm pack` to test what gets published. The command should be run at the package root, so packages > curvy-graphs. The dist folder, package.json, LICENSE, and README.md should be included in the tarbell. Be sure you updated the package version in package.json before packing.
+Use `npm pack` to test what gets published. The command should be run at the package root, so packages > curvy-graphs. The dist folder, package.json, LICENSE, and README.md should be included in the tarbell.
 
 You can then install the extracted lib into another projects using `file` in your package.json
-e.g. `"curvy-graphs": "file:C:/...path to .../curvy-graphs-0.1.0/package",` and `npm install` and `npm run dev`
+e.g. `"curvy-graphs": "file:C:/...path to .../curvy-graphs-1.0.4/package",` and `npm install` and `npm run dev`
+
+#### Example
+After a change:
+1. `npm run build-pkg` // build and save changes to dist
+2. `cd packages/curvy-graphs`
+3. `npm pack` // Pack changes to tarbell to test package output
+4. `cd ../../`
+4. `npm install` // Install updated tarbell package
+5. `npm run dev` // Run Demo App for testing
 
 ### package.json for pkg notes
 ```JSONC
@@ -81,7 +90,9 @@ E.g. `1.0.0-beta.0`
 Then you can use `npm publish --tag beta` to publish a beta version that can be installed by using `@beta` for the version, e.g. `npm install curvy-graphs@beta`.
 
 ### Releasing
-See Build/bundle pkg with tsup for testing, and update changelog before releasing.
+See [Build/bundle pkg with tsup](#buildbundle-pkg-with-tsup-for-testing) for testing.
+
+Update changelog and package version number before releasing.
 
 `npm run build-pkg` 
 
@@ -95,3 +106,4 @@ To update latest, replace version and run `npm dist-tag add curvy-graphs@<versio
 
 To force an update to an existing version for docs change: `npm publish --force`
 
+See [Release / Change log](#release--change-log) to update GitHub after release.
